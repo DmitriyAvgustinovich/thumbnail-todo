@@ -46,6 +46,11 @@ module.exports = {
             position: "before",
           },
           {
+            pattern:"rc-field-form/lib/interface",
+            group: "external",
+            position: "before",
+          },
+          {
             pattern: "pages/**",
             group: "internal",
             position: "before",

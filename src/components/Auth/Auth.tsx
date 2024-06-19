@@ -1,8 +1,23 @@
 import React from "react";
 
-import { Button, Form, Typography } from "antd";
+import { ValidateErrorEntity } from "rc-field-form/lib/interface";
+
+import { Button, Form, Typography, message } from "antd";
+
+import {
+  useSignUpMutation,
+  useSignInMutation,
+  useSignOutMutation,
+} from "store/api/auth/auth-api";
+
+import { queryStatuses } from "constants/general";
 
 import { useGetAuthFields } from "hooks/auth/use-get-auth-fields";
+import { useGetAuthUser } from "hooks/user/use-get-auth-user";
+
+import { getValidateMessage } from "utils/auth/get-validate-message";
+
+import { IUser } from "types/IUser";
 
 import AuthBgScreenImage from "assets/auth/auth-bg-screen-image.png";
 import SignInAuthBgImage from "assets/auth/sign-in-bg-imag.png";
@@ -15,6 +30,35 @@ export const Auth = () => {
 
   const { RegisterFields, LoginFields } = useGetAuthFields();
 
+  const [
+    signUp,
+    {
+      isSuccess: isSignUpSuccess,
+      isLoading: isSignUpLoading,
+      status: signUpStatus,
+      error: signUpError,
+    },
+  ] = useSignUpMutation();
+
+  const [
+    signIn,
+    {
+      isSuccess: isSignInSuccess,
+      isLoading: isSignInLoading,
+      status: signInStatus,
+      error: signInError,
+    },
+  ] = useSignInMutation();
+
+  const [
+    signOut,
+    { isSuccess: isSignOutSuccess, isLoading: isSignOutLoading },
+  ] = useSignOutMutation();
+
+  const { authUser } = useGetAuthUser();
+
+  console.log(authUser);
+
   const handleHaveAnAccount = () => {
     setIsHaveAnAccount(false);
   };
@@ -23,8 +67,62 @@ export const Auth = () => {
     setIsHaveAnAccount(true);
   };
 
+  const handleRegisterFinish = (formValues: IUser) => {
+    signUp(formValues);
+  };
+
+  const handleRegisterFailed = (error: ValidateErrorEntity) => {
+    getValidateMessage(error);
+  };
+
+  React.useEffect(() => {
+    if (
+      isSignUpSuccess &&
+      !isSignUpLoading &&
+      signUpStatus === queryStatuses.fulfilled
+    ) {
+      message.success("Вы зарегистрировались.");
+    }
+
+    if (
+      !isSignUpSuccess &&
+      !isSignUpLoading &&
+      signUpStatus === queryStatuses.rejected
+    ) {
+      message.error(signUpError?.data?.message);
+    }
+  }, [isSignUpLoading, isSignUpSuccess, signUpStatus, signUpError]);
+
+  const handleLoginFinish = (formValues: IUser) => {
+    signIn(formValues);
+  };
+
+  const handleLoginFailed = (error: ValidateErrorEntity) => {
+    getValidateMessage(error);
+  };
+
+  React.useEffect(() => {
+    if (
+      isSignInSuccess &&
+      !isSignInLoading &&
+      signInStatus === queryStatuses.fulfilled
+    ) {
+      message.success("Вы вошли в систему.");
+    }
+
+    if (
+      !isSignInSuccess &&
+      !isSignInLoading &&
+      signInStatus === queryStatuses.rejected
+    ) {
+      message.error(signInError?.data?.message);
+    }
+  }, [isSignInLoading, isSignInSuccess, signInStatus, signInError]);
+
   return (
     <>
+      <button onClick={() => signOut()}>fvvfg</button>
+
       <img
         className={styles.authBgScreenImage}
         src={AuthBgScreenImage}
@@ -53,7 +151,11 @@ export const Auth = () => {
             </Typography.Title>
 
             {isHaveAnAccount ? (
-              <Form layout="vertical">
+              <Form
+                layout="vertical"
+                onFinish={handleRegisterFinish}
+                onFinishFailed={handleRegisterFailed}
+              >
                 {RegisterFields}
 
                 <Button htmlType="submit" type="primary" size="large">
@@ -61,7 +163,11 @@ export const Auth = () => {
                 </Button>
               </Form>
             ) : (
-              <Form layout="vertical">
+              <Form
+                layout="vertical"
+                onFinish={handleLoginFinish}
+                onFinishFailed={handleLoginFailed}
+              >
                 {LoginFields}
 
                 <Button htmlType="submit" type="primary" size="large">
@@ -86,7 +192,7 @@ export const Auth = () => {
                 </Button>
               ) : (
                 <Button
-                  className={styles.goToLoginButton}
+                  className={styles.goToRegisterButton}
                   type="link"
                   onClick={handleNotHaveAnAccount}
                 >

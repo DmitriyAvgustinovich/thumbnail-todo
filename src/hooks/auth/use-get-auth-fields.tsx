@@ -38,7 +38,7 @@ export const useGetAuthFields = () => {
       rules: [
         {
           required: true,
-          message: `${DEFAULT_VALIDATE_MESSAGE} фамилия`,
+          message: `${DEFAULT_VALIDATE_MESSAGE} фамилию`,
         },
       ],
       node: (
@@ -70,7 +70,7 @@ export const useGetAuthFields = () => {
       rules: [
         {
           required: true,
-          message: `${DEFAULT_VALIDATE_MESSAGE} почта`,
+          message: `${DEFAULT_VALIDATE_MESSAGE} почту`,
         },
       ],
       node: (
@@ -106,18 +106,18 @@ export const useGetAuthFields = () => {
 
   const loginFieldsArray = [
     {
-      label: authFieldsTitles.userName,
-      name: authFieldsDataIndexes.username,
+      label: authFieldsTitles.email,
+      name: authFieldsDataIndexes.email,
       rules: [
         {
           required: true,
-          message: `${DEFAULT_VALIDATE_MESSAGE} имя пользователя`,
+          message: `${DEFAULT_VALIDATE_MESSAGE} почту`,
         },
       ],
       node: (
         <Input
           prefix={<UserOutlined />}
-          placeholder={authFieldsPlaceholders.userName}
+          placeholder={authFieldsPlaceholders.email}
         />
       ),
     },
