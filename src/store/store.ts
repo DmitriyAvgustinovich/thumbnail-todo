@@ -6,16 +6,21 @@ import {
 } from "@reduxjs/toolkit";
 
 import { authApi } from "./api/auth/auth-api";
+import { tasksApi } from "./api/tasks/tasks-api";
 
 const rootReducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
+  [tasksApi.reducerPath]: tasksApi.reducer,
 });
 
 const setupStore = () => {
   return configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware({}).concat([authApi.middleware]),
+      getDefaultMiddleware({}).concat([
+        authApi.middleware,
+        tasksApi.middleware,
+      ]),
   });
 };
 

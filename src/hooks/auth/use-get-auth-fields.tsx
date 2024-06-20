@@ -22,7 +22,7 @@ export const useGetAuthFields = () => {
       rules: [
         {
           required: true,
-          message: `${DEFAULT_VALIDATE_MESSAGE} имя`,
+          message: `${DEFAULT_VALIDATE_MESSAGE} name`,
         },
       ],
       node: (
@@ -38,7 +38,7 @@ export const useGetAuthFields = () => {
       rules: [
         {
           required: true,
-          message: `${DEFAULT_VALIDATE_MESSAGE} фамилию`,
+          message: `${DEFAULT_VALIDATE_MESSAGE} surname`,
         },
       ],
       node: (
@@ -54,7 +54,7 @@ export const useGetAuthFields = () => {
       rules: [
         {
           required: true,
-          message: `${DEFAULT_VALIDATE_MESSAGE} имя пользователя`,
+          message: `${DEFAULT_VALIDATE_MESSAGE} username`,
         },
       ],
       node: (
@@ -70,7 +70,7 @@ export const useGetAuthFields = () => {
       rules: [
         {
           required: true,
-          message: `${DEFAULT_VALIDATE_MESSAGE} почту`,
+          message: `${DEFAULT_VALIDATE_MESSAGE} e-mail`,
         },
       ],
       node: (
@@ -86,7 +86,7 @@ export const useGetAuthFields = () => {
       rules: [
         {
           required: true,
-          message: `${DEFAULT_VALIDATE_MESSAGE} пароль`,
+          message: `${DEFAULT_VALIDATE_MESSAGE} password`,
         },
       ],
       node: (
@@ -111,7 +111,7 @@ export const useGetAuthFields = () => {
       rules: [
         {
           required: true,
-          message: `${DEFAULT_VALIDATE_MESSAGE} почту`,
+          message: `${DEFAULT_VALIDATE_MESSAGE} e-mail`,
         },
       ],
       node: (
@@ -127,7 +127,7 @@ export const useGetAuthFields = () => {
       rules: [
         {
           required: true,
-          message: `${DEFAULT_VALIDATE_MESSAGE} пароль`,
+          message: `${DEFAULT_VALIDATE_MESSAGE} password`,
         },
       ],
       node: (

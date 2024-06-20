@@ -1,0 +1,34 @@
+.navbarWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 60px;
+  background-color: var(--navbar-bg-color);
+}
+
+.navbarTitle {
+  font: var(--font-xl);
+}
+
+.navbarTitleColorPiece {
+  color: var(--secondary-bg-color);
+}
+
+.navbarSearchInput {
+  max-width: 60%;
+}
+
+.navbarIconsWrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.navbarDayOfWeekDate {
+  font-weight: 500;
+  font: var(--font-m);
+}
+
+.navbarCurrentFormattedDate {
+  color: var(--link-text-color);
+  font: var(--font-m);
+}

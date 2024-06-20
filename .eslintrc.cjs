@@ -46,7 +46,12 @@ module.exports = {
             position: "before",
           },
           {
-            pattern:"rc-field-form/lib/interface",
+            pattern: "@reduxjs/toolkit/**",
+            group: "external",
+            position: "before",
+          },
+          {
+            pattern: "rc-field-form/lib/interface",
             group: "external",
             position: "before",
           },
@@ -92,6 +97,11 @@ module.exports = {
           },
           {
             pattern: "assets/**",
+            group: "internal",
+            position: "before",
+          },
+          {
+            pattern: "styles/**",
             group: "internal",
             position: "before",
           },

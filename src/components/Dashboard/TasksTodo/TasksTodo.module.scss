@@ -1,0 +1,36 @@
+.tasksTodoWrapper {
+  padding: 25px;
+  border-radius: 15px;
+  border: 1px var(--gray-bg-color) solid;
+  background-color: var(--primary-bg-color);
+}
+
+.tasksTodoHeaderWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tasksTodoTodoHeaderTextWrapper {
+  display: flex;
+  gap: 10px;
+  font: var(--font-m);
+  color: var(--secondary-bg-color);
+}
+
+.tasksTodoTodoIcon {
+  color: var(--gray-text-color);
+  font: var(--font-l);
+}
+
+.tasksTodoAddTaskTextWrapper {
+  display: flex;
+  gap: 10px;
+  font: var(--font-m);
+  color: var(--gray-text-color);
+  cursor: pointer;
+}
+
+.tasksTodoAddTaskIcon {
+  color: var(--secondary-text-color);
+  font: var(--font-l);
+}

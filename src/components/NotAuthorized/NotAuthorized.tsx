@@ -14,7 +14,7 @@ export const NotAuthorized = () => {
         Пожалуйста, пройдите авторизацию.
       </Typography.Title>
 
-      <Link className={styles.backToMainPageButton} to={RouterPath.auth}>
+      <Link className={styles.backToDashboardPageButton} to={RouterPath.auth}>
         <Button type="primary" size="large">
           Авторизоваться
         </Button>

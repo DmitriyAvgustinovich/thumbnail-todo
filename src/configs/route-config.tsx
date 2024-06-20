@@ -1,8 +1,9 @@
 import { RouteProps } from "react-router-dom";
 
 import { AuthPage } from "pages/AuthPage";
-import { MainPage } from "pages/MainPage";
+import { DashboardPage } from "pages/DashboardPage";
 import { NotAuthorizedPage } from "pages/NotAuthorizedPage";
+import { VitalTaskPage } from "pages/VitalTaskPage";
 
 import { LazyLoadChunk } from "components/LazyLoadChunk/LazyLoadChunk";
 
@@ -12,24 +13,26 @@ export type TAppRouteProps = RouteProps & {
 };
 
 export enum AppRoutes {
-  MAIN = "main",
+  DASHBOARD = "dashboard",
   NOT_AUTHORIZED = "not_authorized",
   AUTH = "auth",
+  VITAL_TASK = "vital_task",
 }
 
 export const RouterPath: Record<AppRoutes, string> = {
-  [AppRoutes.MAIN]: "/",
+  [AppRoutes.DASHBOARD]: "/dashboard",
   [AppRoutes.NOT_AUTHORIZED]: "/not_authorized",
   [AppRoutes.AUTH]: "/auth",
+  [AppRoutes.VITAL_TASK]: "/vital_task",
 };
 
 export const routeConfig: Record<AppRoutes, TAppRouteProps> = {
-  [AppRoutes.MAIN]: {
-    path: RouterPath.main,
+  [AppRoutes.DASHBOARD]: {
+    path: RouterPath.dashboard,
     authOnly: true,
     element: (
       <LazyLoadChunk>
-        <MainPage />
+        <DashboardPage />
       </LazyLoadChunk>
     ),
   },
@@ -46,6 +49,15 @@ export const routeConfig: Record<AppRoutes, TAppRouteProps> = {
     element: (
       <LazyLoadChunk>
         <AuthPage />
+      </LazyLoadChunk>
+    ),
+  },
+  [AppRoutes.VITAL_TASK]: {
+    path: RouterPath.vital_task,
+    authOnly: true,
+    element: (
+      <LazyLoadChunk>
+        <VitalTaskPage />
       </LazyLoadChunk>
     ),
   },

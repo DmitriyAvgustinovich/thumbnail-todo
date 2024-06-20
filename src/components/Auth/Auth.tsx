@@ -2,18 +2,15 @@ import React from "react";
 
 import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 
-import { Button, Form, Typography, message } from "antd";
+import { Button, Form, Typography } from "antd";
 
-import {
-  useSignUpMutation,
-  useSignInMutation,
-  useSignOutMutation,
-} from "store/api/auth/auth-api";
+import { useSignUpMutation, useSignInMutation } from "store/api/auth/auth-api";
 
-import { queryStatuses } from "constants/general";
+import { RouterPath } from "configs/route-config";
 
 import { useGetAuthFields } from "hooks/auth/use-get-auth-fields";
-import { useGetAuthUser } from "hooks/user/use-get-auth-user";
+import { useGetQueryMessages } from "hooks/auth/use-get-query-messages";
+import { useNavigateSpecifiedPage } from "hooks/auth/use-navigate-on-specified-page";
 
 import { getValidateMessage } from "utils/auth/get-validate-message";
 
@@ -50,15 +47,6 @@ export const Auth = () => {
     },
   ] = useSignInMutation();
 
-  const [
-    signOut,
-    { isSuccess: isSignOutSuccess, isLoading: isSignOutLoading },
-  ] = useSignOutMutation();
-
-  const { authUser } = useGetAuthUser();
-
-  console.log(authUser);
-
   const handleHaveAnAccount = () => {
     setIsHaveAnAccount(false);
   };
@@ -75,23 +63,13 @@ export const Auth = () => {
     getValidateMessage(error);
   };
 
-  React.useEffect(() => {
-    if (
-      isSignUpSuccess &&
-      !isSignUpLoading &&
-      signUpStatus === queryStatuses.fulfilled
-    ) {
-      message.success("Вы зарегистрировались.");
-    }
-
-    if (
-      !isSignUpSuccess &&
-      !isSignUpLoading &&
-      signUpStatus === queryStatuses.rejected
-    ) {
-      message.error(signUpError?.data?.message);
-    }
-  }, [isSignUpLoading, isSignUpSuccess, signUpStatus, signUpError]);
+  useGetQueryMessages({
+    isSuccess: isSignUpSuccess,
+    isLoading: isSignUpLoading,
+    status: signUpStatus,
+    error: signUpError,
+    successMessage: "You have registered.",
+  });
 
   const handleLoginFinish = (formValues: IUser) => {
     signIn(formValues);
@@ -101,28 +79,21 @@ export const Auth = () => {
     getValidateMessage(error);
   };
 
-  React.useEffect(() => {
-    if (
-      isSignInSuccess &&
-      !isSignInLoading &&
-      signInStatus === queryStatuses.fulfilled
-    ) {
-      message.success("Вы вошли в систему.");
-    }
+  useGetQueryMessages({
+    isSuccess: isSignInSuccess,
+    isLoading: isSignInLoading,
+    status: signInStatus,
+    error: signInError,
+    successMessage: "You are logged in.",
+  });
 
-    if (
-      !isSignInSuccess &&
-      !isSignInLoading &&
-      signInStatus === queryStatuses.rejected
-    ) {
-      message.error(signInError?.data?.message);
-    }
-  }, [isSignInLoading, isSignInSuccess, signInStatus, signInError]);
+  useNavigateSpecifiedPage({
+    isQuerySuccess: isSignInSuccess,
+    pageString: RouterPath.dashboard,
+  });
 
   return (
     <>
-      <button onClick={() => signOut()}>fvvfg</button>
-
       <img
         className={styles.authBgScreenImage}
         src={AuthBgScreenImage}

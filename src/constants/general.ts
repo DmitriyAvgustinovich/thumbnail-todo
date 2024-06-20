@@ -1,7 +1,7 @@
-export const DEFAULT_VALIDATE_MESSAGE = "Пожалуйста, введите";
-export const AND_VALIDATE_MESSAGE = "и";
+export const DEFAULT_VALIDATE_MESSAGE = "Please enter";
+export const AND_VALIDATE_MESSAGE = "and";
 
-export const requiredField = "Обязательное поле";
+export const requiredField = "Required field";
 
 export const queryStatuses = {
   uninitialized: "uninitialized",

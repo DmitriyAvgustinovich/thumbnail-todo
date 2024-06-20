@@ -31,9 +31,7 @@ server.post("/auth/sign-up", (req, res) => {
     );
 
     if (candidate) {
-      return res
-        .status(409)
-        .json({ message: "Такой пользователь уже существует." });
+      return res.status(409).json({ message: "Such a user already exists." });
     }
 
     const user = {
@@ -74,7 +72,7 @@ server.post("/auth/sign-in", (req, res) => {
       return res.json(userFromBd);
     }
 
-    return res.status(403).json({ message: "Неправльный e-mail или пароль." });
+    return res.status(403).json({ message: "Incorrect e-mail or password." });
   } catch (e) {
     console.log(e);
     return res.status(500).json({ message: e.message });
@@ -95,7 +93,7 @@ server.get("/auth/get-me/:id", (req, res) => {
       return res.json(user);
     }
 
-    return res.status(404).json({ message: "Пользователь не найден." });
+    return res.status(404).json({ message: "The user was not found." });
   } catch (e) {
     console.log(e);
     return res.status(500).json({ message: e.message });
@@ -103,7 +101,7 @@ server.get("/auth/get-me/:id", (req, res) => {
 });
 
 server.post("/auth/sign-out", (req, res) => {
-  return res.json({ message: "Вы вышли из аккаунта." });
+  return res.json({ message: "You have logged out of your account." });
 });
 
 server.use(router);

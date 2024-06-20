@@ -16,9 +16,9 @@ export const getValidateMessage = (error: ValidateErrorEntity) => {
 
   message.error(
     <>
-      Заполните обязательные поля.
+      Fill in the required fields.
       <p>
-        Осталось заполнить - <b>{notFilledFields}</b>
+        It remains to fill in - <b>{notFilledFields}</b>
       </p>
     </>
   );

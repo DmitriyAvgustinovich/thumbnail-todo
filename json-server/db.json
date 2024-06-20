@@ -2,10 +2,11 @@
   "users": [
     {
       "id": "1718824050806",
-      "lastName": "1",
+      "lastName": "Dimas",
       "username": "1",
-      "email": "1",
+      "email": "dmitryavgn@mail.ru",
       "password": "1"
     }
-  ]
+  ],
+  "tasks": []
 }

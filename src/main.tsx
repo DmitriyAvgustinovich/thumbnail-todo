@@ -7,7 +7,7 @@ import { store } from "store/store.ts";
 
 import { App } from "./App.tsx";
 
-import "./index.scss";
+import "styles/index.scss";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <Provider store={store}>

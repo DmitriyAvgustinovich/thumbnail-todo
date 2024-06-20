@@ -22,7 +22,8 @@
       "store/*": ["store/*"],
       "types/*": ["types/*"],
       "assets/*": ["assets/*"],
-      "utils/*": ["utils/*"]
+      "utils/*": ["utils/*"],
+      "styles/*": ["styles/*"]
     },
     "noUnusedLocals": true,
     "noUnusedParameters": true,
