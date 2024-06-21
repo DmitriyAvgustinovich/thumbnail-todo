@@ -5,8 +5,8 @@ import { useSignOutMutation } from "store/api/auth/auth-api";
 
 import { RouterPath } from "configs/route-config";
 
-import { useGetQueryMessages } from "hooks/auth/use-get-query-messages";
-import { useNavigateSpecifiedPage } from "hooks/auth/use-navigate-on-specified-page";
+import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
+import { useNavigateSpecifiedPage } from "hooks/general/use-navigate-on-specified-page";
 import { useGetAuthUser } from "hooks/user/use-get-auth-user";
 
 import { getMenuLinks } from "utils/general/get-menu-links";
@@ -29,6 +29,7 @@ export const UserMenuSidebar = () => {
   ] = useSignOutMutation();
 
   const handleLogout = () => {
+    localStorage.removeItem("userId");
     signOut();
   };
 

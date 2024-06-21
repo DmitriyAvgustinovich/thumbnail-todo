@@ -1,44 +1,15 @@
-export interface IUserSignUpResponse {
-  id: string;
-  firstName: string;
-  lastName: string;
-  username: string;
-  email: string;
-  password: string;
-}
+import { IUser } from "types/IUser";
 
+export type TUserSignUpResponse = IUser;
 export interface IUserSignUpRequest {
   email: string;
   password: string;
 }
 
-export interface IUserSignInResponse {
-  id: string;
-  firstName: string;
-  lastName: string;
-  username: string;
-  email: string;
-  password: string;
-}
+export type TUserSignInResponse = IUser;
+export type TUserSignInRequest = IUser;
 
-export interface IUserSignInRequest {
-  id: string;
-  firstName: string;
-  lastName: string;
-  username: string;
-  email: string;
-  password: string;
-}
-
-export interface IUserGetMeResponse {
-  id: string;
-  firstName: string;
-  lastName: string;
-  username: string;
-  email: string;
-  password: string;
-}
-
+export type TUserGetMeResponse = IUser;
 export interface IUserGetMeRequest {
   id: string;
 }

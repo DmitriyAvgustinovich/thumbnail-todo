@@ -7,5 +7,7 @@ export const useGetAuthUser = () => {
     id: userId,
   });
 
-  return { authUser, isAuthUserLoading };
+  const isAuthUserInit = Object.keys(authUser ?? {}).length > 0;
+
+  return { authUser, isAuthUserLoading, isAuthUserInit };
 };

@@ -2,12 +2,22 @@ import React from "react";
 
 import { ClockCircleOutlined, PlusOutlined } from "@ant-design/icons";
 
+import { useGetTasksByUserIdQuery } from "store/api/tasks/tasks-api";
+
+import { useGetAuthUser } from "hooks/user/use-get-auth-user";
+
 import styles from "./TasksTodo.module.scss";
 import { AddTaskModal } from "../AddTaskModal/AddTaskModal";
 
 export const TasksTodo = () => {
   const [isAddNewTaskModalOpen, setIsAddNewTaskModalOpen] =
     React.useState(false);
+
+  const { authUser } = useGetAuthUser();
+
+  const { data: tasksData } = useGetTasksByUserIdQuery({
+    userId: authUser?.id ?? "",
+  });
 
   const handleOpenAddNewTaskModal = () => {
     setIsAddNewTaskModalOpen(true);
@@ -16,6 +26,8 @@ export const TasksTodo = () => {
   const handleCloseAddNewTaskModal = () => {
     setIsAddNewTaskModalOpen(false);
   };
+
+  console.log(tasksData);
 
   return (
     <>

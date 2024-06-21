@@ -5,12 +5,12 @@ import { Button, Input, Tooltip, Typography } from "antd";
 
 import { RouterPath } from "configs/route-config";
 
-import { getCurrentDate } from "utils/general/get-current-date";
+import { getCurrentDateInNavbar } from "utils/general/get-current-date-in-navbar";
 
 import styles from "./Navbar.module.scss";
 
 export const Navbar = () => {
-  const { dayOfWeek, formattedDate } = getCurrentDate();
+  const { dayOfWeek, formattedDate } = getCurrentDateInNavbar();
   const location = window.location.pathname;
 
   const navbarTitle = React.useMemo(() => {

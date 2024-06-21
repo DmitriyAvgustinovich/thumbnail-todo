@@ -1,4 +1,9 @@
-import { Form, Input } from "antd";
+import {
+  CheckOutlined,
+  ClockCircleOutlined,
+  ExclamationOutlined,
+} from "@ant-design/icons";
+import { DatePicker, Form, Input, Radio } from "antd";
 
 import {
   addTaskFieldsDataIndexes,
@@ -29,7 +34,12 @@ export const useGetAddTaskFields = () => {
           message: `${DEFAULT_VALIDATE_MESSAGE} deadline`,
         },
       ],
-      node: <Input placeholder={addTaskFieldsPlaceholders.deadline} />,
+      node: (
+        <DatePicker
+          placeholder={addTaskFieldsPlaceholders.deadline}
+          style={{ width: "100%" }}
+        />
+      ),
     },
     {
       label: addTaskFieldsTitles.priority,
@@ -40,7 +50,30 @@ export const useGetAddTaskFields = () => {
           message: `${DEFAULT_VALIDATE_MESSAGE} priority`,
         },
       ],
-      node: <Input placeholder={addTaskFieldsPlaceholders.priority} />,
+      node: (
+        <Radio.Group>
+          <Radio value="high">
+            <ExclamationOutlined
+              style={{ color: "var(--high-priority-task-color)" }}
+            />
+            High
+          </Radio>
+
+          <Radio value="medium">
+            <ClockCircleOutlined
+              style={{ color: "var(--medium-priority-task-color)" }}
+            />{" "}
+            Medium
+          </Radio>
+
+          <Radio value="low">
+            <CheckOutlined
+              style={{ color: "var(--low-priority-task-color)" }}
+            />{" "}
+            Low
+          </Radio>
+        </Radio.Group>
+      ),
     },
     {
       label: addTaskFieldsTitles.description,
@@ -50,7 +83,12 @@ export const useGetAddTaskFields = () => {
           message: `${DEFAULT_VALIDATE_MESSAGE} description`,
         },
       ],
-      node: <Input placeholder={addTaskFieldsPlaceholders.description} />,
+      node: (
+        <Input.TextArea
+          placeholder={addTaskFieldsPlaceholders.description}
+          rows={4}
+        />
+      ),
     },
     {
       label: addTaskFieldsTitles.image,

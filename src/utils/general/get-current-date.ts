@@ -1,15 +1,9 @@
 export const getCurrentDate = () => {
-  const currentDate = new Date();
+  const date = new Date();
 
-  const dayOfWeek = currentDate.toLocaleString("en-US", { weekday: "long" });
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
 
-  const formattedDate = currentDate
-    .toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    })
-    .replace(/\//g, "/");
-
-  return { dayOfWeek, formattedDate };
+  return `${day}-${month}-${year}`;
 };

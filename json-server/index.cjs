@@ -16,7 +16,7 @@ server.use(async (req, res, next) => {
   next();
 });
 
-server.post("/auth/sign-up", (req, res) => {
+server.post("/users?sign-up", (req, res) => {
   try {
     const { firstName, lastName, username, email, password } = req.body;
 
@@ -54,7 +54,7 @@ server.post("/auth/sign-up", (req, res) => {
   }
 });
 
-server.post("/auth/sign-in", (req, res) => {
+server.post("/user/sign-in", (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -79,28 +79,7 @@ server.post("/auth/sign-in", (req, res) => {
   }
 });
 
-server.get("/auth/get-me/:id", (req, res) => {
-  try {
-    const db = JSON.parse(
-      fs.readFileSync(path.resolve(__dirname, "db.json"), "UTF-8")
-    );
-
-    const { users = [] } = db;
-
-    const user = users.find((user) => user.id === req.params.id);
-
-    if (user) {
-      return res.json(user);
-    }
-
-    return res.status(404).json({ message: "The user was not found." });
-  } catch (e) {
-    console.log(e);
-    return res.status(500).json({ message: e.message });
-  }
-});
-
-server.post("/auth/sign-out", (req, res) => {
+server.post("/user/sign-out", (req, res) => {
   return res.json({ message: "You have logged out of your account." });
 });
 

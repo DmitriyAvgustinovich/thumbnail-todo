@@ -19,6 +19,10 @@ export const AntThemeConfig = (props: IAntConfigProps) => {
             algorithm: true,
             colorPrimary: "#ff6667",
           },
+          Radio: {
+            algorithm: true,
+            colorPrimary: "#ff6667",
+          },
         },
       }}
     >

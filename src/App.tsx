@@ -5,14 +5,14 @@ import { NavbarSkeleton } from "components/Navbar/NavbarSkeleton/NavbarSkeleton"
 import { AntThemeConfig } from "configs/AntThemeConfig";
 import { RouterPath } from "configs/route-config";
 
-import { useNavigateSpecifiedPage } from "hooks/auth/use-navigate-on-specified-page";
+import { useNavigateSpecifiedPage } from "hooks/general/use-navigate-on-specified-page";
 import { useGetAuthUser } from "hooks/user/use-get-auth-user";
 
 export const App = () => {
-  const { authUser, isAuthUserLoading } = useGetAuthUser();
+  const { isAuthUserLoading, isAuthUserInit } = useGetAuthUser();
 
   const location = window.location.pathname;
-  const isPageNotAuth = location !== RouterPath.auth;
+  const isAuthPage = location === RouterPath.auth;
 
   useNavigateSpecifiedPage({
     isQuerySuccess: location === "/",
@@ -21,8 +21,8 @@ export const App = () => {
 
   return (
     <AntThemeConfig>
-      {isAuthUserLoading && isPageNotAuth && <NavbarSkeleton />}
-      {authUser && isPageNotAuth && <Navbar />}
+      {isAuthUserLoading && !isAuthPage && <NavbarSkeleton />}
+      {isAuthUserInit && !isAuthPage && <Navbar />}
       <AppRouter />
     </AntThemeConfig>
   );

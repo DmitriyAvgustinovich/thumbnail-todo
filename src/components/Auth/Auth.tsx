@@ -9,8 +9,8 @@ import { useSignUpMutation, useSignInMutation } from "store/api/auth/auth-api";
 import { RouterPath } from "configs/route-config";
 
 import { useGetAuthFields } from "hooks/auth/use-get-auth-fields";
-import { useGetQueryMessages } from "hooks/auth/use-get-query-messages";
-import { useNavigateSpecifiedPage } from "hooks/auth/use-navigate-on-specified-page";
+import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
+import { useNavigateSpecifiedPage } from "hooks/general/use-navigate-on-specified-page";
 
 import { getValidateMessage } from "utils/auth/get-validate-message";
 
@@ -88,7 +88,7 @@ export const Auth = () => {
   });
 
   useNavigateSpecifiedPage({
-    isQuerySuccess: isSignInSuccess,
+    isQuerySuccess: isSignInSuccess || isSignUpSuccess,
     pageString: RouterPath.dashboard,
   });
 
