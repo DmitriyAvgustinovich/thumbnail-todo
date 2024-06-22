@@ -1,0 +1,68 @@
+.taskWrapper {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px var(--gray-bg-color) solid;
+  border-radius: 15px;
+}
+
+.taskMainInfoWrapper {
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.taskDeadline {
+  font: var(--font-m);
+}
+
+.taskTitle {
+  margin-top: 10px;
+  font: var(--font-l);
+  font-weight: bold;
+}
+
+.taskDescription {
+  margin-top: 10px;
+  font: var(--font-m);
+  color: var(--gray-text-color);
+}
+
+.taskSecondInfoWrapper {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.taskPriority {
+  font: var(--font-m);
+}
+
+.taskStatus {
+  font: var(--font-m);
+}
+
+.taskAdditionalInfoWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.taskAdditionalActionsIcon {
+  font: var(--font-l);
+  cursor: pointer;
+}
+
+.taskImage {
+  margin-top: 20px;
+  width: 110px;
+  height: 110px;
+  border-radius: 15px;
+}
+
+.taskCreatedAt {
+  margin-top: 20px;
+  font: var(--font-m);
+  color: var(--gray-text-color);
+}

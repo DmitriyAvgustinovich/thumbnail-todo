@@ -1,8 +1,10 @@
 .tasksTodoWrapper {
   padding: 25px;
   border-radius: 15px;
-  border: 1px var(--gray-bg-color) solid;
+  box-shadow: var(--box-shadow);
   background-color: var(--primary-bg-color);
+  max-height: 71vh;
+  overflow-y: scroll;
 }
 
 .tasksTodoHeaderWrapper {
@@ -13,7 +15,7 @@
 .tasksTodoTodoHeaderTextWrapper {
   display: flex;
   gap: 10px;
-  font: var(--font-m);
+  font: var(--font-l);
   color: var(--secondary-bg-color);
 }
 
@@ -24,8 +26,9 @@
 
 .tasksTodoAddTaskTextWrapper {
   display: flex;
+  align-items: center;
   gap: 10px;
-  font: var(--font-m);
+  font: var(--font-l);
   color: var(--gray-text-color);
   cursor: pointer;
 }

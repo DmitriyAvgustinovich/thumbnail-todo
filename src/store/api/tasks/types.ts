@@ -18,10 +18,10 @@ export type TAddTaskRequest = ITask;
 
 export type TUpdateTaskResponse = ITask;
 export interface IUpdateTaskRequest {
-  id: string;
+  id: number;
 }
 
 export type TDeleteTaskResponse = ITask;
 export interface IDeleteTaskRequest {
-  id: string;
+  id: number;
 }

@@ -21,7 +21,7 @@
     {
       "title": "1",
       "deadline": "2024-05-27T19:00:00.000Z",
-      "priority": "high",
+      "priority": "High",
       "id": 1719004389412,
       "userId": 1,
       "status": "todo",
@@ -30,21 +30,21 @@
     {
       "title": "2",
       "deadline": "2024-06-16T19:00:00.000Z",
-      "priority": "high",
+      "priority": "High",
       "description": "2",
       "id": 1719004473742,
       "userId": 2,
-      "status": "todo",
+      "status": "Completed",
       "createdAt": "22-06-2024"
     },
     {
       "title": "3",
-      "deadline": "2024-06-03T19:00:00.000Z",
-      "priority": "low",
-      "description": "3",
-      "id": 1719004539952,
+      "deadline": "2024-06-18T19:00:00.000Z",
+      "priority": "High",
+      "description": "1",
+      "id": 1719082480863,
       "userId": 2,
-      "status": "todo",
+      "status": "Not Started",
       "createdAt": "22-06-2024"
     }
   ]

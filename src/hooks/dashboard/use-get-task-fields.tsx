@@ -10,9 +10,10 @@ import {
   addTaskFieldsTitles,
   addTaskFieldsPlaceholders,
 } from "constants/dashboard/add-task-list-fields";
+import { taskPriorities } from "constants/dashboard/task-priorities";
 import { DEFAULT_VALIDATE_MESSAGE } from "constants/general";
 
-export const useGetAddTaskFields = () => {
+export const useGetTaskFields = () => {
   const addTaskFieldsArray = [
     {
       label: addTaskFieldsTitles.title,
@@ -52,21 +53,21 @@ export const useGetAddTaskFields = () => {
       ],
       node: (
         <Radio.Group>
-          <Radio value="high">
+          <Radio value={taskPriorities.high}>
             <ExclamationOutlined
-              style={{ color: "var(--high-priority-task-color)" }}
+              style={{ color: "var(--extreme-priority-task-color)" }}
             />
             High
           </Radio>
 
-          <Radio value="medium">
+          <Radio value={taskPriorities.medium}>
             <ClockCircleOutlined
-              style={{ color: "var(--medium-priority-task-color)" }}
+              style={{ color: "var(--moderate-priority-task-color)" }}
             />{" "}
             Medium
           </Radio>
 
-          <Radio value="low">
+          <Radio value={taskPriorities.low}>
             <CheckOutlined
               style={{ color: "var(--low-priority-task-color)" }}
             />{" "}

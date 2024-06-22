@@ -59,8 +59,8 @@ export const tasksApi = createApi({
     }),
 
     deleteTask: builder.mutation<TDeleteTaskResponse, IDeleteTaskRequest>({
-      query: (id) => ({
-        url: `tasks/${id}`,
+      query: (body) => ({
+        url: `tasks/${body.id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Tasks"],

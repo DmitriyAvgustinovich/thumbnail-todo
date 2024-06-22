@@ -1,6 +1,9 @@
 import React from "react";
 
 import { ClockCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import { Spin } from "antd";
+
+import { Task } from "components/Task/Task";
 
 import { useGetTasksByUserIdQuery } from "store/api/tasks/tasks-api";
 
@@ -15,9 +18,10 @@ export const TasksTodo = () => {
 
   const { authUser } = useGetAuthUser();
 
-  const { data: tasksData } = useGetTasksByUserIdQuery({
-    userId: authUser?.id ?? "",
-  });
+  const { data: myTasksData, isLoading: isMyTasksDataLoading } =
+    useGetTasksByUserIdQuery({
+      userId: authUser?.id ?? "",
+    });
 
   const handleOpenAddNewTaskModal = () => {
     setIsAddNewTaskModalOpen(true);
@@ -27,25 +31,34 @@ export const TasksTodo = () => {
     setIsAddNewTaskModalOpen(false);
   };
 
-  console.log(tasksData);
-
   return (
     <>
-      <div className={styles.tasksTodoWrapper}>
-        <div className={styles.tasksTodoHeaderWrapper}>
-          <div className={styles.tasksTodoTodoHeaderTextWrapper}>
-            <ClockCircleOutlined className={styles.tasksTodoTodoIcon} />
-            To-Do
-          </div>
+      <div
+        className={styles.tasksTodoWrapper}
+        style={{ textAlign: `${isMyTasksDataLoading ? "center" : "left"}` }}
+      >
+        {isMyTasksDataLoading ? (
+          <Spin size="large" />
+        ) : (
+          <div className={styles.tasksTodoHeaderWrapper}>
+            <div className={styles.tasksTodoTodoHeaderTextWrapper}>
+              <ClockCircleOutlined className={styles.tasksTodoTodoIcon} />
+              To-Do
+            </div>
 
-          <div
-            className={styles.tasksTodoAddTaskTextWrapper}
-            onClick={handleOpenAddNewTaskModal}
-          >
-            <PlusOutlined className={styles.tasksTodoAddTaskIcon} />
-            Add task
+            <div
+              className={styles.tasksTodoAddTaskTextWrapper}
+              onClick={handleOpenAddNewTaskModal}
+            >
+              <PlusOutlined className={styles.tasksTodoAddTaskIcon} />
+              Add task
+            </div>
           </div>
-        </div>
+        )}
+
+        {myTasksData?.map((task) => (
+          <Task key={task.id} {...task} />
+        ))}
       </div>
 
       <AddTaskModal

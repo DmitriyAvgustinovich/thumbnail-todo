@@ -4,7 +4,9 @@ import { Button, Form, Modal } from "antd";
 
 import { useAddTaskMutation } from "store/api/tasks/tasks-api";
 
-import { useGetAddTaskFields } from "hooks/dashboard/use-get-add-task-fields";
+import { taskStatuses } from "constants/dashboard/task-statuses";
+
+import { useGetTaskFields } from "hooks/dashboard/use-get-task-fields";
 import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
 import { useGetAuthUser } from "hooks/user/use-get-auth-user";
 
@@ -23,7 +25,7 @@ export const AddTaskModal = (props: IAddTaskModalProps) => {
 
   const { authUser } = useGetAuthUser();
 
-  const { FormFields } = useGetAddTaskFields();
+  const { FormFields } = useGetTaskFields();
 
   const [
     addTask,
@@ -40,7 +42,7 @@ export const AddTaskModal = (props: IAddTaskModalProps) => {
       ...formValues,
       id: Date.now(),
       userId: authUser?.id,
-      status: "todo",
+      status: taskStatuses.notStarted,
       createdAt: getCurrentDate(),
     };
 

@@ -1,5 +1,3 @@
-import React from "react";
-
 import { CalendarOutlined, NotificationOutlined } from "@ant-design/icons";
 import { Button, Input, Tooltip, Typography } from "antd";
 
@@ -13,7 +11,7 @@ export const Navbar = () => {
   const { dayOfWeek, formattedDate } = getCurrentDateInNavbar();
   const location = window.location.pathname;
 
-  const navbarTitle = React.useMemo(() => {
+  const navbarTitle = () => {
     switch (location) {
       case RouterPath.dashboard:
         return (
@@ -31,11 +29,11 @@ export const Navbar = () => {
       default:
         return <></>;
     }
-  }, [location]);
+  };
 
   return (
     <div className={styles.navbarWrapper}>
-      <h1 className={styles.navbarTitle}>{navbarTitle}</h1>
+      <h1 className={styles.navbarTitle}>{navbarTitle()}</h1>
 
       <Input.Search
         className={styles.navbarSearchInput}

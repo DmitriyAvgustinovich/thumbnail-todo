@@ -23,6 +23,14 @@ export const AntThemeConfig = (props: IAntConfigProps) => {
             algorithm: true,
             colorPrimary: "#ff6667",
           },
+          DatePicker: {
+            algorithm: true,
+            colorPrimary: "#ff6667",
+          },
+          Spin: {
+            algorithm: true,
+            colorPrimary: "#ff6667",
+          }
         },
       }}
     >
