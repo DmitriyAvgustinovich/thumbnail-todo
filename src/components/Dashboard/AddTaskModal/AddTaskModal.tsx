@@ -25,7 +25,7 @@ export const AddTaskModal = (props: IAddTaskModalProps) => {
 
   const { authUser } = useGetAuthUser();
 
-  const { FormFields } = useGetTaskFields();
+  const { FormFields } = useGetTaskFields({ isEditMode: false });
 
   const [
     addTask,
@@ -44,6 +44,8 @@ export const AddTaskModal = (props: IAddTaskModalProps) => {
       userId: authUser?.id,
       status: taskStatuses.notStarted,
       createdAt: getCurrentDate(),
+      image:
+        "https://photogora.ru/img/product/thumb/4897/5d2efa2ce25635320511549050122246.jpg",
     };
 
     addTask(addedData);
@@ -76,7 +78,7 @@ export const AddTaskModal = (props: IAddTaskModalProps) => {
       >
         {FormFields}
 
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" loading={isAddTaskLoading}>
           Done
         </Button>
       </Form>

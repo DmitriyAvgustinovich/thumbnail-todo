@@ -14,6 +14,7 @@ export const AntThemeConfig = (props: IAntConfigProps) => {
           Button: {
             algorithm: true,
             colorPrimary: "#ff6667",
+            colorLink: "#ff6667",
           },
           Input: {
             algorithm: true,
@@ -30,7 +31,7 @@ export const AntThemeConfig = (props: IAntConfigProps) => {
           Spin: {
             algorithm: true,
             colorPrimary: "#ff6667",
-          }
+          },
         },
       }}
     >

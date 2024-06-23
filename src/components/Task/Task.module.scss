@@ -1,6 +1,6 @@
 .taskWrapper {
   display: flex;
-  gap: 10px;
+  gap: 20px;
   margin-top: 20px;
   padding: 20px;
   border: 1px var(--gray-bg-color) solid;
@@ -43,15 +43,14 @@
   font: var(--font-m);
 }
 
+.taskShowMoreButton {
+  margin-top: 20px;
+}
+
 .taskAdditionalInfoWrapper {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-}
-
-.taskAdditionalActionsIcon {
-  font: var(--font-l);
-  cursor: pointer;
 }
 
 .taskImage {

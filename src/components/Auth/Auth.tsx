@@ -129,7 +129,12 @@ export const Auth = () => {
               >
                 {RegisterFields}
 
-                <Button htmlType="submit" type="primary" size="large">
+                <Button
+                  htmlType="submit"
+                  type="primary"
+                  size="large"
+                  loading={isSignUpLoading}
+                >
                   Sign Up
                 </Button>
               </Form>
@@ -141,7 +146,12 @@ export const Auth = () => {
               >
                 {LoginFields}
 
-                <Button htmlType="submit" type="primary" size="large">
+                <Button
+                  htmlType="submit"
+                  type="primary"
+                  size="large"
+                  loading={isSignInLoading}
+                >
                   Sign In
                 </Button>
               </Form>

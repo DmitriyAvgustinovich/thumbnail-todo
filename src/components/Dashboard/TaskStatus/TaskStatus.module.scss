@@ -1,39 +1,42 @@
-.tasksTodoWrapper {
+.tasksStatusWrapper {
+  margin-bottom: 30px;
   padding: 25px;
+  max-height: 30vw;
   border-radius: 15px;
   box-shadow: var(--box-shadow);
   background-color: var(--primary-bg-color);
-  max-height: 71vh;
-  overflow-y: scroll;
 }
 
-.tasksTodoHeaderWrapper {
+.tasksStatusHeaderWrapper {
   display: flex;
   justify-content: space-between;
 }
 
-.tasksTodoTodoHeaderTextWrapper {
+.tasksStatusHeaderTextWrapper {
   display: flex;
   gap: 10px;
   font: var(--font-l);
   color: var(--secondary-bg-color);
 }
 
-.tasksTodoTodoIcon {
+.tasksStatusHeaderIcon {
   color: var(--gray-text-color);
   font: var(--font-l);
 }
 
-.tasksTodoAddTaskTextWrapper {
+.tasksStatusCirclesWrapper {
+  margin-top: 40px;
+  display: flex;
+  gap: 40px;
+}
+
+.tasksStatusCirclesTextWrapper {
+  margin-top: 20px;
   display: flex;
   align-items: center;
   gap: 10px;
-  font: var(--font-l);
-  color: var(--gray-text-color);
-  cursor: pointer;
 }
 
-.tasksTodoAddTaskIcon {
-  color: var(--secondary-text-color);
-  font: var(--font-l);
+.tasksStatusCirclesText {
+  font: var(--font-m);
 }

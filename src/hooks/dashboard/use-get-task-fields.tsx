@@ -1,84 +1,81 @@
-import {
-  CheckOutlined,
-  ClockCircleOutlined,
-  ExclamationOutlined,
-} from "@ant-design/icons";
 import { DatePicker, Form, Input, Radio } from "antd";
+import dayjs from "dayjs";
 
 import {
-  addTaskFieldsDataIndexes,
-  addTaskFieldsTitles,
-  addTaskFieldsPlaceholders,
-} from "constants/dashboard/add-task-list-fields";
+  taskFieldsDataIndexes,
+  taskFieldsTitles,
+  taskFieldsPlaceholders,
+} from "constants/dashboard/task-list-fields";
 import { taskPriorities } from "constants/dashboard/task-priorities";
+import { taskStatuses } from "constants/dashboard/task-statuses";
 import { DEFAULT_VALIDATE_MESSAGE } from "constants/general";
 
-export const useGetTaskFields = () => {
-  const addTaskFieldsArray = [
+import { ITask } from "types/ITask";
+
+interface IUseGetTaskFieldsArgs {
+  formValues?: ITask;
+  isEditMode: boolean;
+}
+
+export const useGetTaskFields = (args: IUseGetTaskFieldsArgs) => {
+  const { formValues, isEditMode } = args;
+
+  const isRequired = isEditMode ? false : true;
+
+  const taskFieldsArray = [
     {
-      label: addTaskFieldsTitles.title,
-      name: addTaskFieldsDataIndexes.title,
+      label: taskFieldsTitles.title,
+      name: taskFieldsDataIndexes.title,
       rules: [
         {
-          required: true,
+          required: isRequired,
           message: `${DEFAULT_VALIDATE_MESSAGE} task title`,
         },
       ],
-      node: <Input placeholder={addTaskFieldsPlaceholders.title} />,
+      node: (
+        <Input
+          placeholder={taskFieldsPlaceholders.title}
+          defaultValue={formValues?.title}
+        />
+      ),
     },
     {
-      label: addTaskFieldsTitles.deadline,
-      name: addTaskFieldsDataIndexes.deadline,
+      label: taskFieldsTitles.deadline,
+      name: taskFieldsDataIndexes.deadline,
       rules: [
         {
-          required: true,
+          required: isRequired,
           message: `${DEFAULT_VALIDATE_MESSAGE} deadline`,
         },
       ],
       node: (
         <DatePicker
-          placeholder={addTaskFieldsPlaceholders.deadline}
+          placeholder={taskFieldsPlaceholders.deadline}
           style={{ width: "100%" }}
+          defaultValue={dayjs(formValues?.deadline)}
         />
       ),
     },
     {
-      label: addTaskFieldsTitles.priority,
-      name: addTaskFieldsDataIndexes.priority,
+      label: taskFieldsTitles.priority,
+      name: taskFieldsDataIndexes.priority,
       rules: [
         {
-          required: true,
+          required: isRequired,
           message: `${DEFAULT_VALIDATE_MESSAGE} priority`,
         },
       ],
       node: (
-        <Radio.Group>
-          <Radio value={taskPriorities.high}>
-            <ExclamationOutlined
-              style={{ color: "var(--extreme-priority-task-color)" }}
-            />
-            High
-          </Radio>
-
-          <Radio value={taskPriorities.medium}>
-            <ClockCircleOutlined
-              style={{ color: "var(--moderate-priority-task-color)" }}
-            />{" "}
-            Medium
-          </Radio>
-
-          <Radio value={taskPriorities.low}>
-            <CheckOutlined
-              style={{ color: "var(--low-priority-task-color)" }}
-            />{" "}
-            Low
-          </Radio>
+        <Radio.Group defaultValue={formValues?.priority}>
+          <Radio value={taskPriorities.high}>{taskPriorities.high}</Radio>
+          <Radio value={taskPriorities.medium}>{taskPriorities.medium}</Radio>
+          <Radio value={taskPriorities.low}>{taskPriorities.low}</Radio>
         </Radio.Group>
       ),
     },
     {
-      label: addTaskFieldsTitles.description,
-      name: addTaskFieldsDataIndexes.description,
+      label: taskFieldsTitles.description,
+      name: taskFieldsDataIndexes.description,
       rules: [
         {
           message: `${DEFAULT_VALIDATE_MESSAGE} description`,
@@ -86,24 +83,53 @@ export const useGetTaskFields = () => {
       ],
       node: (
         <Input.TextArea
-          placeholder={addTaskFieldsPlaceholders.description}
+          placeholder={taskFieldsPlaceholders.description}
           rows={4}
+          defaultValue={formValues?.description}
         />
       ),
     },
     {
-      label: addTaskFieldsTitles.image,
-      name: addTaskFieldsDataIndexes.image,
+      label: taskFieldsTitles.image,
+      name: taskFieldsDataIndexes.image,
       rules: [
         {
           message: `${DEFAULT_VALIDATE_MESSAGE} image`,
         },
       ],
-      node: <Input placeholder={addTaskFieldsPlaceholders.image} />,
+      node: (
+        <Input
+          placeholder={taskFieldsPlaceholders.image}
+          defaultValue={formValues?.image}
+        />
+      ),
     },
   ];
 
-  const FormFields = addTaskFieldsArray.map((field) => (
+  if (isEditMode) {
+    taskFieldsArray.splice(3, 0, {
+      label: taskFieldsTitles.status,
+      name: taskFieldsDataIndexes.status,
+      rules: [
+        {
+          message: `${DEFAULT_VALIDATE_MESSAGE} status`,
+        },
+      ],
+      node: (
+        <Radio.Group defaultValue={formValues?.status}>
+          <Radio value={taskStatuses.completed}>{taskStatuses.completed}</Radio>
+          <Radio value={taskStatuses.inProgress}>
+            {taskStatuses.inProgress}
+          </Radio>
+          <Radio value={taskStatuses.notStarted}>
+            {taskStatuses.notStarted}
+          </Radio>
+        </Radio.Group>
+      ),
+    });
+  }
+
+  const FormFields = taskFieldsArray.map((field) => (
     <Form.Item {...field} key={field.name}>
       {field.node}
     </Form.Item>

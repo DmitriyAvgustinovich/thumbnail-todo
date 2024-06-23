@@ -7,4 +7,5 @@ export interface ITask {
   description: string;
   status: string;
   createdAt: string;
+  image: string;
 }

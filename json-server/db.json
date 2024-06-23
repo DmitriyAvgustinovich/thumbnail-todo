@@ -19,33 +19,35 @@
   ],
   "tasks": [
     {
-      "title": "1",
-      "deadline": "2024-05-27T19:00:00.000Z",
+      "title": "12321213",
+      "deadline": "2024-06-11T19:00:00.000Z",
       "priority": "High",
-      "id": 1719004389412,
-      "userId": 1,
-      "status": "todo",
-      "createdAt": "22-06-2024"
-    },
-    {
-      "title": "2",
-      "deadline": "2024-06-16T19:00:00.000Z",
-      "priority": "High",
-      "description": "2",
-      "id": 1719004473742,
+      "description": "123213",
+      "image": "https://photogora.ru/img/product/thumb/4897/5d2efa2ce25635320511549050122246.jpg",
+      "id": 1719170368400,
       "userId": 2,
-      "status": "Completed",
-      "createdAt": "22-06-2024"
+      "status": "In Progress",
+      "createdAt": "24-06-2024"
     },
     {
-      "title": "3",
-      "deadline": "2024-06-18T19:00:00.000Z",
-      "priority": "High",
-      "description": "1",
-      "id": 1719082480863,
+      "title": "ertrret",
+      "deadline": "2024-06-06T19:00:00.000Z",
+      "priority": "Medium",
+      "image": "https://photogora.ru/img/product/thumb/4897/5d2efa2ce25635320511549050122246.jpg",
+      "id": 1719171843217,
       "userId": 2,
       "status": "Not Started",
-      "createdAt": "22-06-2024"
+      "createdAt": "24-06-2024"
+    },
+    {
+      "title": "ertrret76786678",
+      "deadline": "2024-06-06T19:00:00.000Z",
+      "priority": "Low",
+      "image": "https://photogora.ru/img/product/thumb/4897/5d2efa2ce25635320511549050122246.jpg",
+      "id": 1719171857975,
+      "userId": 2,
+      "status": "Completed",
+      "createdAt": "24-06-2024"
     }
   ]
 }

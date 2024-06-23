@@ -1,23 +1,24 @@
-export const addTaskFieldsTitles = {
+export const taskFieldsTitles = {
   title: "Title",
   deadline: "Deadline",
   priority: "Priority",
+  status: "Status",
   description: "Description",
   image: "Image",
 };
 
-export const addTaskFieldsDataIndexes = {
+export const taskFieldsDataIndexes = {
   title: "title",
   deadline: "deadline",
   priority: "priority",
+  status: "status",
   description: "description",
   image: "image",
 };
 
-export const addTaskFieldsPlaceholders = {
+export const taskFieldsPlaceholders = {
   title: "Enter your task title",
   deadline: "Enter your task deadline",
-  priority: "Enter your task priority",
   description: "Enter your task description",
   image: "Enter your task image",
 };
