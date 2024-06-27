@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
 import { Avatar, Popconfirm, Typography } from "antd";
 
@@ -52,10 +54,12 @@ export const UserMenuSidebar = () => {
         <UserMenuSidebarSkeleton />
       ) : (
         <div className={styles.userBlockWrapper}>
-          <Avatar size={64} icon={<UserOutlined />} />
+          <Link to={RouterPath.account}>
+            <Avatar size={64} icon={<UserOutlined />} />
+          </Link>
 
           <Typography.Text className={styles.userBlockName}>
-            {authUser?.lastName}
+            {authUser?.name} {authUser?.surname}
           </Typography.Text>
 
           <Typography.Text className={styles.userBlockEmail}>

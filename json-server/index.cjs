@@ -1,9 +1,21 @@
 const fs = require("fs");
 const path = require("path");
-
 const jsonServer = require("json-server");
+const multer = require("multer");
+
 const server = jsonServer.create();
 const router = jsonServer.router(path.resolve(__dirname, "db.json"));
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.resolve(__dirname, "uploads"));
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({ storage });
 
 server.use(jsonServer.defaults({}));
 server.use(jsonServer.bodyParser);
@@ -18,7 +30,7 @@ server.use(async (req, res, next) => {
 
 server.post("/users?sign-up", (req, res) => {
   try {
-    const { firstName, lastName, username, email, password } = req.body;
+    const { name, surname, email, password } = req.body;
 
     const db = JSON.parse(
       fs.readFileSync(path.resolve(__dirname, "db.json"), "UTF-8")
@@ -36,15 +48,13 @@ server.post("/users?sign-up", (req, res) => {
 
     const user = {
       id: Date.now().toString(),
-      firstName,
-      lastName,
-      username,
+      name,
+      surname,
       email,
       password,
     };
 
     users.push(user);
-
     fs.writeFileSync(path.resolve(__dirname, "db.json"), JSON.stringify(db));
 
     return res.json(user);
@@ -83,8 +93,15 @@ server.post("/user/sign-out", (req, res) => {
   return res.json({ message: "You have logged out of your account." });
 });
 
-server.use(router);
+server.post("/upload-image", upload.single("file"), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: "No file uploaded." });
+  }
 
+  return res.status(200).json({ filePath: `/uploads/${req.file.filename}` });
+});
+
+server.use(router);
 server.listen(8000, () => {
   console.log("server is running on 8000 port");
 });

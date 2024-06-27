@@ -1,8 +1,10 @@
 import { RouteProps } from "react-router-dom";
 
+import { AccountPage } from "pages/AccountPage";
 import { AuthPage } from "pages/AuthPage";
 import { DashboardPage } from "pages/DashboardPage";
 import { NotAuthorizedPage } from "pages/NotAuthorizedPage";
+import { ProjectsPage } from "pages/ProjectsPage";
 import { VitalTaskPage } from "pages/VitalTaskPage";
 
 import { LazyLoadChunk } from "components/LazyLoadChunk/LazyLoadChunk";
@@ -17,6 +19,8 @@ export enum AppRoutes {
   NOT_AUTHORIZED = "not_authorized",
   AUTH = "auth",
   VITAL_TASK = "vital_task",
+  ACCOUNT = "account",
+  PROJECTS = "projects",
 }
 
 export const RouterPath: Record<AppRoutes, string> = {
@@ -24,6 +28,8 @@ export const RouterPath: Record<AppRoutes, string> = {
   [AppRoutes.NOT_AUTHORIZED]: "/not_authorized",
   [AppRoutes.AUTH]: "/auth",
   [AppRoutes.VITAL_TASK]: "/vital_task",
+  [AppRoutes.ACCOUNT]: "/account",
+  [AppRoutes.PROJECTS]: "/projects",
 };
 
 export const routeConfig: Record<AppRoutes, TAppRouteProps> = {
@@ -58,6 +64,24 @@ export const routeConfig: Record<AppRoutes, TAppRouteProps> = {
     element: (
       <LazyLoadChunk>
         <VitalTaskPage />
+      </LazyLoadChunk>
+    ),
+  },
+  [AppRoutes.ACCOUNT]: {
+    path: RouterPath.account,
+    authOnly: true,
+    element: (
+      <LazyLoadChunk>
+        <AccountPage />
+      </LazyLoadChunk>
+    ),
+  },
+  [AppRoutes.PROJECTS]: {
+    path: RouterPath.projects,
+    authOnly: true,
+    element: (
+      <LazyLoadChunk>
+        <ProjectsPage />
       </LazyLoadChunk>
     ),
   },

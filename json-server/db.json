@@ -3,51 +3,13 @@
     {
       "email": "1",
       "password": "1",
+      "avatarUrl": "/uploads/1719522530921.png",
       "name": "1",
-      "lastName": "1",
-      "username": "1",
+      "surname": "1",
       "id": 1
-    },
-    {
-      "email": "2",
-      "password": "2",
-      "name": "2",
-      "lastName": "2",
-      "username": "2",
-      "id": 2
     }
   ],
-  "tasks": [
-    {
-      "title": "12321213",
-      "deadline": "2024-06-11T19:00:00.000Z",
-      "priority": "High",
-      "description": "123213",
-      "image": "https://photogora.ru/img/product/thumb/4897/5d2efa2ce25635320511549050122246.jpg",
-      "id": 1719170368400,
-      "userId": 2,
-      "status": "In Progress",
-      "createdAt": "24-06-2024"
-    },
-    {
-      "title": "ertrret",
-      "deadline": "2024-06-06T19:00:00.000Z",
-      "priority": "Medium",
-      "image": "https://photogora.ru/img/product/thumb/4897/5d2efa2ce25635320511549050122246.jpg",
-      "id": 1719171843217,
-      "userId": 2,
-      "status": "Not Started",
-      "createdAt": "24-06-2024"
-    },
-    {
-      "title": "ertrret76786678",
-      "deadline": "2024-06-06T19:00:00.000Z",
-      "priority": "Low",
-      "image": "https://photogora.ru/img/product/thumb/4897/5d2efa2ce25635320511549050122246.jpg",
-      "id": 1719171857975,
-      "userId": 2,
-      "status": "Completed",
-      "createdAt": "24-06-2024"
-    }
-  ]
+  "contributors": [],
+  "tasks": [],
+  "projects": []
 }

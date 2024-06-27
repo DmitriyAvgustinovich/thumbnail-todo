@@ -14,13 +14,13 @@ import { ITask } from "types/ITask";
 
 interface IUseGetTaskFieldsArgs {
   formValues?: ITask;
-  isEditMode: boolean;
+  isEdit: boolean;
 }
 
 export const useGetTaskFields = (args: IUseGetTaskFieldsArgs) => {
-  const { formValues, isEditMode } = args;
+  const { formValues, isEdit } = args;
 
-  const isRequired = isEditMode ? false : true;
+  const isRequired = isEdit ? false : true;
 
   const taskFieldsArray = [
     {
@@ -76,11 +76,6 @@ export const useGetTaskFields = (args: IUseGetTaskFieldsArgs) => {
     {
       label: taskFieldsTitles.description,
       name: taskFieldsDataIndexes.description,
-      rules: [
-        {
-          message: `${DEFAULT_VALIDATE_MESSAGE} description`,
-        },
-      ],
       node: (
         <Input.TextArea
           placeholder={taskFieldsPlaceholders.description}
@@ -92,11 +87,6 @@ export const useGetTaskFields = (args: IUseGetTaskFieldsArgs) => {
     {
       label: taskFieldsTitles.image,
       name: taskFieldsDataIndexes.image,
-      rules: [
-        {
-          message: `${DEFAULT_VALIDATE_MESSAGE} image`,
-        },
-      ],
       node: (
         <Input
           placeholder={taskFieldsPlaceholders.image}
@@ -106,12 +96,13 @@ export const useGetTaskFields = (args: IUseGetTaskFieldsArgs) => {
     },
   ];
 
-  if (isEditMode) {
+  if (isEdit) {
     taskFieldsArray.splice(3, 0, {
       label: taskFieldsTitles.status,
       name: taskFieldsDataIndexes.status,
       rules: [
         {
+          required: isRequired,
           message: `${DEFAULT_VALIDATE_MESSAGE} status`,
         },
       ],

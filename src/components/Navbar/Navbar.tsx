@@ -19,11 +19,22 @@ export const Navbar = () => {
             <span className={styles.navbarTitleColorPiece}>Dash</span>board
           </>
         );
-
       case RouterPath.vital_task:
         return (
           <>
             <span className={styles.navbarTitleColorPiece}>To</span>-Do
+          </>
+        );
+      case RouterPath.account:
+        return (
+          <>
+            <span className={styles.navbarTitleColorPiece}>Acc</span>ount
+          </>
+        );
+      case RouterPath.projects:
+        return (
+          <>
+            <span className={styles.navbarTitleColorPiece}>Proj</span>ects
           </>
         );
       default:

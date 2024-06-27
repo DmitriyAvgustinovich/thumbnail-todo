@@ -1,0 +1,38 @@
+.accountWrapper {
+  width: 70vw;
+  border-radius: 15px;
+  box-shadow: var(--box-shadow);
+  padding: 20px;
+}
+
+.accountTitle {
+  font: var(--font-xl);
+}
+
+.accountMainInfoWrapper {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.accountMainInfoTextWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.accountName {
+  font: var(--font-l);
+}
+
+.accountEmail {
+  font: var(--font-m);
+}
+
+.accountListFieldsWrapper {
+  margin-top: 20px;
+}
+
+.saveEditButton {
+  margin-right: 10px;
+}

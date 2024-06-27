@@ -34,7 +34,7 @@ export const AdditionalActionsPopover = (
 
   const { FormFields } = useGetTaskFields({
     formValues: props,
-    isEditMode: true,
+    isEdit: true,
   });
 
   const [

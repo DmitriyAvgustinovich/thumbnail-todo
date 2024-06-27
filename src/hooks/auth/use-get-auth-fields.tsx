@@ -1,11 +1,8 @@
-import {
-  LockOutlined,
-  MailOutlined,
-  UserAddOutlined,
-  UserDeleteOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
 import { Form, Input } from "antd";
+
+import { UploadButton } from "components/UploadButton/UploadButton";
+
+import { RouterPath } from "configs/route-config";
 
 import {
   authFieldsDataIndexes,
@@ -14,53 +11,60 @@ import {
 } from "constants/auth/auth-list-fields";
 import { DEFAULT_VALIDATE_MESSAGE } from "constants/general";
 
-export const useGetAuthFields = () => {
+import { useGetImageUrl } from "hooks/general/use-get-image-url";
+
+import { IUser } from "types/IUser";
+
+interface IUseGetAuthFieldsArgs {
+  formValues?: IUser;
+  isEdit?: boolean;
+}
+
+export const useGetAuthFields = (args: IUseGetAuthFieldsArgs) => {
+  const { formValues, isEdit } = args;
+
+  const { uploadImagePath } = useGetImageUrl();
+
+  const location = window.location.pathname;
+  const isAccountPage = location === RouterPath.account;
+
   const registerFieldsArray = [
     {
-      label: authFieldsTitles.firstName,
-      name: authFieldsDataIndexes.firstName,
+      label: authFieldsTitles.avatarUrl,
+      name: authFieldsDataIndexes.avatarUrl,
+      node: <UploadButton />,
+    },
+    {
+      label: authFieldsTitles.name,
+      name: authFieldsDataIndexes.name,
       rules: [
         {
-          required: true,
+          required: !isAccountPage,
           message: `${DEFAULT_VALIDATE_MESSAGE} name`,
         },
       ],
       node: (
         <Input
-          prefix={<UserAddOutlined />}
-          placeholder={authFieldsPlaceholders.firstName}
+          defaultValue={formValues?.name}
+          placeholder={authFieldsPlaceholders.name}
+          disabled={!isEdit}
         />
       ),
     },
     {
-      label: authFieldsTitles.lastName,
-      name: authFieldsDataIndexes.lastName,
+      label: authFieldsTitles.surname,
+      name: authFieldsDataIndexes.surname,
       rules: [
         {
-          required: true,
+          required: !isAccountPage,
           message: `${DEFAULT_VALIDATE_MESSAGE} surname`,
         },
       ],
       node: (
         <Input
-          prefix={<UserDeleteOutlined />}
-          placeholder={authFieldsPlaceholders.lastName}
-        />
-      ),
-    },
-    {
-      label: authFieldsTitles.userName,
-      name: authFieldsDataIndexes.username,
-      rules: [
-        {
-          required: true,
-          message: `${DEFAULT_VALIDATE_MESSAGE} username`,
-        },
-      ],
-      node: (
-        <Input
-          prefix={<UserOutlined />}
-          placeholder={authFieldsPlaceholders.userName}
+          defaultValue={formValues?.surname}
+          disabled={!isEdit}
+          placeholder={authFieldsPlaceholders.surname}
         />
       ),
     },
@@ -69,13 +73,14 @@ export const useGetAuthFields = () => {
       name: authFieldsDataIndexes.email,
       rules: [
         {
-          required: true,
+          required: !isAccountPage,
           message: `${DEFAULT_VALIDATE_MESSAGE} e-mail`,
         },
       ],
       node: (
         <Input
-          prefix={<MailOutlined />}
+          defaultValue={formValues?.email}
+          disabled={!isEdit}
           placeholder={authFieldsPlaceholders.email}
         />
       ),
@@ -89,14 +94,13 @@ export const useGetAuthFields = () => {
           message: `${DEFAULT_VALIDATE_MESSAGE} password`,
         },
       ],
-      node: (
-        <Input.Password
-          prefix={<LockOutlined />}
-          placeholder={authFieldsPlaceholders.password}
-        />
-      ),
+      node: <Input.Password placeholder={authFieldsPlaceholders.password} />,
     },
   ];
+
+  if (isAccountPage) {
+    registerFieldsArray.pop();
+  }
 
   const RegisterFields = registerFieldsArray.map((field) => (
     <Form.Item {...field} key={field.name}>
@@ -114,12 +118,7 @@ export const useGetAuthFields = () => {
           message: `${DEFAULT_VALIDATE_MESSAGE} e-mail`,
         },
       ],
-      node: (
-        <Input
-          prefix={<UserOutlined />}
-          placeholder={authFieldsPlaceholders.email}
-        />
-      ),
+      node: <Input placeholder={authFieldsPlaceholders.email} />,
     },
     {
       label: authFieldsTitles.password,
@@ -130,12 +129,7 @@ export const useGetAuthFields = () => {
           message: `${DEFAULT_VALIDATE_MESSAGE} password`,
         },
       ],
-      node: (
-        <Input.Password
-          prefix={<LockOutlined />}
-          placeholder={authFieldsPlaceholders.password}
-        />
-      ),
+      node: <Input.Password placeholder={authFieldsPlaceholders.password} />,
     },
   ];
 
@@ -145,5 +139,5 @@ export const useGetAuthFields = () => {
     </Form.Item>
   ));
 
-  return { RegisterFields, LoginFields };
+  return { RegisterFields, LoginFields, uploadImagePath };
 };

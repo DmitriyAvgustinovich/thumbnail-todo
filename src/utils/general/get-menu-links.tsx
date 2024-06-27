@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 
-import { AppstoreAddOutlined, ExclamationOutlined } from "@ant-design/icons";
+import {
+  AppstoreAddOutlined,
+  ExclamationOutlined,
+  ProjectOutlined,
+} from "@ant-design/icons";
 
 import { RouterPath } from "configs/route-config";
 
@@ -19,6 +23,12 @@ export const getMenuLinks = (styles: TObjWithStringValues) => {
       name: "Vital Task",
       path: RouterPath.vital_task,
       icon: <ExclamationOutlined className={styles.menuIcon} />,
+    },
+    {
+      key: "2",
+      name: "Projects",
+      path: RouterPath.projects,
+      icon: <ProjectOutlined className={styles.menuIcon} />,
     },
   ];
 

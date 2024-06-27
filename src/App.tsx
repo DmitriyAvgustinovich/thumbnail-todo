@@ -1,3 +1,5 @@
+import { ImageUrlProvider } from "providers/ImageUrlProvider";
+
 import { AppRouter } from "components/AppRouter/AppRouter";
 import { Navbar } from "components/Navbar/Navbar";
 import { NavbarSkeleton } from "components/Navbar/NavbarSkeleton/NavbarSkeleton";
@@ -20,10 +22,12 @@ export const App = () => {
   });
 
   return (
-    <AntThemeConfig>
-      {isAuthUserLoading && !isAuthPage && <NavbarSkeleton />}
-      {isAuthUserInit && !isAuthPage && <Navbar />}
-      <AppRouter />
-    </AntThemeConfig>
+    <ImageUrlProvider>
+      <AntThemeConfig>
+        {isAuthUserLoading && !isAuthPage && <NavbarSkeleton />}
+        {isAuthUserInit && !isAuthPage && <Navbar />}
+        <AppRouter />
+      </AntThemeConfig>
+    </ImageUrlProvider>
   );
 };

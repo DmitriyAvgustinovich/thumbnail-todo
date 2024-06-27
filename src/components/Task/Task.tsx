@@ -43,6 +43,7 @@ export const Task = (props: ITaskProps) => {
           <Typography.Text className={styles.taskDeadline}>
             Deadline: {getConvertDate(deadline)}
           </Typography.Text>
+          
           <Typography.Text className={styles.taskTitle}>
             {title}
           </Typography.Text>
@@ -67,11 +68,11 @@ export const Task = (props: ITaskProps) => {
             </Typography.Text>
 
             <Button
-              className={styles.taskShowMoreButton}
+              className={styles.taskDetailsButton}
               type="primary"
               onClick={handleOpenTaskDrawer}
             >
-              Show more
+              Details
             </Button>
           </div>
         </div>

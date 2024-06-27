@@ -23,7 +23,7 @@ export const Dashboard = () => {
     <PageLayout>
       <h1 className={styles.dashboardTitle}>
         Welcome back,{" "}
-        {isAuthUserLoading ? <DashboardSkeleton /> : authUser?.lastName}{" "}
+        {isAuthUserLoading ? <DashboardSkeleton /> : authUser?.name}{" "}
         &#x1F44B;
       </h1>
 

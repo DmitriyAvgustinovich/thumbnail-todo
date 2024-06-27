@@ -71,6 +71,11 @@ module.exports = {
             position: "before",
           },
           {
+            pattern: "providers/**",
+            group: "internal",
+            position: "before",
+          },
+          {
             pattern: "configs/**",
             group: "internal",
             position: "before",

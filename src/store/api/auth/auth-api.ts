@@ -3,9 +3,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   IUserGetMeRequest,
   TUserGetMeResponse,
-  TUserSignInRequest,
+  IUserSignInRequest,
   TUserSignInResponse,
-  IUserSignUpRequest,
+  TUserSignUpRequest,
   TUserSignUpResponse,
 } from "./types";
 
@@ -17,7 +17,7 @@ export const authApi = createApi({
   }),
   tagTypes: ["Auth"],
   endpoints: (build) => ({
-    signUp: build.mutation<TUserSignUpResponse, IUserSignUpRequest>({
+    signUp: build.mutation<TUserSignUpResponse, TUserSignUpRequest>({
       query: (body) => ({
         url: "/users?sign-up",
         method: "POST",
@@ -27,14 +27,14 @@ export const authApi = createApi({
       async onQueryStarted(_args, { queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          localStorage.setItem("userId", data.id);
+          localStorage.setItem("userId", String(data.id));
         } catch (error) {
           console.log(error);
         }
       },
     }),
 
-    signIn: build.mutation<TUserSignInResponse, TUserSignInRequest>({
+    signIn: build.mutation<TUserSignInResponse, IUserSignInRequest>({
       query: (body) => ({
         url: "/user/sign-in",
         method: "POST",
@@ -44,7 +44,7 @@ export const authApi = createApi({
       async onQueryStarted(_args, { queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          localStorage.setItem("userId", data.id);
+          localStorage.setItem("userId", String(data.id));
         } catch (error) {
           console.log(error);
         }
@@ -53,7 +53,7 @@ export const authApi = createApi({
 
     getMe: build.query<TUserGetMeResponse, IUserGetMeRequest>({
       query: (data) => ({
-        url: `/users/${data.id ? data.id : "notInitUser"}`,
+        url: `/users/${data.id ? data.id : "userNotInit"}`,
         method: "GET",
       }),
       providesTags: ["Auth"],

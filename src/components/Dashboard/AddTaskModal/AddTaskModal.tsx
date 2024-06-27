@@ -25,7 +25,7 @@ export const AddTaskModal = (props: IAddTaskModalProps) => {
 
   const { authUser } = useGetAuthUser();
 
-  const { FormFields } = useGetTaskFields({ isEditMode: false });
+  const { FormFields } = useGetTaskFields({ isEdit: false });
 
   const [
     addTask,

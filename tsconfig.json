@@ -20,6 +20,7 @@
       "constants/*": ["constants/*"],
       "hooks/*": ["hooks/*"],
       "store/*": ["store/*"],
+      "providers/*": ["providers/*"],
       "types/*": ["types/*"],
       "assets/*": ["assets/*"],
       "utils/*": ["utils/*"],
