@@ -3,16 +3,35 @@ import React from "react";
 import { UploadListType, UploadProps } from "antd/es/upload/interface";
 
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { Upload, message } from "antd";
+import { Button, Upload, message } from "antd";
 
 import { useGetImageUrl } from "hooks/general/use-get-image-url";
 
 import styles from "./UploadButton.module.scss";
 
-export const UploadButton = () => {
-  const { imageUrl, setImageUrl, setUploadImagePath } = useGetImageUrl();
+interface IUploadButtonProps {
+  disabled: boolean;
+  existedImage?: string;
+  clearExistedImageUrlCallback: () => void;
+}
 
-  const [loading, setLoading] = React.useState(false);
+export const UploadButton = (props: IUploadButtonProps) => {
+  const { disabled, existedImage, clearExistedImageUrlCallback } = props;
+
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const { newImageUrl, setNewImageUrl, setUploadImagePath } = useGetImageUrl();
+
+  const handleClearNewImageUrl = (event: React.SyntheticEvent) => {
+    event.stopPropagation();
+    setNewImageUrl("");
+    message.success("Image was cleared.");
+  };
+
+  const handleClearUploadImagePath = (event: React.SyntheticEvent) => {
+    event.stopPropagation();
+    clearExistedImageUrlCallback();
+  };
 
   const getBase64 = (img: Blob, callback: (url: string) => void) => {
     const reader = new FileReader();
@@ -39,26 +58,26 @@ export const UploadButton = () => {
 
   const handleChange: UploadProps["onChange"] = (info) => {
     if (info.file.status === "uploading") {
-      setLoading(true);
+      setIsLoading(true);
       return;
     }
 
     if (info.file.status === "done" && info.file.originFileObj) {
       getBase64(info.file.originFileObj, (url) => {
-        setLoading(false);
+        setIsLoading(false);
 
-        setImageUrl(url);
+        setNewImageUrl(url);
         setUploadImagePath(info.file.response.filePath);
 
-        message.success(`Image ${info.file.name} successfully uploaded.`);
+        message.success(`Image successfully uploaded.`);
       });
     }
   };
 
   const UploadButton = (
     <span>
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <p>Upload Image</p>
+      {isLoading ? <LoadingOutlined /> : <PlusOutlined />}
+      <p>Upload</p>
     </span>
   );
 
@@ -70,12 +89,41 @@ export const UploadButton = () => {
     listType: "picture-card" as UploadListType,
     showUploadList: false,
     withCredentials: true,
+    disabled,
   };
 
   return (
     <Upload {...uploadProps}>
-      {imageUrl ? (
-        <img className={styles.uploadedImage} src={imageUrl} alt="" />
+      {newImageUrl || existedImage ? (
+        <div>
+          <img
+            className={styles.uploadedImage}
+            src={newImageUrl || existedImage}
+            alt=""
+          />
+
+          {newImageUrl && !existedImage && (
+            <Button
+              size="small"
+              type="link"
+              onClick={(event) => handleClearNewImageUrl(event)}
+              disabled={disabled}
+            >
+              Clear new image
+            </Button>
+          )}
+
+          {existedImage && (
+            <Button
+              size="small"
+              type="link"
+              onClick={(event) => handleClearUploadImagePath(event)}
+              disabled={disabled}
+            >
+              Clear existed image
+            </Button>
+          )}
+        </div>
       ) : (
         UploadButton
       )}

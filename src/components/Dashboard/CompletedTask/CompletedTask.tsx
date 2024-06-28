@@ -32,7 +32,9 @@ export const CompletedTask = () => {
       </div>
 
       {completedTasksData?.length ? (
-        completedTasksData?.map((task) => <Task key={task.id} {...task} />)
+        completedTasksData?.map((task) => (
+          <Task key={task.id} taskData={task} />
+        ))
       ) : (
         <Empty
           className={styles.completedTaskEmptyBlock}

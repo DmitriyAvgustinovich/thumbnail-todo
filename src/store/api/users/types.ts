@@ -10,7 +10,7 @@ export interface IUserGetUserByIdRequest {
 
 export type TUpdateUserResponse = IUser;
 export interface IUpdateUserRequest extends IUser {
-  id: number;
+  id: string;
 }
 
 export type TDeleteUserResponse = void;

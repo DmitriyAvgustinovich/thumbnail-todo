@@ -1,6 +1,3 @@
-import { ITask } from "./ITask";
-import { IUser } from "./IUser";
-
 export interface IProject {
   id: number;
   title: string;
@@ -8,6 +5,5 @@ export interface IProject {
   image: string;
   createdAt: string;
   updatedAt: string;
-  tasks: ITask[];
-  contributors: IUser[];
+  adminUserId?: string;
 }

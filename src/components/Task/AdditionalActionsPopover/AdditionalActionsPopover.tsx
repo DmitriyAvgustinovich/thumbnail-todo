@@ -15,6 +15,7 @@ import {
 } from "store/api/tasks/tasks-api";
 
 import { useGetTaskFields } from "hooks/dashboard/use-get-task-fields";
+import { useGetImageUrl } from "hooks/general/use-get-image-url";
 import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
 
 import { getValidateMessage } from "utils/auth/get-validate-message";
@@ -23,17 +24,20 @@ import { ITask } from "types/ITask";
 
 import styles from "./AdditionalActionsPopover.module.scss";
 
-interface IAdditionalActionsPopoverProps extends ITask {}
+interface IAdditionalActionsPopoverProps {
+  taskData: ITask;
+}
 
 export const AdditionalActionsPopover = (
   props: IAdditionalActionsPopoverProps
 ) => {
-  const { id } = props;
+  const { taskData } = props;
 
   const [isEditTaskModalOpen, setIsEditTaskModalOpen] = React.useState(false);
 
+  const { uploadImagePath } = useGetImageUrl();
   const { FormFields } = useGetTaskFields({
-    formValues: props,
+    formValues: taskData,
     isEdit: true,
   });
 
@@ -58,7 +62,13 @@ export const AdditionalActionsPopover = (
   ] = useDeleteTaskMutation();
 
   const handleUpdateTaskFinish = (formValues: ITask) => {
-    updateTask({ ...formValues, id });
+    const updatedData = {
+      ...formValues,
+      id: taskData.id,
+      image: uploadImagePath,
+    };
+
+    updateTask(updatedData);
     setTimeout(() => handleCloseEditTaskModal(), 1500);
   };
 
@@ -67,7 +77,7 @@ export const AdditionalActionsPopover = (
   };
 
   const handleDeleteTask = () => {
-    deleteTask({ id });
+    deleteTask({ id: taskData.id });
   };
 
   useGetQueryMessages({
@@ -133,6 +143,7 @@ export const AdditionalActionsPopover = (
         footer={null}
       >
         <Form
+          className={styles.editTaskModalForm}
           layout="vertical"
           onFinish={handleUpdateTaskFinish}
           onFinishFailed={handleAddNewTaskFinishFailed}

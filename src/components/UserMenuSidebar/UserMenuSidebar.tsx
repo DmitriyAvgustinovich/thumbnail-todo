@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
+import { LogoutOutlined } from "@ant-design/icons";
 import { Avatar, Popconfirm, Typography } from "antd";
 
 import { useSignOutMutation } from "store/api/auth/auth-api";
@@ -55,7 +55,7 @@ export const UserMenuSidebar = () => {
       ) : (
         <div className={styles.userBlockWrapper}>
           <Link to={RouterPath.account}>
-            <Avatar size={64} icon={<UserOutlined />} />
+            <Avatar size={64} src={authUser?.avatarUrl} />
           </Link>
 
           <Typography.Text className={styles.userBlockName}>

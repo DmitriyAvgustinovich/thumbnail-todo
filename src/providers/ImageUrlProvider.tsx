@@ -1,8 +1,8 @@
 import React from "react";
 
 interface IImageContextProps {
-  imageUrl: string | null;
-  setImageUrl: (imageUrl: string | null) => void;
+  newImageUrl: string | null;
+  setNewImageUrl: (newImageUrl: string | null) => void;
   uploadImagePath: string;
   setUploadImagePath: (uploadImagePath: string) => void;
 }
@@ -16,12 +16,12 @@ interface IImageUrlProviderProps {
 }
 
 export const ImageUrlProvider = ({ children }: IImageUrlProviderProps) => {
-  const [imageUrl, setImageUrl] = React.useState<string | null>(null);
+  const [newImageUrl, setNewImageUrl] = React.useState<string | null>(null);
   const [uploadImagePath, setUploadImagePath] = React.useState("");
 
   return (
     <ImageUrlContext.Provider
-      value={{ imageUrl, setImageUrl, uploadImagePath, setUploadImagePath }}
+      value={{ newImageUrl, setNewImageUrl, uploadImagePath, setUploadImagePath }}
     >
       {children}
     </ImageUrlContext.Provider>

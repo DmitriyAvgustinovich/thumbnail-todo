@@ -1,8 +1,8 @@
-import { ImageUrlProvider } from "providers/ImageUrlProvider";
-
 import { AppRouter } from "components/AppRouter/AppRouter";
 import { Navbar } from "components/Navbar/Navbar";
 import { NavbarSkeleton } from "components/Navbar/NavbarSkeleton/NavbarSkeleton";
+
+import { ImageUrlProvider } from "providers/ImageUrlProvider";
 
 import { AntThemeConfig } from "configs/AntThemeConfig";
 import { RouterPath } from "configs/route-config";

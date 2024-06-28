@@ -10,6 +10,7 @@ const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.resolve(__dirname, "uploads"));
   },
+
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname));
   },
@@ -37,12 +38,11 @@ server.post("/users?sign-up", (req, res) => {
     );
 
     const { users = [] } = db;
-
-    const candidate = users.find(
+    const newUser = users.find(
       (user) => user.email === email && user.password === password
     );
 
-    if (candidate) {
+    if (newUser) {
       return res.status(409).json({ message: "Such a user already exists." });
     }
 
@@ -98,7 +98,9 @@ server.post("/upload-image", upload.single("file"), (req, res) => {
     return res.status(400).json({ message: "No file uploaded." });
   }
 
-  return res.status(200).json({ filePath: `/uploads/${req.file.filename}` });
+  return res
+    .status(200)
+    .json({ filePath: `/json-server/uploads/${req.file.filename}` });
 });
 
 server.use(router);

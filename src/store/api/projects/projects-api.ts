@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   IDeleteProjectRequest,
   IGetProjectByIdRequest,
-  IGetProjectsByUserIdRequest,
+  IGetProjectsByAdminUserIdRequest,
   IUpdateProjectRequest,
   TAddProjectRequest,
   TAddProjectResponse,
@@ -11,7 +11,7 @@ import {
   TGetAllProjectsRequest,
   TGetAllProjectsResponse,
   TGetProjectByIdResponse,
-  TGetProjectsByUserIdResponse,
+  TGetProjectsByAdminUserIdResponse,
   TUpdateProjectResponse,
 } from "./types";
 
@@ -70,12 +70,12 @@ export const projectsApi = createApi({
       invalidatesTags: ["Projects"],
     }),
 
-    getProjectsByUserId: build.query<
-      TGetProjectsByUserIdResponse,
-      IGetProjectsByUserIdRequest
+    getProjectsByAdminUserId: build.query<
+      TGetProjectsByAdminUserIdResponse,
+      IGetProjectsByAdminUserIdRequest
     >({
       query: (body) => ({
-        url: `projects?userId=${body.id}`,
+        url: `projects?adminUserId=${body.adminUserId}`,
       }),
       providesTags: ["Projects"],
     }),
@@ -88,5 +88,5 @@ export const {
   useAddProjectMutation,
   useUpdateProjectMutation,
   useDeleteProjectMutation,
-  useGetProjectsByUserIdQuery,
+  useGetProjectsByAdminUserIdQuery,
 } = projectsApi;

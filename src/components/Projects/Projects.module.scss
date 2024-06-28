@@ -1,3 +1,16 @@
+.projectsTitleWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .projectsTitle {
   font: var(--font-xl)
+}
+
+.projectsListWrapper {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }

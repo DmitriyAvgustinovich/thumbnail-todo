@@ -1,5 +1,9 @@
 .pageLayoutWrapper {
-  margin-top: 40px;
+  margin: 40px 40px 0 0;
   display: flex;
   gap: 60px;
+}
+
+.pageLayoutChildrenWrapper {
+  width: 100%;
 }

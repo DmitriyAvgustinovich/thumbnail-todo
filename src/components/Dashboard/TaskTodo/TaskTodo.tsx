@@ -56,7 +56,7 @@ export const TaskTodo = () => {
 
         {tasksDataWithoutCompletedStatus?.length ? (
           tasksDataWithoutCompletedStatus?.map((task) => (
-            <Task key={task.id} {...task} />
+            <Task key={task.id} taskData={task} />
           ))
         ) : (
           <Empty

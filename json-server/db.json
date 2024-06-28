@@ -1,14 +1,5 @@
 {
-  "users": [
-    {
-      "email": "1",
-      "password": "1",
-      "avatarUrl": "/uploads/1719522530921.png",
-      "name": "1",
-      "surname": "1",
-      "id": 1
-    }
-  ],
+  "users": [],
   "contributors": [],
   "tasks": [],
   "projects": []

@@ -15,9 +15,9 @@ export const authFieldsDataIndexes = {
 };
 
 export const authFieldsPlaceholders = {
-  name: "Enter your name",
-  surname: "Enter your surname",
-  avatarUrl: "Enter your avatar url",
-  email: "Enter your email",
-  password: "Enter your password",
+  name: "Enter your name...",
+  surname: "Enter your surname...",
+  avatarUrl: "Enter your avatar url...",
+  email: "Enter your email...",
+  password: "Enter your password...",
 };

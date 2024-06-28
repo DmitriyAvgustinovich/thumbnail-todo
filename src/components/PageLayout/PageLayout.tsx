@@ -12,7 +12,7 @@ export const PageLayout = (props: IPageLayoutProps) => {
   return (
     <div className={styles.pageLayoutWrapper}>
       <UserMenuSidebar />
-      <div>{children}</div>
+      <div className={styles.pageLayoutChildrenWrapper}>{children}</div>
     </div>
   );
 };

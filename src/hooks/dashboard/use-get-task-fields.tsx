@@ -1,6 +1,8 @@
 import { DatePicker, Form, Input, Radio } from "antd";
 import dayjs from "dayjs";
 
+import { UploadButton } from "components/UploadButton/UploadButton";
+
 import {
   taskFieldsDataIndexes,
   taskFieldsTitles,
@@ -23,6 +25,11 @@ export const useGetTaskFields = (args: IUseGetTaskFieldsArgs) => {
   const isRequired = isEdit ? false : true;
 
   const taskFieldsArray = [
+    {
+      label: taskFieldsTitles.image,
+      name: taskFieldsDataIndexes.image,
+      node: <UploadButton disabled={false} existedImage={formValues?.image} />,
+    },
     {
       label: taskFieldsTitles.title,
       name: taskFieldsDataIndexes.title,
@@ -81,16 +88,6 @@ export const useGetTaskFields = (args: IUseGetTaskFieldsArgs) => {
           placeholder={taskFieldsPlaceholders.description}
           rows={4}
           defaultValue={formValues?.description}
-        />
-      ),
-    },
-    {
-      label: taskFieldsTitles.image,
-      name: taskFieldsDataIndexes.image,
-      node: (
-        <Input
-          placeholder={taskFieldsPlaceholders.image}
-          defaultValue={formValues?.image}
         />
       ),
     },

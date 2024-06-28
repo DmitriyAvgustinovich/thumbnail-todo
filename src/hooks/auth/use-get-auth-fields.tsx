@@ -2,6 +2,8 @@ import { Form, Input } from "antd";
 
 import { UploadButton } from "components/UploadButton/UploadButton";
 
+import { useUpdateUserMutation } from "store/api/users/users-api";
+
 import { RouterPath } from "configs/route-config";
 
 import {
@@ -11,7 +13,8 @@ import {
 } from "constants/auth/auth-list-fields";
 import { DEFAULT_VALIDATE_MESSAGE } from "constants/general";
 
-import { useGetImageUrl } from "hooks/general/use-get-image-url";
+import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
+import { useGetAuthUser } from "hooks/user/use-get-auth-user";
 
 import { IUser } from "types/IUser";
 
@@ -23,16 +26,51 @@ interface IUseGetAuthFieldsArgs {
 export const useGetAuthFields = (args: IUseGetAuthFieldsArgs) => {
   const { formValues, isEdit } = args;
 
-  const { uploadImagePath } = useGetImageUrl();
+  const { authUser, refetchAuthUser } = useGetAuthUser();
 
   const location = window.location.pathname;
   const isAccountPage = location === RouterPath.account;
+
+  const [
+    updateUser,
+    {
+      isSuccess: isUpdateUserSuccess,
+      isLoading: isUpdateUserLoading,
+      status: updateUserStatus,
+      error: updateUserError,
+    },
+  ] = useUpdateUserMutation();
+
+  const clearExistedImageUrlCallback = () => {
+    const updatedData = {
+      ...(formValues as IUser),
+      id: authUser?.id ?? "",
+      avatarUrl: "",
+    };
+
+    updateUser(updatedData);
+    refetchAuthUser();
+  };
+
+  useGetQueryMessages({
+    isSuccess: isUpdateUserSuccess,
+    isLoading: isUpdateUserLoading,
+    status: updateUserStatus,
+    error: updateUserError,
+    successMessage: "Image successfully cleared.",
+  });
 
   const registerFieldsArray = [
     {
       label: authFieldsTitles.avatarUrl,
       name: authFieldsDataIndexes.avatarUrl,
-      node: <UploadButton />,
+      node: (
+        <UploadButton
+          disabled={!isEdit}
+          existedImage={authUser?.avatarUrl}
+          clearExistedImageUrlCallback={clearExistedImageUrlCallback}
+        />
+      ),
     },
     {
       label: authFieldsTitles.name,
@@ -139,5 +177,5 @@ export const useGetAuthFields = (args: IUseGetAuthFieldsArgs) => {
     </Form.Item>
   ));
 
-  return { RegisterFields, LoginFields, uploadImagePath };
+  return { RegisterFields, LoginFields };
 };

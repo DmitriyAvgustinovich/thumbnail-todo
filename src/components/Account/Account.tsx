@@ -2,7 +2,6 @@ import React from "react";
 
 import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 
-import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Button, Form, Typography } from "antd";
 
 import { PageLayout } from "components/PageLayout/PageLayout";
@@ -10,6 +9,7 @@ import { PageLayout } from "components/PageLayout/PageLayout";
 import { useUpdateUserMutation } from "store/api/users/users-api";
 
 import { useGetAuthFields } from "hooks/auth/use-get-auth-fields";
+import { useGetImageUrl } from "hooks/general/use-get-image-url";
 import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
 import { useGetAuthUser } from "hooks/user/use-get-auth-user";
 
@@ -26,8 +26,9 @@ import {
 export const Account = () => {
   const [isEdit, setIsEdit] = React.useState(false);
 
-  const { authUser, isAuthUserLoading, refetchAuthUser } = useGetAuthUser();
+  const { uploadImagePath } = useGetImageUrl();
 
+  const { authUser, isAuthUserLoading, refetchAuthUser } = useGetAuthUser();
   const { RegisterFields } = useGetAuthFields({
     formValues: authUser,
     isEdit,
@@ -52,7 +53,13 @@ export const Account = () => {
   };
 
   const handleUpdateUserFinish = (formValues: IUser) => {
-    updateUser({ ...formValues, id: authUser?.id ?? 0 });
+    const updatedData = {
+      ...formValues,
+      id: authUser?.id ?? "",
+      avatarUrl: uploadImagePath,
+    };
+
+    updateUser(updatedData);
     handleCancelEdit();
     refetchAuthUser();
   };
@@ -80,7 +87,7 @@ export const Account = () => {
           <AccountMainInfoSkeleton />
         ) : (
           <div className={styles.accountMainInfoWrapper}>
-            <Avatar size={96} icon={<UserOutlined />} />
+            <Avatar size={96} src={authUser?.avatarUrl} />
 
             <div className={styles.accountMainInfoTextWrapper}>
               <Typography.Text className={styles.accountName}>

@@ -21,7 +21,7 @@ export interface IDeleteProjectRequest {
   id: number;
 }
 
-export type TGetProjectsByUserIdResponse = IProject[];
-export interface IGetProjectsByUserIdRequest {
-  id: number;
+export type TGetProjectsByAdminUserIdResponse = IProject[];
+export interface IGetProjectsByAdminUserIdRequest {
+  adminUserId: string;
 }

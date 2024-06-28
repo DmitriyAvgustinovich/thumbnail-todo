@@ -6,6 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 
 import { authApi } from "./api/auth/auth-api";
+import { projectsApi } from "./api/projects/projects-api";
 import { tasksApi } from "./api/tasks/tasks-api";
 import { usersApi } from "./api/users/users-api";
 
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
   [tasksApi.reducerPath]: tasksApi.reducer,
   [usersApi.reducerPath]: usersApi.reducer,
+  [projectsApi.reducerPath]: projectsApi.reducer,
 });
 
 const setupStore = () => {
@@ -23,6 +25,7 @@ const setupStore = () => {
         authApi.middleware,
         tasksApi.middleware,
         usersApi.middleware,
+        projectsApi.middleware,
       ]),
   });
 };

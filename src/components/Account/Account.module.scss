@@ -1,8 +1,9 @@
 .accountWrapper {
-  width: 70vw;
   border-radius: 15px;
   box-shadow: var(--box-shadow);
   padding: 20px;
+  height: 78vh;
+  overflow-y: scroll;
 }
 
 .accountTitle {
@@ -10,7 +11,7 @@
 }
 
 .accountMainInfoWrapper {
-  margin-top: 40px;
+  margin-top: 20px;
   display: flex;
   align-items: center;
   gap: 15px;

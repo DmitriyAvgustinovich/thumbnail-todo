@@ -14,10 +14,12 @@ import { AdditionalActionsPopover } from "./AdditionalActionsPopover/AdditionalA
 import styles from "./Task.module.scss";
 import { TaskDrawer } from "./TaskDrawer/TaskDrawer";
 
-interface ITaskProps extends ITask {}
+interface ITaskProps {
+  taskData: ITask;
+}
 
 export const Task = (props: ITaskProps) => {
-  const { title, description, priority, status, deadline, createdAt } = props;
+  const { taskData } = props;
 
   const [isTaskDrawerOpen, setIsTaskDrawerOpen] = React.useState(false);
 
@@ -35,35 +37,41 @@ export const Task = (props: ITaskProps) => {
         <CircleIcon
           width={15}
           height={15}
-          color={getConditionTaskStatusColor(status)}
+          color={getConditionTaskStatusColor(taskData.status)}
           isFilled={false}
         />
 
         <div className={styles.taskMainInfoWrapper}>
           <Typography.Text className={styles.taskDeadline}>
-            Deadline: {getConvertDate(deadline)}
+            Deadline: {getConvertDate(taskData.deadline)}
           </Typography.Text>
-          
+
           <Typography.Text className={styles.taskTitle}>
-            {title}
+            {taskData.title}
           </Typography.Text>
 
           <Typography.Text className={styles.taskDescription}>
-            {description}
+            {taskData.description}
           </Typography.Text>
 
           <div className={styles.taskSecondInfoWrapper}>
             <Typography.Text className={styles.taskPriority}>
               Priority:{" "}
-              <b style={{ color: getConditionTaskPriorityColor(priority) }}>
-                {priority}
+              <b
+                style={{
+                  color: getConditionTaskPriorityColor(taskData.priority),
+                }}
+              >
+                {taskData.priority}
               </b>
             </Typography.Text>
 
             <Typography.Text className={styles.taskStatus}>
               Status:{" "}
-              <b style={{ color: getConditionTaskStatusColor(status) }}>
-                {status}
+              <b
+                style={{ color: getConditionTaskStatusColor(taskData.status) }}
+              >
+                {taskData.status}
               </b>
             </Typography.Text>
 
@@ -78,11 +86,11 @@ export const Task = (props: ITaskProps) => {
         </div>
 
         <div className={styles.taskAdditionalInfoWrapper}>
-          <AdditionalActionsPopover {...props} />
-          <img className={styles.taskImage} src={props.image} alt="" />
+          <AdditionalActionsPopover taskData={taskData} />
+          <img className={styles.taskImage} src={taskData.image} alt="" />
 
           <Typography.Text className={styles.taskCreatedAt}>
-            Created at: {createdAt}
+            Created at: {taskData.createdAt}
           </Typography.Text>
         </div>
       </div>
@@ -90,7 +98,7 @@ export const Task = (props: ITaskProps) => {
       <TaskDrawer
         isTaskDrawerOpen={isTaskDrawerOpen}
         handleCloseTaskDrawer={handleCloseTaskDrawer}
-        taskData={props}
+        taskData={taskData}
       />
     </>
   );
