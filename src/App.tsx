@@ -2,9 +2,8 @@ import { AppRouter } from "components/AppRouter/AppRouter";
 import { Navbar } from "components/Navbar/Navbar";
 import { NavbarSkeleton } from "components/Navbar/NavbarSkeleton/NavbarSkeleton";
 
-import { ImageUrlProvider } from "providers/ImageUrlProvider";
+import { AppProviders } from "providers/AppProviders";
 
-import { AntThemeConfig } from "configs/AntThemeConfig";
 import { RouterPath } from "configs/route-config";
 
 import { useNavigateSpecifiedPage } from "hooks/general/use-navigate-on-specified-page";
@@ -22,12 +21,10 @@ export const App = () => {
   });
 
   return (
-    <ImageUrlProvider>
-      <AntThemeConfig>
-        {isAuthUserLoading && !isAuthPage && <NavbarSkeleton />}
-        {isAuthUserInit && !isAuthPage && <Navbar />}
-        <AppRouter />
-      </AntThemeConfig>
-    </ImageUrlProvider>
+    <AppProviders>
+      {isAuthUserLoading && !isAuthPage && <NavbarSkeleton />}
+      {isAuthUserInit && !isAuthPage && <Navbar />}
+      <AppRouter />
+    </AppProviders>
   );
 };

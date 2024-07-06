@@ -5,7 +5,7 @@ export type TGetAllProjectsRequest = void;
 
 export type TGetProjectByIdResponse = IProject;
 export interface IGetProjectByIdRequest {
-  id: number;
+  id?: string;
 }
 
 export type TAddProjectResponse = IProject;
@@ -13,7 +13,7 @@ export type TAddProjectRequest = IProject;
 
 export type TUpdateProjectResponse = IProject;
 export interface IUpdateProjectRequest extends IProject {
-  id: number;
+  id: string;
 }
 
 export type TDeleteProjectResponse = void;

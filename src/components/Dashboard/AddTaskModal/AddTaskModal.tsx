@@ -4,10 +4,10 @@ import { Button, Form, Modal } from "antd";
 
 import { useAddTaskMutation } from "store/api/tasks/tasks-api";
 
-import { taskStatuses } from "constants/dashboard/task-statuses";
+import { taskStatuses } from "constants/task/task-statuses";
 
 import { useGetTaskFields } from "hooks/dashboard/use-get-task-fields";
-import { useGetImageUrl } from "hooks/general/use-get-image-url";
+import { useContexts } from "hooks/general/use-contexts";
 import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
 import { useGetAuthUser } from "hooks/user/use-get-auth-user";
 
@@ -19,14 +19,16 @@ import { ITask } from "types/ITask";
 import styles from "./AddTaskModal.module.scss";
 
 interface IAddTaskModalProps {
-  isAddNewTaskModalOpen: boolean;
-  handleCloseAddNewTaskModal: () => void;
+  isAddTaskModalOpen: boolean;
+  handleCloseAddTaskModal: () => void;
 }
 
 export const AddTaskModal = (props: IAddTaskModalProps) => {
-  const { isAddNewTaskModalOpen, handleCloseAddNewTaskModal } = props;
+  const { isAddTaskModalOpen, handleCloseAddTaskModal } = props;
 
-  const { uploadImagePath } = useGetImageUrl();
+  const {
+    imageUrlContext: { uploadImagePath },
+  } = useContexts();
 
   const { authUser } = useGetAuthUser();
   const { FormFields } = useGetTaskFields({ isEdit: false });
@@ -41,7 +43,7 @@ export const AddTaskModal = (props: IAddTaskModalProps) => {
     },
   ] = useAddTaskMutation();
 
-  const handleAddNewTaskFinish = (formValues: ITask) => {
+  const handleAddTaskFinish = (formValues: ITask) => {
     const addedData = {
       ...formValues,
       id: Date.now(),
@@ -52,10 +54,10 @@ export const AddTaskModal = (props: IAddTaskModalProps) => {
     };
 
     addTask(addedData);
-    setTimeout(() => handleCloseAddNewTaskModal(), 1500);
+    setTimeout(() => handleCloseAddTaskModal(), 1000);
   };
 
-  const handleAddNewTaskFinishFailed = (error: ValidateErrorEntity) => {
+  const handleAddTaskFinishFailed = (error: ValidateErrorEntity) => {
     getValidateMessage(error);
   };
 
@@ -70,15 +72,15 @@ export const AddTaskModal = (props: IAddTaskModalProps) => {
   return (
     <Modal
       title="Add New Task"
-      open={isAddNewTaskModalOpen}
-      onCancel={handleCloseAddNewTaskModal}
+      open={isAddTaskModalOpen}
+      onCancel={handleCloseAddTaskModal}
       footer={null}
     >
       <Form
         className={styles.addTaskFormWrapper}
         layout="vertical"
-        onFinish={handleAddNewTaskFinish}
-        onFinishFailed={handleAddNewTaskFinishFailed}
+        onFinish={handleAddTaskFinish}
+        onFinishFailed={handleAddTaskFinishFailed}
       >
         {FormFields}
 

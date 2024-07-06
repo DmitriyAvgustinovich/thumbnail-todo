@@ -8,9 +8,21 @@
   font: var(--font-xl)
 }
 
+.noProjectsYetText {
+  display: block;
+  margin-top: 20px;
+  font: var(--font-l);
+}
+
 .projectsListWrapper {
   margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+}
+
+.projectsPaginationWrapper {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
 }

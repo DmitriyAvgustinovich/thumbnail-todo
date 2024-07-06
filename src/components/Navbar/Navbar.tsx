@@ -38,7 +38,11 @@ export const Navbar = () => {
           </>
         );
       default:
-        return <></>;
+        return (
+          <>
+            <span className={styles.navbarTitleColorPiece}>Thumbnail</span>Todo
+          </>
+        );
     }
   };
 
@@ -48,7 +52,7 @@ export const Navbar = () => {
 
       <Input.Search
         className={styles.navbarSearchInput}
-        placeholder="Search your task here..."
+        placeholder="Search..."
         enterButton
       />
 

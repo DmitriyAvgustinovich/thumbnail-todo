@@ -9,7 +9,7 @@ import { useSignUpMutation, useSignInMutation } from "store/api/auth/auth-api";
 import { RouterPath } from "configs/route-config";
 
 import { useGetAuthFields } from "hooks/auth/use-get-auth-fields";
-import { useGetImageUrl } from "hooks/general/use-get-image-url";
+import { useContexts } from "hooks/general/use-contexts";
 import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
 import { useNavigateSpecifiedPage } from "hooks/general/use-navigate-on-specified-page";
 
@@ -26,7 +26,10 @@ import styles from "./Auth.module.scss";
 export const Auth = () => {
   const [isHaveAnAccount, setIsHaveAnAccount] = React.useState(false);
 
-  const { uploadImagePath } = useGetImageUrl();
+  const {
+    imageUrlContext: { uploadImagePath },
+  } = useContexts();
+
   const { RegisterFields, LoginFields } = useGetAuthFields({
     isEdit: true,
   });

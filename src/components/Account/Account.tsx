@@ -2,6 +2,7 @@ import React from "react";
 
 import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 
+import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Button, Form, Typography } from "antd";
 
 import { PageLayout } from "components/PageLayout/PageLayout";
@@ -9,7 +10,7 @@ import { PageLayout } from "components/PageLayout/PageLayout";
 import { useUpdateUserMutation } from "store/api/users/users-api";
 
 import { useGetAuthFields } from "hooks/auth/use-get-auth-fields";
-import { useGetImageUrl } from "hooks/general/use-get-image-url";
+import { useContexts } from "hooks/general/use-contexts";
 import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
 import { useGetAuthUser } from "hooks/user/use-get-auth-user";
 
@@ -21,12 +22,14 @@ import styles from "./Account.module.scss";
 import {
   AccountFieldsSkeleton,
   AccountMainInfoSkeleton,
-} from "./AccountSkeleton";
+} from "./AccountSkeleton/AccountSkeleton";
 
 export const Account = () => {
   const [isEdit, setIsEdit] = React.useState(false);
 
-  const { uploadImagePath } = useGetImageUrl();
+  const {
+    imageUrlContext: { uploadImagePath },
+  } = useContexts();
 
   const { authUser, isAuthUserLoading, refetchAuthUser } = useGetAuthUser();
   const { RegisterFields } = useGetAuthFields({
@@ -87,7 +90,11 @@ export const Account = () => {
           <AccountMainInfoSkeleton />
         ) : (
           <div className={styles.accountMainInfoWrapper}>
-            <Avatar size={96} src={authUser?.avatarUrl} />
+            {authUser?.avatarUrl ? (
+              <Avatar size={96} src={authUser?.avatarUrl} />
+            ) : (
+              <Avatar size={96} icon={<UserOutlined />} />
+            )}
 
             <div className={styles.accountMainInfoTextWrapper}>
               <Typography.Text className={styles.accountName}>
@@ -111,7 +118,7 @@ export const Account = () => {
 
           {isEdit && (
             <Button
-              className={styles.saveEditButton}
+              className={styles.saveEditMainInfoButton}
               htmlType="submit"
               type="primary"
               loading={isUpdateUserLoading}

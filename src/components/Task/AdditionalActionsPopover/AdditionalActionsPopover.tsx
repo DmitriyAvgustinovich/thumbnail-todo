@@ -15,7 +15,7 @@ import {
 } from "store/api/tasks/tasks-api";
 
 import { useGetTaskFields } from "hooks/dashboard/use-get-task-fields";
-import { useGetImageUrl } from "hooks/general/use-get-image-url";
+import { useContexts } from "hooks/general/use-contexts";
 import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
 
 import { getValidateMessage } from "utils/auth/get-validate-message";
@@ -35,7 +35,10 @@ export const AdditionalActionsPopover = (
 
   const [isEditTaskModalOpen, setIsEditTaskModalOpen] = React.useState(false);
 
-  const { uploadImagePath } = useGetImageUrl();
+  const {
+    imageUrlContext: { uploadImagePath },
+  } = useContexts();
+
   const { FormFields } = useGetTaskFields({
     formValues: taskData,
     isEdit: true,
@@ -69,10 +72,10 @@ export const AdditionalActionsPopover = (
     };
 
     updateTask(updatedData);
-    setTimeout(() => handleCloseEditTaskModal(), 1500);
+    setTimeout(() => handleCloseEditTaskModal(), 1000);
   };
 
-  const handleAddNewTaskFinishFailed = (error: ValidateErrorEntity) => {
+  const handleAddTaskFinishFailed = (error: ValidateErrorEntity) => {
     getValidateMessage(error);
   };
 
@@ -146,7 +149,7 @@ export const AdditionalActionsPopover = (
           className={styles.editTaskModalForm}
           layout="vertical"
           onFinish={handleUpdateTaskFinish}
-          onFinishFailed={handleAddNewTaskFinishFailed}
+          onFinishFailed={handleAddTaskFinishFailed}
         >
           {FormFields}
 

@@ -1,8 +1,11 @@
-import { Form, Input } from "antd";
+import { Form, Input, Radio } from "antd";
 
 import { UploadButton } from "components/UploadButton/UploadButton";
 
-import { RouterPath } from "configs/route-config";
+import {
+  useGetProjectsByAdminUserIdQuery,
+  useUpdateProjectMutation,
+} from "store/api/projects/projects-api";
 
 import { DEFAULT_VALIDATE_MESSAGE } from "constants/general";
 import {
@@ -10,6 +13,9 @@ import {
   projectFieldsPlaceholders,
   projectFieldsTitles,
 } from "constants/project/project-list-fields";
+import { projectVisibilities } from "constants/project/project-visibilities";
+
+import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
 
 import { IProject } from "types/IProject";
 
@@ -22,20 +28,59 @@ export const useGetProjectFields = (args: IUseGetProjectFieldsArgs) => {
   const { formValues, isEdit } = args;
 
   const location = window.location.pathname;
-  const isAccountPage = location === RouterPath.account;
+  const isProjectBoardPage = /^\/projects\/\d+$/.test(location);
 
-  const registerFieldsArray = [
+  const { refetch: refetchMyProject } = useGetProjectsByAdminUserIdQuery({
+    adminUserId: formValues?.adminUserId ?? "",
+  });
+
+  const [
+    updateProject,
     {
-      label: projectFieldsTitles.image,
-      name: projectFieldsDataIndexes.image,
-      node: <UploadButton disabled={!isEdit} />,
+      isSuccess: isUpdateProjectSuccess,
+      isLoading: isUpdateProjectLoading,
+      status: updateProjectStatus,
+      error: updateProjectError,
+    },
+  ] = useUpdateProjectMutation();
+
+  const clearExistedImageUrlCallback = () => {
+    const updatedData = {
+      ...(formValues as IProject),
+      id: formValues?.id ?? "",
+      cover: "",
+    };
+
+    updateProject(updatedData);
+    refetchMyProject();
+  };
+
+  useGetQueryMessages({
+    isSuccess: isUpdateProjectSuccess,
+    isLoading: isUpdateProjectLoading,
+    status: updateProjectStatus,
+    error: updateProjectError,
+    successMessage: "Cover successfully cleared.",
+  });
+
+  const projectFieldsArray = [
+    {
+      label: projectFieldsTitles.cover,
+      name: projectFieldsDataIndexes.cover,
+      node: (
+        <UploadButton
+          disabled={!isEdit}
+          existedImage={formValues?.cover}
+          clearExistedImageUrlCallback={clearExistedImageUrlCallback}
+        />
+      ),
     },
     {
       label: projectFieldsTitles.title,
       name: projectFieldsDataIndexes.title,
       rules: [
         {
-          required: !isAccountPage,
+          required: !isProjectBoardPage,
           message: `${DEFAULT_VALIDATE_MESSAGE} title`,
         },
       ],
@@ -52,7 +97,7 @@ export const useGetProjectFields = (args: IUseGetProjectFieldsArgs) => {
       name: projectFieldsDataIndexes.description,
       rules: [
         {
-          required: !isAccountPage,
+          required: !isProjectBoardPage,
           message: `${DEFAULT_VALIDATE_MESSAGE} description`,
         },
       ],
@@ -64,9 +109,30 @@ export const useGetProjectFields = (args: IUseGetProjectFieldsArgs) => {
         />
       ),
     },
+    {
+      label: projectFieldsTitles.visibility,
+      name: projectFieldsDataIndexes.visibility,
+      rules: [
+        {
+          required: !isProjectBoardPage,
+          message: `${DEFAULT_VALIDATE_MESSAGE} visibility`,
+        },
+      ],
+      node: (
+        <Radio.Group defaultValue={formValues?.visibility}>
+          <Radio value={projectVisibilities.private}>
+            {projectVisibilities.private}
+          </Radio>
+
+          <Radio value={projectVisibilities.public}>
+            {projectVisibilities.public}
+          </Radio>
+        </Radio.Group>
+      ),
+    },
   ];
 
-  const FormFields = registerFieldsArray.map((field) => (
+  const FormFields = projectFieldsArray.map((field) => (
     <Form.Item {...field} key={field.name}>
       {field.node}
     </Form.Item>

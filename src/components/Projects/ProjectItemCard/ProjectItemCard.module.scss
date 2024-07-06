@@ -1,0 +1,25 @@
+.projectItemCardWrapper {
+  min-width: 345px;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: var(--box-shadow);
+  background-color: var(--primary-bg-color);
+}
+
+.projectItemCardImage {
+  width: 100%;
+  border-radius: 15px;
+  margin-bottom: 10px;
+}
+
+.projectItemCardTitle {
+  font: var(--font-l);
+  color: var(--secondary-bg-color);
+}
+
+.projectItemCardDescription {
+  display: block;
+  margin-top: 10px;
+  font: var(--font-m);
+  color: var(--gray-text-color);
+}

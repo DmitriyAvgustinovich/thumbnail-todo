@@ -5,14 +5,14 @@ import { UploadListType, UploadProps } from "antd/es/upload/interface";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Upload, message } from "antd";
 
-import { useGetImageUrl } from "hooks/general/use-get-image-url";
+import { useContexts } from "hooks/general/use-contexts";
 
 import styles from "./UploadButton.module.scss";
 
 interface IUploadButtonProps {
   disabled: boolean;
   existedImage?: string;
-  clearExistedImageUrlCallback: () => void;
+  clearExistedImageUrlCallback?: () => void;
 }
 
 export const UploadButton = (props: IUploadButtonProps) => {
@@ -20,7 +20,9 @@ export const UploadButton = (props: IUploadButtonProps) => {
 
   const [isLoading, setIsLoading] = React.useState(false);
 
-  const { newImageUrl, setNewImageUrl, setUploadImagePath } = useGetImageUrl();
+  const {
+    imageUrlContext: { newImageUrl, setNewImageUrl, setUploadImagePath },
+  } = useContexts();
 
   const handleClearNewImageUrl = (event: React.SyntheticEvent) => {
     event.stopPropagation();
@@ -30,7 +32,10 @@ export const UploadButton = (props: IUploadButtonProps) => {
 
   const handleClearUploadImagePath = (event: React.SyntheticEvent) => {
     event.stopPropagation();
-    clearExistedImageUrlCallback();
+
+    if (clearExistedImageUrlCallback) {
+      clearExistedImageUrlCallback();
+    }
   };
 
   const getBase64 = (img: Blob, callback: (url: string) => void) => {

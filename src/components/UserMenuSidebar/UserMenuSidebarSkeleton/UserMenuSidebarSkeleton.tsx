@@ -9,8 +9,8 @@ export const UserMenuSidebarSkeleton = () => (
       width={200}
       height={150}
       viewBox="0 0 200 150"
-      backgroundColor="#f3f3f3"
-      foregroundColor="#ecebeb"
+      backgroundColor="var(--skeleton-color)"
+      foregroundColor="var(--animated-skeleton-color)"
     >
       <circle cx="42" cy="64" r="32" />
       <rect x="10" y="110" rx="3" ry="3" width="180" height="16" />

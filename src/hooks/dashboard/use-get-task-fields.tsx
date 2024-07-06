@@ -3,14 +3,14 @@ import dayjs from "dayjs";
 
 import { UploadButton } from "components/UploadButton/UploadButton";
 
+import { DEFAULT_VALIDATE_MESSAGE } from "constants/general";
 import {
   taskFieldsDataIndexes,
   taskFieldsTitles,
   taskFieldsPlaceholders,
-} from "constants/dashboard/task-list-fields";
-import { taskPriorities } from "constants/dashboard/task-priorities";
-import { taskStatuses } from "constants/dashboard/task-statuses";
-import { DEFAULT_VALIDATE_MESSAGE } from "constants/general";
+} from "constants/task/task-list-fields";
+import { taskPriorities } from "constants/task/task-priorities";
+import { taskStatuses } from "constants/task/task-statuses";
 
 import { ITask } from "types/ITask";
 

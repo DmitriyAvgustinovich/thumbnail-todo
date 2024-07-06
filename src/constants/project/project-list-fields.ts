@@ -1,17 +1,19 @@
 export const projectFieldsTitles = {
   title: "Title",
   description: "Description",
-  image: "Image",
+  cover: "Cover",
+  visibility: "Visibility",
 };
 
 export const projectFieldsDataIndexes = {
   title: "title",
   description: "description",
-  image: "image",
+  cover: "cover",
+  visibility: "visibility",
 };
 
 export const projectFieldsPlaceholders = {
   title: "Enter your project title...",
   description: "Enter your project description...",
-  image: "Enter your project image...",
+  visibility: "Enter your project visibility...",
 };

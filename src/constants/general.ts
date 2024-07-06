@@ -1,3 +1,5 @@
+export const PROJECTS_PAGE_SIZE = 3;
+
 export const DEFAULT_VALIDATE_MESSAGE = "Please enter";
 export const AND_VALIDATE_MESSAGE = "and";
 

@@ -5,7 +5,7 @@ import { Task } from "components/Task/Task";
 
 import { useGetTasksByUserIdQuery } from "store/api/tasks/tasks-api";
 
-import { taskStatuses } from "constants/dashboard/task-statuses";
+import { taskStatuses } from "constants/task/task-statuses";
 
 import { useGetAuthUser } from "hooks/user/use-get-auth-user";
 

@@ -1,9 +1,10 @@
 export interface IProject {
-  id: number;
+  id: string;
   title: string;
   description: string;
-  image: string;
+  cover: string;
   createdAt: string;
   updatedAt: string;
   adminUserId?: string;
+  visibility: string;
 }

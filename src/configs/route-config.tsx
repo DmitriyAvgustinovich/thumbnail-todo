@@ -4,6 +4,7 @@ import { AccountPage } from "pages/AccountPage";
 import { AuthPage } from "pages/AuthPage";
 import { DashboardPage } from "pages/DashboardPage";
 import { NotAuthorizedPage } from "pages/NotAuthorizedPage";
+import { ProjectBoardPage } from "pages/ProjectBoardPage";
 import { ProjectsPage } from "pages/ProjectsPage";
 import { VitalTaskPage } from "pages/VitalTaskPage";
 
@@ -21,6 +22,7 @@ export enum AppRoutes {
   VITAL_TASK = "vital_task",
   ACCOUNT = "account",
   PROJECTS = "projects",
+  PROJECT_BOARD = "project_board",
 }
 
 export const RouterPath: Record<AppRoutes, string> = {
@@ -30,6 +32,7 @@ export const RouterPath: Record<AppRoutes, string> = {
   [AppRoutes.VITAL_TASK]: "/vital_task",
   [AppRoutes.ACCOUNT]: "/account",
   [AppRoutes.PROJECTS]: "/projects",
+  [AppRoutes.PROJECT_BOARD]: "/projects/:id",
 };
 
 export const routeConfig: Record<AppRoutes, TAppRouteProps> = {
@@ -82,6 +85,15 @@ export const routeConfig: Record<AppRoutes, TAppRouteProps> = {
     element: (
       <LazyLoadChunk>
         <ProjectsPage />
+      </LazyLoadChunk>
+    ),
+  },
+  [AppRoutes.PROJECT_BOARD]: {
+    path: RouterPath.project_board,
+    authOnly: true,
+    element: (
+      <LazyLoadChunk>
+        <ProjectBoardPage />
       </LazyLoadChunk>
     ),
   },

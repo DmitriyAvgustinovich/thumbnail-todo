@@ -4,7 +4,9 @@ import { Button, Form, Modal } from "antd";
 
 import { useAddProjectMutation } from "store/api/projects/projects-api";
 
-import { useGetImageUrl } from "hooks/general/use-get-image-url";
+import { projectVisibilities } from "constants/project/project-visibilities";
+
+import { useContexts } from "hooks/general/use-contexts";
 import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
 import { useGetProjectFields } from "hooks/projects/use-get-project-fields";
 import { useGetAuthUser } from "hooks/user/use-get-auth-user";
@@ -22,7 +24,9 @@ interface IAddProjectModalProps {
 export const AddProjectModal = (props: IAddProjectModalProps) => {
   const { isAddProjectModalOpen, handleCloseAddProjectModal } = props;
 
-  const { uploadImagePath } = useGetImageUrl();
+  const {
+    imageUrlContext: { uploadImagePath },
+  } = useContexts();
 
   const { authUser } = useGetAuthUser();
   const { FormFields } = useGetProjectFields({ isEdit: true });
@@ -40,15 +44,16 @@ export const AddProjectModal = (props: IAddProjectModalProps) => {
   const handleAddProjectFinish = (formValues: IProject) => {
     const addedData = {
       ...formValues,
-      id: Date.now(),
+      id: `${Date.now()}`,
       adminUserId: authUser?.id,
       createdAt: getCurrentDate(),
       updatedAt: getCurrentDate(),
-      image: uploadImagePath,
+      cover: uploadImagePath,
+      visibility: projectVisibilities.public,
     };
 
     addProject(addedData);
-    setTimeout(() => handleCloseAddProjectModal(), 1500);
+    setTimeout(() => handleCloseAddProjectModal(), 1000);
   };
 
   const handleAddProjectFinishFailed = (error: ValidateErrorEntity) => {

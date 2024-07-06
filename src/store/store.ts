@@ -6,6 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 
 import { authApi } from "./api/auth/auth-api";
+import { columnsApi } from "./api/columns/columns-api";
 import { projectsApi } from "./api/projects/projects-api";
 import { tasksApi } from "./api/tasks/tasks-api";
 import { usersApi } from "./api/users/users-api";
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   [tasksApi.reducerPath]: tasksApi.reducer,
   [usersApi.reducerPath]: usersApi.reducer,
   [projectsApi.reducerPath]: projectsApi.reducer,
+  [columnsApi.reducerPath]: columnsApi.reducer,
 });
 
 const setupStore = () => {
@@ -26,6 +28,7 @@ const setupStore = () => {
         tasksApi.middleware,
         usersApi.middleware,
         projectsApi.middleware,
+        columnsApi.middleware,
       ]),
   });
 };

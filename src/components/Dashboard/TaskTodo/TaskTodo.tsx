@@ -7,7 +7,7 @@ import { Task } from "components/Task/Task";
 
 import { useGetTasksByUserIdQuery } from "store/api/tasks/tasks-api";
 
-import { taskStatuses } from "constants/dashboard/task-statuses";
+import { taskStatuses } from "constants/task/task-statuses";
 
 import { useGetAuthUser } from "hooks/user/use-get-auth-user";
 
@@ -15,7 +15,7 @@ import styles from "./TaskTodo.module.scss";
 import { AddTaskModal } from "../AddTaskModal/AddTaskModal";
 
 export const TaskTodo = () => {
-  const [isAddNewTaskModalOpen, setIsAddNewTaskModalOpen] =
+  const [isAddTaskModalOpen, setIsAddTaskModalOpen] =
     React.useState(false);
 
   const { authUser } = useGetAuthUser();
@@ -24,12 +24,12 @@ export const TaskTodo = () => {
     userId: authUser?.id ?? "",
   });
 
-  const handleOpenAddNewTaskModal = () => {
-    setIsAddNewTaskModalOpen(true);
+  const handleOpenAddTaskModal = () => {
+    setIsAddTaskModalOpen(true);
   };
 
-  const handleCloseAddNewTaskModal = () => {
-    setIsAddNewTaskModalOpen(false);
+  const handleCloseAddTaskModal = () => {
+    setIsAddTaskModalOpen(false);
   };
 
   const tasksDataWithoutCompletedStatus = myTasksData?.filter(
@@ -47,7 +47,7 @@ export const TaskTodo = () => {
 
           <div
             className={styles.taskTodoAddTaskTextWrapper}
-            onClick={handleOpenAddNewTaskModal}
+            onClick={handleOpenAddTaskModal}
           >
             <PlusOutlined className={styles.taskTodoAddTaskIcon} />
             Add task
@@ -67,8 +67,8 @@ export const TaskTodo = () => {
       </div>
 
       <AddTaskModal
-        isAddNewTaskModalOpen={isAddNewTaskModalOpen}
-        handleCloseAddNewTaskModal={handleCloseAddNewTaskModal}
+        isAddTaskModalOpen={isAddTaskModalOpen}
+        handleCloseAddTaskModal={handleCloseAddTaskModal}
       />
     </>
   );

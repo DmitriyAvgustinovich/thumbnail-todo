@@ -1,4 +1,4 @@
-import { taskPriorities } from "constants/dashboard/task-priorities";
+import { taskPriorities } from "constants/task/task-priorities";
 
 export const getConditionTaskPriorityColor = (priority: string) => {
   switch (priority) {

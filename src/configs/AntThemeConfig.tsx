@@ -24,6 +24,14 @@ export const AntThemeConfig = (props: IAntConfigProps) => {
             algorithm: true,
             colorPrimary: "#ff6667",
           },
+          Select: {
+            algorithm: true,
+            colorPrimary: "#ff6667",
+          },
+          Checkbox: {
+            algorithm: true,
+            colorPrimary: "#ff6667",
+          },
           DatePicker: {
             algorithm: true,
             colorPrimary: "#ff6667",
@@ -32,6 +40,14 @@ export const AntThemeConfig = (props: IAntConfigProps) => {
             algorithm: true,
             colorPrimary: "#ff6667",
           },
+          Pagination: {
+            algorithm: true,
+            colorPrimary: "#ff6667",
+          },
+          Upload: {
+            algorithm: true,
+            colorPrimary: "#ff6667",
+          }
         },
       }}
     >

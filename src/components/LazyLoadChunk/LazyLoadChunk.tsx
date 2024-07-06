@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Spinner } from "components/Spinner/Spinner";
+import { Spin } from "antd";
 
 interface ILazyLoadChunkProps {
   children: React.ReactNode;
@@ -9,5 +9,5 @@ interface ILazyLoadChunkProps {
 export const LazyLoadChunk = (props: ILazyLoadChunkProps) => {
   const { children } = props;
 
-  return <React.Suspense fallback={<Spinner />}>{children}</React.Suspense>;
+  return <React.Suspense fallback={<Spin />}>{children}</React.Suspense>;
 };

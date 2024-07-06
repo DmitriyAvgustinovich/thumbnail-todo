@@ -1,4 +1,4 @@
-import { taskStatuses } from "constants/dashboard/task-statuses";
+import { taskStatuses } from "constants/task/task-statuses";
 
 export const getConditionTaskStatusColor = (status: string) => {
   switch (status) {
