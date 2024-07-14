@@ -1,7 +1,5 @@
 import React from "react";
 
-import { ValidateErrorEntity } from "rc-field-form/lib/interface";
-
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Button, Form, Typography } from "antd";
 
@@ -11,10 +9,8 @@ import { useUpdateUserMutation } from "store/api/users/users-api";
 
 import { useGetAuthFields } from "hooks/auth/use-get-auth-fields";
 import { useContexts } from "hooks/general/use-contexts";
-import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
+import { useFormsUpdateQuery } from "hooks/general/use-forms-update-query";
 import { useGetAuthUser } from "hooks/user/use-get-auth-user";
-
-import { getValidateMessage } from "utils/auth/get-validate-message";
 
 import { IUser } from "types/IUser";
 
@@ -31,22 +27,6 @@ export const Account = () => {
     imageUrlContext: { uploadImagePath },
   } = useContexts();
 
-  const { authUser, isAuthUserLoading, refetchAuthUser } = useGetAuthUser();
-  const { RegisterFields } = useGetAuthFields({
-    formValues: authUser,
-    isEdit,
-  });
-
-  const [
-    updateUser,
-    {
-      isSuccess: isUpdateUserSuccess,
-      isLoading: isUpdateUserLoading,
-      status: updateUserStatus,
-      error: updateUserError,
-    },
-  ] = useUpdateUserMutation();
-
   const handleEdit = () => {
     setIsEdit(true);
   };
@@ -55,28 +35,29 @@ export const Account = () => {
     setIsEdit(false);
   };
 
-  const handleUpdateUserFinish = (formValues: IUser) => {
-    const updatedData = {
-      ...formValues,
-      id: authUser?.id ?? "",
-      avatarUrl: uploadImagePath,
-    };
+  const { authUser, isAuthUserLoading, refetchAuthUser } = useGetAuthUser();
 
-    updateUser(updatedData);
-    handleCancelEdit();
-    refetchAuthUser();
-  };
+  const { RegisterFields } = useGetAuthFields({
+    formValues: authUser,
+    handleCancelEdit,
+    isEdit,
+  });
 
-  const handleUpdateUserFinishFailed = (error: ValidateErrorEntity) => {
-    getValidateMessage(error);
-  };
-
-  useGetQueryMessages({
-    isSuccess: isUpdateUserSuccess,
-    isLoading: isUpdateUserLoading,
-    status: updateUserStatus,
-    error: updateUserError,
-    successMessage: "User updated successfully",
+  const {
+    handleUpdateEntityFinish,
+    handleMutationEntityFinishFailed,
+    isUpdateEntityLoading,
+  } = useFormsUpdateQuery<IUser, IUser>({
+    useUpdateQueryMutation: useUpdateUserMutation,
+    successMutationMessage: "User updated successfully",
+    entityData: authUser,
+    additionalParams: {
+      fields: {
+        avatarUrl: uploadImagePath,
+      },
+      refetchData: refetchAuthUser,
+      closeEdit: handleCancelEdit,
+    },
   });
 
   return (
@@ -111,8 +92,8 @@ export const Account = () => {
         <Form
           className={styles.accountListFieldsWrapper}
           layout="vertical"
-          onFinish={handleUpdateUserFinish}
-          onFinishFailed={handleUpdateUserFinishFailed}
+          onFinish={handleUpdateEntityFinish}
+          onFinishFailed={handleMutationEntityFinishFailed}
         >
           {isAuthUserLoading ? <AccountFieldsSkeleton /> : RegisterFields}
 
@@ -121,7 +102,7 @@ export const Account = () => {
               className={styles.saveEditMainInfoButton}
               htmlType="submit"
               type="primary"
-              loading={isUpdateUserLoading}
+              loading={isUpdateEntityLoading}
             >
               Save
             </Button>
@@ -135,7 +116,7 @@ export const Account = () => {
             <Button
               type="primary"
               onClick={handleEdit}
-              loading={isUpdateUserLoading}
+              loading={isUpdateEntityLoading}
             >
               Update Info
             </Button>

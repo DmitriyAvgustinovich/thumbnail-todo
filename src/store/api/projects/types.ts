@@ -18,7 +18,7 @@ export interface IUpdateProjectRequest extends IProject {
 
 export type TDeleteProjectResponse = void;
 export interface IDeleteProjectRequest {
-  id: number;
+  id: string;
 }
 
 export type TGetProjectsByAdminUserIdResponse = IProject[];

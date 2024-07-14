@@ -1,58 +1,17 @@
 import React from "react";
 
-import { ValidateErrorEntity } from "rc-field-form/lib/interface";
-
-import { Button, Form, Typography } from "antd";
-
-import { useSignUpMutation, useSignInMutation } from "store/api/auth/auth-api";
-
-import { RouterPath } from "configs/route-config";
-
-import { useGetAuthFields } from "hooks/auth/use-get-auth-fields";
-import { useContexts } from "hooks/general/use-contexts";
-import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
-import { useNavigateSpecifiedPage } from "hooks/general/use-navigate-on-specified-page";
-
-import { getValidateMessage } from "utils/auth/get-validate-message";
-
-import { IUser } from "types/IUser";
+import { Button, Typography } from "antd";
 
 import AuthBgScreenImage from "assets/auth/auth-bg-screen-image.png";
 import SignInAuthBgImage from "assets/auth/sign-in-bg-imag.png";
 import SignUpAuthBgImage from "assets/auth/sign-up-bg-image.png";
 
 import styles from "./Auth.module.scss";
+import { AuthLogin } from "./AuthLogin/AuthLogin";
+import { AuthRegister } from "./AuthRegister/AuthRegister";
 
 export const Auth = () => {
   const [isHaveAnAccount, setIsHaveAnAccount] = React.useState(false);
-
-  const {
-    imageUrlContext: { uploadImagePath },
-  } = useContexts();
-
-  const { RegisterFields, LoginFields } = useGetAuthFields({
-    isEdit: true,
-  });
-
-  const [
-    signUp,
-    {
-      isSuccess: isSignUpSuccess,
-      isLoading: isSignUpLoading,
-      status: signUpStatus,
-      error: signUpError,
-    },
-  ] = useSignUpMutation();
-
-  const [
-    signIn,
-    {
-      isSuccess: isSignInSuccess,
-      isLoading: isSignInLoading,
-      status: signInStatus,
-      error: signInError,
-    },
-  ] = useSignInMutation();
 
   const handleHaveAnAccount = () => {
     setIsHaveAnAccount(false);
@@ -62,47 +21,9 @@ export const Auth = () => {
     setIsHaveAnAccount(true);
   };
 
-  const handleRegisterFinish = (formValues: IUser) => {
-    const addedData = {
-      ...formValues,
-      avatarUrl: uploadImagePath,
-    };
-
-    signUp(addedData);
-  };
-
-  const handleRegisterFailed = (error: ValidateErrorEntity) => {
-    getValidateMessage(error);
-  };
-
-  useGetQueryMessages({
-    isSuccess: isSignUpSuccess,
-    isLoading: isSignUpLoading,
-    status: signUpStatus,
-    error: signUpError,
-    successMessage: "You have registered.",
-  });
-
-  const handleLoginFinish = (formValues: IUser) => {
-    signIn(formValues);
-  };
-
-  const handleLoginFailed = (error: ValidateErrorEntity) => {
-    getValidateMessage(error);
-  };
-
-  useGetQueryMessages({
-    isSuccess: isSignInSuccess,
-    isLoading: isSignInLoading,
-    status: signInStatus,
-    error: signInError,
-    successMessage: "You are logged in.",
-  });
-
-  useNavigateSpecifiedPage({
-    isQuerySuccess: isSignInSuccess || isSignUpSuccess,
-    pageString: RouterPath.dashboard,
-  });
+  const isHaveAnAccountText = isHaveAnAccount
+    ? "Already have an account?"
+    : "Don't have an account?";
 
   return (
     <>
@@ -133,48 +54,11 @@ export const Auth = () => {
               {isHaveAnAccount ? "Sign up" : "Sign in"}
             </Typography.Title>
 
-            {isHaveAnAccount ? (
-              <Form
-                layout="vertical"
-                onFinish={handleRegisterFinish}
-                onFinishFailed={handleRegisterFailed}
-              >
-                {RegisterFields}
-
-                <Button
-                  htmlType="submit"
-                  type="primary"
-                  size="large"
-                  loading={isSignUpLoading}
-                >
-                  Sign Up
-                </Button>
-              </Form>
-            ) : (
-              <Form
-                layout="vertical"
-                onFinish={handleLoginFinish}
-                onFinishFailed={handleLoginFailed}
-              >
-                {LoginFields}
-
-                <Button
-                  htmlType="submit"
-                  type="primary"
-                  size="large"
-                  loading={isSignInLoading}
-                >
-                  Sign In
-                </Button>
-              </Form>
-            )}
+            {isHaveAnAccount ? <AuthRegister /> : <AuthLogin />}
 
             <div className={styles.goToLoginWrapper}>
-              <Typography.Text>
-                {isHaveAnAccount
-                  ? "Already have an account?"
-                  : "Don't have an account?"}
-              </Typography.Text>{" "}
+              <Typography.Text>{isHaveAnAccountText}</Typography.Text>
+
               {isHaveAnAccount ? (
                 <Button
                   className={styles.goToLoginButton}

@@ -1,0 +1,21 @@
+.taskDescriptionIconWrapper {
+  margin: 20px 0 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.taskDescriptionIcon {
+  font: var(--font-l);
+}
+
+.taskDescriptionIconText {
+  font: var(--font-m);
+}
+
+.taskDescriptionText {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--primary-bg-color);
+  font: var(--font-m);
+}

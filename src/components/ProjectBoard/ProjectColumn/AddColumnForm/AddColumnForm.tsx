@@ -1,13 +1,10 @@
-import { ValidateErrorEntity } from "rc-field-form/lib/interface";
-
 import { Button, Form } from "antd";
 
 import { useAddColumnMutation } from "store/api/columns/columns-api";
 
 import { useGetColumnFields } from "hooks/columns/use-get-column-fields";
 import { useContexts } from "hooks/general/use-contexts";
-
-import { getValidateMessage } from "utils/auth/get-validate-message";
+import { useFormsAddQuery } from "hooks/general/use-forms-add-query";
 
 import { IColumn } from "types/IColumn";
 
@@ -21,42 +18,41 @@ export const AddColumnForm = (props: IAddColumnFormProps) => {
   const { projectId } = props;
 
   const {
-    addColumnFormContext: {
-      handleCloseAddColumnForm,
-      handleColumnHasBeenAdded,
-    },
+    entityFormContext: { handleCloseAddColumnForm },
   } = useContexts();
-
-  const [addColumn] = useAddColumnMutation();
 
   const { FormFields } = useGetColumnFields({ isEdit: false });
 
-  const handleAddColumnFinish = (formValues: IColumn) => {
-    const addedData = {
-      ...formValues,
-      projectId,
-    };
-
-    addColumn(addedData);
-    handleCloseAddColumnForm();
-    handleColumnHasBeenAdded();
-  };
-
-  const handleAddColumnFinishFailed = (error: ValidateErrorEntity) => {
-    getValidateMessage(error);
-  };
+  const {
+    handleAddEntityFinish,
+    handleMutationEntityFinishFailed,
+    isAddEntityLoading,
+  } = useFormsAddQuery<IColumn>({
+    useAddEntityMutation: useAddColumnMutation,
+    handleCloseAddForm: handleCloseAddColumnForm,
+    successMutationMessage: "Column added successfully",
+    additionalParams: {
+      fields: {
+        projectId,
+      },
+    },
+  });
 
   return (
     <div className={styles.addColumnFormWrapper}>
       <Form
         className={styles.addColumnForm}
         layout="vertical"
-        onFinish={handleAddColumnFinish}
-        onFinishFailed={handleAddColumnFinishFailed}
+        onFinish={handleAddEntityFinish}
+        onFinishFailed={handleMutationEntityFinishFailed}
       >
         {FormFields}
 
-        <Button type="primary" htmlType="submit">
+        <Button
+          type="primary"
+          htmlType="submit"
+          loading={isAddEntityLoading}
+        >
           Add List
         </Button>
 

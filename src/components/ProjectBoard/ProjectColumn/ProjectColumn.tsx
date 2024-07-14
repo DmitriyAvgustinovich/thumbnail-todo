@@ -1,18 +1,20 @@
 import React from "react";
 
-import {
-  DeleteOutlined,
-  EditOutlined,
-  EllipsisOutlined,
-} from "@ant-design/icons";
-import { Popconfirm, Popover, Typography } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import { Button, Spin, Typography } from "antd";
+
+import { AdditionalActionsPopoverContent } from "components/AdditionalActionsPopoverContent/AdditionalActionsPopoverContent";
 
 import { useDeleteColumnMutation } from "store/api/columns/columns-api";
+import { useGetTasksByColumnIdQuery } from "store/api/tasks/tasks-api";
 
-import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
+import { useContexts } from "hooks/general/use-contexts";
+import { useDeleteEntityQuery } from "hooks/general/use-delete-entity-query";
 
 import { IColumn } from "types/IColumn";
 
+import { AddTaskForm } from "./AddTaskForm/AddTaskForm";
+import { ColumnTask } from "./ColumnTask/ColumnTask";
 import { EditColumnModal } from "./EditColumnModal/EditColumnModal";
 import styles from "./ProjectColumn.module.scss";
 
@@ -23,24 +25,8 @@ interface IProjectColumnProps {
 export const ProjectColumn = (props: IProjectColumnProps) => {
   const { columnData } = props;
 
-  console.log(columnData)
-
   const [isEditColumnModalOpen, setIsEditColumnModalOpen] =
     React.useState(false);
-
-  const [
-    deleteColumn,
-    {
-      isSuccess: isDeleteColumnSuccess,
-      isLoading: isDeleteColumnLoading,
-      status: deleteColumnStatus,
-      error: deleteColumnError,
-    },
-  ] = useDeleteColumnMutation();
-
-  const handleDeleteColumn = () => {
-    deleteColumn({ id: columnData?.id });
-  };
 
   const handleOpenEditColumnModal = () => {
     setIsEditColumnModalOpen(true);
@@ -50,43 +36,20 @@ export const ProjectColumn = (props: IProjectColumnProps) => {
     setIsEditColumnModalOpen(false);
   };
 
-  useGetQueryMessages({
-    isSuccess: isDeleteColumnSuccess,
-    isLoading: isDeleteColumnLoading,
-    status: deleteColumnStatus,
-    error: deleteColumnError,
-    successMessage: "Column deleted successfully",
+  const {
+    entityFormContext: { isAddTaskFormVisible, handleOpenAddTaskForm },
+  } = useContexts();
+
+  const { data: columnTasksData, isLoading: isColumnTasksDataLoading } =
+    useGetTasksByColumnIdQuery({
+      columnId: columnData?.id ?? "",
+    });
+
+  const { handleDeleteEntityFinish } = useDeleteEntityQuery<IColumn>({
+    useDeleteQueryMutation: useDeleteColumnMutation,
+    entityData: columnData,
+    successMutationMessage: "Column deleted successfully",
   });
-
-  const popoverContent = (
-    <>
-      <div
-        className={styles.projectColumnAdditionalActionsWrapper}
-        onClick={handleOpenEditColumnModal}
-      >
-        <EditOutlined className={styles.projectColumnAdditionalActionsIcon} />
-        <Typography.Text className={styles.projectColumnAdditionalActionsText}>
-          Edit Column
-        </Typography.Text>
-      </div>
-
-      <Popconfirm
-        title="Are you sure you want to delete this column and tasks in it?"
-        onConfirm={handleDeleteColumn}
-      >
-        <div className={styles.projectColumnAdditionalActionsWrapper}>
-          <DeleteOutlined
-            className={styles.projectColumnAdditionalActionsIcon}
-          />
-          <Typography.Text
-            className={styles.projectColumnAdditionalActionsText}
-          >
-            Delete Column
-          </Typography.Text>
-        </div>
-      </Popconfirm>
-    </>
-  );
 
   return (
     <>
@@ -96,12 +59,38 @@ export const ProjectColumn = (props: IProjectColumnProps) => {
             {columnData?.title}
           </Typography.Text>
 
-          <Popover content={popoverContent} placement="leftTop">
-            <EllipsisOutlined className={styles.projectColumnHeaderIcon} />
-          </Popover>
+          <AdditionalActionsPopoverContent
+            confirmDeleteTitle="Are you sure you want to delete this column and tasks in it?"
+            handleDeleteAction={handleDeleteEntityFinish}
+            handleOpenEditModal={handleOpenEditColumnModal}
+            placement="bottomLeft"
+            isExistHiddenButton
+          />
         </div>
 
-        <div>add cart</div>
+        {isColumnTasksDataLoading ? (
+          <Spin className={styles.projectColumnSpinner} />
+        ) : (
+          columnTasksData?.map((task) => <ColumnTask taskData={task} />)
+        )}
+
+        {!isAddTaskFormVisible ? (
+          <Button
+            className={styles.addTaskButtonWrapper}
+            icon={<PlusOutlined />}
+            onClick={handleOpenAddTaskForm}
+            loading={isColumnTasksDataLoading}
+            type="primary"
+            block
+          >
+            Add task
+          </Button>
+        ) : (
+          <AddTaskForm
+            projectId={columnData?.projectId ?? ""}
+            columnId={columnData?.id ?? ""}
+          />
+        )}
       </div>
 
       <EditColumnModal

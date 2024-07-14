@@ -1,5 +1,3 @@
-import { ValidateErrorEntity } from "rc-field-form/lib/interface";
-
 import { Button, Form, Modal } from "antd";
 
 import { useAddProjectMutation } from "store/api/projects/projects-api";
@@ -7,11 +5,10 @@ import { useAddProjectMutation } from "store/api/projects/projects-api";
 import { projectVisibilities } from "constants/project/project-visibilities";
 
 import { useContexts } from "hooks/general/use-contexts";
-import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
+import { useFormsAddQuery } from "hooks/general/use-forms-add-query";
 import { useGetProjectFields } from "hooks/projects/use-get-project-fields";
 import { useGetAuthUser } from "hooks/user/use-get-auth-user";
 
-import { getValidateMessage } from "utils/auth/get-validate-message";
 import { getCurrentDate } from "utils/general/get-current-date";
 
 import { IProject } from "types/IProject";
@@ -31,41 +28,27 @@ export const AddProjectModal = (props: IAddProjectModalProps) => {
   const { authUser } = useGetAuthUser();
   const { FormFields } = useGetProjectFields({ isEdit: true });
 
-  const [
-    addProject,
-    {
-      isSuccess: isAddProjectSuccess,
-      isLoading: isAddProjectLoading,
-      status: isAddProjectStatus,
-      error: isAddProjectError,
-    },
-  ] = useAddProjectMutation();
-
-  const handleAddProjectFinish = (formValues: IProject) => {
-    const addedData = {
-      ...formValues,
-      id: `${Date.now()}`,
-      adminUserId: authUser?.id,
-      createdAt: getCurrentDate(),
-      updatedAt: getCurrentDate(),
-      cover: uploadImagePath,
-      visibility: projectVisibilities.public,
-    };
-
-    addProject(addedData);
+  const timeoutCloseAddProjectModal = () => {
     setTimeout(() => handleCloseAddProjectModal(), 1000);
   };
 
-  const handleAddProjectFinishFailed = (error: ValidateErrorEntity) => {
-    getValidateMessage(error);
-  };
-
-  useGetQueryMessages({
-    isSuccess: isAddProjectSuccess,
-    isLoading: isAddProjectLoading,
-    status: isAddProjectStatus,
-    error: isAddProjectError,
-    successMessage: "Project added successfully.",
+  const {
+    handleAddEntityFinish,
+    handleMutationEntityFinishFailed,
+    isAddEntityLoading,
+  } = useFormsAddQuery<IProject>({
+    useAddEntityMutation: useAddProjectMutation,
+    handleCloseAddForm: timeoutCloseAddProjectModal,
+    successMutationMessage: "Project added successfully",
+    additionalParams: {
+      fields: {
+        adminUserId: authUser?.id,
+        createdAt: getCurrentDate(),
+        updatedAt: getCurrentDate(),
+        cover: uploadImagePath,
+        visibility: projectVisibilities.public,
+      },
+    },
   });
 
   return (
@@ -77,12 +60,12 @@ export const AddProjectModal = (props: IAddProjectModalProps) => {
     >
       <Form
         layout="vertical"
-        onFinish={handleAddProjectFinish}
-        onFinishFailed={handleAddProjectFinishFailed}
+        onFinish={handleAddEntityFinish}
+        onFinishFailed={handleMutationEntityFinishFailed}
       >
         {FormFields}
 
-        <Button type="primary" htmlType="submit" loading={isAddProjectLoading}>
+        <Button type="primary" htmlType="submit" loading={isAddEntityLoading}>
           Done
         </Button>
       </Form>

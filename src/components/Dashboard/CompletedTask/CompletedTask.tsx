@@ -3,7 +3,7 @@ import { Empty } from "antd";
 
 import { Task } from "components/Task/Task";
 
-import { useGetTasksByUserIdQuery } from "store/api/tasks/tasks-api";
+import { useGetTasksByCreatedUserIdQuery } from "store/api/tasks/tasks-api";
 
 import { taskStatuses } from "constants/task/task-statuses";
 
@@ -14,7 +14,7 @@ import styles from "./CompletedTask.module.scss";
 export const CompletedTask = () => {
   const { authUser } = useGetAuthUser();
 
-  const { data: myTasksData } = useGetTasksByUserIdQuery({
+  const { data: myTasksData } = useGetTasksByCreatedUserIdQuery({
     userId: authUser?.id ?? "",
   });
 

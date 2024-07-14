@@ -7,12 +7,15 @@ import { Button, Upload, message } from "antd";
 
 import { useContexts } from "hooks/general/use-contexts";
 
+import { IProject } from "types/IProject";
+import { IUser } from "types/IUser";
+
 import styles from "./UploadButton.module.scss";
 
 interface IUploadButtonProps {
   disabled: boolean;
   existedImage?: string;
-  clearExistedImageUrlCallback?: () => void;
+  clearExistedImageUrlCallback?: (formValues?: IUser | IProject) => void;
 }
 
 export const UploadButton = (props: IUploadButtonProps) => {

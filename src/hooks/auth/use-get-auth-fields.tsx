@@ -13,51 +13,36 @@ import {
 } from "constants/auth/auth-list-fields";
 import { DEFAULT_VALIDATE_MESSAGE } from "constants/general";
 
-import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
+import { useFormsUpdateQuery } from "hooks/general/use-forms-update-query";
 import { useGetAuthUser } from "hooks/user/use-get-auth-user";
 
 import { IUser } from "types/IUser";
 
 interface IUseGetAuthFieldsArgs {
   formValues?: IUser;
+  handleCancelEdit?: () => void;
   isEdit?: boolean;
 }
 
 export const useGetAuthFields = (args: IUseGetAuthFieldsArgs) => {
-  const { formValues, isEdit } = args;
+  const { formValues, handleCancelEdit, isEdit } = args;
 
   const { authUser, refetchAuthUser } = useGetAuthUser();
 
   const location = window.location.pathname;
   const isAccountPage = location === RouterPath.account;
 
-  const [
-    updateUser,
-    {
-      isSuccess: isUpdateUserSuccess,
-      isLoading: isUpdateUserLoading,
-      status: updateUserStatus,
-      error: updateUserError,
+  const { handleUpdateEntityFinish } = useFormsUpdateQuery<IUser, IUser>({
+    useUpdateQueryMutation: useUpdateUserMutation,
+    entityData: authUser,
+    handleCloseUpdateForm: handleCancelEdit,
+    successMutationMessage: "Image successfully cleared",
+    additionalParams: {
+      refetchData: refetchAuthUser,
+      fields: {
+        avatarUrl: "",
+      },
     },
-  ] = useUpdateUserMutation();
-
-  const clearExistedImageUrlCallback = () => {
-    const updatedData = {
-      ...(formValues as IUser),
-      id: authUser?.id ?? "",
-      avatarUrl: "",
-    };
-
-    updateUser(updatedData);
-    refetchAuthUser();
-  };
-
-  useGetQueryMessages({
-    isSuccess: isUpdateUserSuccess,
-    isLoading: isUpdateUserLoading,
-    status: updateUserStatus,
-    error: updateUserError,
-    successMessage: "Image successfully cleared.",
   });
 
   const registerFieldsArray = [
@@ -68,7 +53,7 @@ export const useGetAuthFields = (args: IUseGetAuthFieldsArgs) => {
         <UploadButton
           disabled={!isEdit}
           existedImage={authUser?.avatarUrl}
-          clearExistedImageUrlCallback={clearExistedImageUrlCallback}
+          clearExistedImageUrlCallback={handleUpdateEntityFinish}
         />
       ),
     },

@@ -25,20 +25,6 @@
   font: var(--font-l);
 }
 
-.taskTodoAddTaskTextWrapper {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font: var(--font-l);
-  color: var(--gray-text-color);
-  cursor: pointer;
-}
-
-.taskTodoAddTaskIcon {
-  color: var(--secondary-text-color);
-  font: var(--font-l);
-}
-
 .taskTodoEmptyBlock {
   margin-top: 20vh;
 }

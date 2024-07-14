@@ -13,14 +13,23 @@ interface IUseGetQueryMessagesArgs {
   status: string;
   error: FetchBaseQueryError | SerializedError | undefined;
   successMessage: string;
+  actionOnSuccess?: () => void;
 }
 
 export const useGetQueryMessages = (args: IUseGetQueryMessagesArgs) => {
-  const { isSuccess, isLoading, status, error, successMessage } = args;
+  const {
+    isSuccess,
+    isLoading,
+    status,
+    error,
+    successMessage,
+    actionOnSuccess,
+  } = args;
 
   React.useEffect(() => {
     if (isSuccess && !isLoading && status === queryStatuses.fulfilled) {
       message.success(successMessage);
+      actionOnSuccess?.();
     }
 
     if (!isSuccess && !isLoading && status === queryStatuses.rejected) {

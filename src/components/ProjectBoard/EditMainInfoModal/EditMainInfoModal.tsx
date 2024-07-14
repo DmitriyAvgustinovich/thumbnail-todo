@@ -1,15 +1,10 @@
-import { ValidateErrorEntity } from "rc-field-form/lib/interface";
-
 import { Button, Form, Modal } from "antd";
 
 import { useUpdateProjectMutation } from "store/api/projects/projects-api";
 
 import { useContexts } from "hooks/general/use-contexts";
-import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
+import { useFormsUpdateQuery } from "hooks/general/use-forms-update-query";
 import { useGetProjectFields } from "hooks/projects/use-get-project-fields";
-
-import { getValidateMessage } from "utils/auth/get-validate-message";
-import { getCurrentDate } from "utils/general/get-current-date";
 
 import { IProject } from "types/IProject";
 
@@ -29,41 +24,28 @@ export const EditMainInfoModal = (props: IEditMainInfoModalProps) => {
 
   const { FormFields } = useGetProjectFields({
     formValues: projectData,
+    handleCloseEditMainInfoModal,
     isEdit: true,
   });
 
-  const [
-    updateProject,
-    {
-      isSuccess: isUpdateProjectSuccess,
-      isLoading: isUpdateProjectLoading,
-      status: updateProjectStatus,
-      error: updateProjectError,
-    },
-  ] = useUpdateProjectMutation();
-
-  const handleEditMainInfoFinish = (formValues: IProject) => {
-    const updatedData = {
-      ...formValues,
-      id: projectData?.id ?? "",
-      updatedAt: getCurrentDate(),
-      cover: uploadImagePath,
-    };
-
-    updateProject(updatedData);
+  const timeoutCloseEditMainInfoModal = () => {
     setTimeout(() => handleCloseEditMainInfoModal(), 1000);
   };
 
-  const handleEditMainInfoFinishFailed = (error: ValidateErrorEntity) => {
-    getValidateMessage(error);
-  };
-
-  useGetQueryMessages({
-    isSuccess: isUpdateProjectSuccess,
-    isLoading: isUpdateProjectLoading,
-    status: updateProjectStatus,
-    error: updateProjectError,
-    successMessage: "Main info of project was successfully updated.",
+  const {
+    handleUpdateEntityFinish,
+    handleMutationEntityFinishFailed,
+    isUpdateEntityLoading,
+  } = useFormsUpdateQuery<IProject, IProject>({
+    useUpdateQueryMutation: useUpdateProjectMutation,
+    handleCloseUpdateForm: timeoutCloseEditMainInfoModal,
+    entityData: projectData,
+    successMutationMessage: "Main info of project was successfully updated",
+    additionalParams: {
+      fields: {
+        cover: uploadImagePath,
+      },
+    },
   });
 
   return (
@@ -75,15 +57,15 @@ export const EditMainInfoModal = (props: IEditMainInfoModalProps) => {
     >
       <Form
         layout="vertical"
-        onFinish={handleEditMainInfoFinish}
-        onFinishFailed={handleEditMainInfoFinishFailed}
+        onFinish={handleUpdateEntityFinish}
+        onFinishFailed={handleMutationEntityFinishFailed}
       >
         {FormFields}
 
         <Button
           type="primary"
           htmlType="submit"
-          loading={isUpdateProjectLoading}
+          loading={isUpdateEntityLoading}
         >
           Done
         </Button>

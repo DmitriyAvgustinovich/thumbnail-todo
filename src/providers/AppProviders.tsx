@@ -1,6 +1,6 @@
 import { AntThemeConfig } from "configs/AntThemeConfig";
 
-import { AddColumnFormProvider } from "./AddColumnFormProvider";
+import { EntityFormProvider } from "./EntityFormProvider";
 import { ImageUrlProvider } from "./ImageUrlProvider";
 
 interface IAppProvidersProps {
@@ -13,7 +13,7 @@ export const AppProviders = (props: IAppProvidersProps) => {
   return (
     <AntThemeConfig>
       <ImageUrlProvider>
-        <AddColumnFormProvider>{children}</AddColumnFormProvider>
+        <EntityFormProvider>{children}</EntityFormProvider>
       </ImageUrlProvider>
     </AntThemeConfig>
   );

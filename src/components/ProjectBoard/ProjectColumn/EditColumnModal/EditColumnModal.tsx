@@ -1,13 +1,9 @@
-import { ValidateErrorEntity } from "rc-field-form/lib/interface";
-
 import { Button, Form, Modal } from "antd";
 
 import { useUpdateColumnMutation } from "store/api/columns/columns-api";
 
 import { useGetColumnFields } from "hooks/columns/use-get-column-fields";
-import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
-
-import { getValidateMessage } from "utils/auth/get-validate-message";
+import { useFormsUpdateQuery } from "hooks/general/use-forms-update-query";
 
 import { IColumn } from "types/IColumn";
 
@@ -26,36 +22,19 @@ export const EditColumnModal = (props: IEditColumnModalProps) => {
     isEdit: true,
   });
 
-  const [
-    updateColumn,
-    {
-      isSuccess: isUpdateColumnSuccess,
-      isLoading: isUpdateColumnLoading,
-      status: updateColumnStatus,
-      error: updateColumnError,
-    },
-  ] = useUpdateColumnMutation();
-
-  const handleUpdateColumnFinish = (formValues: IColumn) => {
-    const updatedData = {
-      ...formValues,
-      id: columnData?.id,
-    };
-
-    updateColumn(updatedData);
+  const timeoutCloseEditColumnModal = () => {
     setTimeout(() => handleCloseEditColumnModal(), 1000);
   };
 
-  const handleAddColumnFinishFailed = (error: ValidateErrorEntity) => {
-    getValidateMessage(error);
-  };
-
-  useGetQueryMessages({
-    isSuccess: isUpdateColumnSuccess,
-    isLoading: isUpdateColumnLoading,
-    status: updateColumnStatus,
-    error: updateColumnError,
-    successMessage: "Column updated successfully",
+  const {
+    handleUpdateEntityFinish,
+    handleMutationEntityFinishFailed,
+    isUpdateEntityLoading,
+  } = useFormsUpdateQuery<IColumn, IColumn>({
+    useUpdateQueryMutation: useUpdateColumnMutation,
+    handleCloseUpdateForm: timeoutCloseEditColumnModal,
+    entityData: columnData,
+    successMutationMessage: "Column updated successfully",
   });
 
   return (
@@ -67,15 +46,15 @@ export const EditColumnModal = (props: IEditColumnModalProps) => {
     >
       <Form
         layout="vertical"
-        onFinish={handleUpdateColumnFinish}
-        onFinishFailed={handleAddColumnFinishFailed}
+        onFinish={handleUpdateEntityFinish}
+        onFinishFailed={handleMutationEntityFinishFailed}
       >
         {FormFields}
 
         <Button
           type="primary"
           htmlType="submit"
-          loading={isUpdateColumnLoading}
+          loading={isUpdateEntityLoading}
         >
           Done
         </Button>

@@ -1,11 +1,18 @@
 import { ITask } from "types/ITask";
 
-export type TGetAllTasksResponse = ITask[];
-export type TGetAllTasksRequest = void;
+export type TGetAllProjectTasksResponse = ITask[];
+export interface IGetAllProjectTasksRequest {
+  projectId: string;
+}
 
-export type TGetTasksByUserIdResponse = ITask[];
-export interface IGetTasksByUserIdRequest {
-  userId: string;
+export type TGetTasksByCreatedUserIdResponse = ITask[];
+export interface IGetTasksByCreatedUserIdRequest {
+  createdUserId: string;
+}
+
+export type TGetTasksByColumnIdResponse = ITask[];
+export interface IGetTasksByColumnIdRequest {
+  columnId: string;
 }
 
 export type TGetTaskByIdResponse = ITask;
@@ -18,10 +25,10 @@ export type TAddTaskRequest = ITask;
 
 export type TUpdateTaskResponse = ITask;
 export interface IUpdateTaskRequest {
-  id: number;
+  id: string;
 }
 
 export type TDeleteTaskResponse = ITask;
 export interface IDeleteTaskRequest {
-  id: number;
+  id: string;
 }

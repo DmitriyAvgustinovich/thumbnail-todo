@@ -27,6 +27,7 @@ export const useGetColumnFields = (args: IUseGetColumnFieldsArgs) => {
         <Input
           placeholder={columnFieldsPlaceholders.title}
           defaultValue={formValues?.title}
+          allowClear
         />
       ),
       rules: [

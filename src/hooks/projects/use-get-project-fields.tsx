@@ -15,17 +15,18 @@ import {
 } from "constants/project/project-list-fields";
 import { projectVisibilities } from "constants/project/project-visibilities";
 
-import { useGetQueryMessages } from "hooks/general/use-get-query-messages";
+import { useFormsUpdateQuery } from "hooks/general/use-forms-update-query";
 
 import { IProject } from "types/IProject";
 
 interface IUseGetProjectFieldsArgs {
   formValues?: IProject;
+  handleCloseEditMainInfoModal?: () => void;
   isEdit?: boolean;
 }
 
 export const useGetProjectFields = (args: IUseGetProjectFieldsArgs) => {
-  const { formValues, isEdit } = args;
+  const { formValues, handleCloseEditMainInfoModal, isEdit } = args;
 
   const location = window.location.pathname;
   const isProjectBoardPage = /^\/projects\/\d+$/.test(location);
@@ -34,33 +35,17 @@ export const useGetProjectFields = (args: IUseGetProjectFieldsArgs) => {
     adminUserId: formValues?.adminUserId ?? "",
   });
 
-  const [
-    updateProject,
-    {
-      isSuccess: isUpdateProjectSuccess,
-      isLoading: isUpdateProjectLoading,
-      status: updateProjectStatus,
-      error: updateProjectError,
+  const { handleUpdateEntityFinish } = useFormsUpdateQuery({
+    useUpdateQueryMutation: useUpdateProjectMutation,
+    entityData: formValues,
+    successMutationMessage: "Cover successfully cleared",
+    handleCloseUpdateForm: handleCloseEditMainInfoModal,
+    additionalParams: {
+      refetchData: refetchMyProject,
+      fields: {
+        cover: "",
+      },
     },
-  ] = useUpdateProjectMutation();
-
-  const clearExistedImageUrlCallback = () => {
-    const updatedData = {
-      ...(formValues as IProject),
-      id: formValues?.id ?? "",
-      cover: "",
-    };
-
-    updateProject(updatedData);
-    refetchMyProject();
-  };
-
-  useGetQueryMessages({
-    isSuccess: isUpdateProjectSuccess,
-    isLoading: isUpdateProjectLoading,
-    status: updateProjectStatus,
-    error: updateProjectError,
-    successMessage: "Cover successfully cleared.",
   });
 
   const projectFieldsArray = [
@@ -71,7 +56,7 @@ export const useGetProjectFields = (args: IUseGetProjectFieldsArgs) => {
         <UploadButton
           disabled={!isEdit}
           existedImage={formValues?.cover}
-          clearExistedImageUrlCallback={clearExistedImageUrlCallback}
+          clearExistedImageUrlCallback={handleUpdateEntityFinish}
         />
       ),
     },

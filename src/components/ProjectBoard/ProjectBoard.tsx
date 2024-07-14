@@ -1,18 +1,23 @@
 import React from "react";
 
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-import { EditOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button } from "antd";
-
+import { AdditionalActionsPopoverContent } from "components/AdditionalActionsPopoverContent/AdditionalActionsPopoverContent";
 import { PageLayout } from "components/PageLayout/PageLayout";
 
 import { useGetColumnsByProjectIdQuery } from "store/api/columns/columns-api";
-import { useGetProjectByIdQuery } from "store/api/projects/projects-api";
+import {
+  useDeleteProjectMutation,
+  useGetProjectByIdQuery,
+} from "store/api/projects/projects-api";
+
+import { RouterPath } from "configs/route-config";
 
 import { useContexts } from "hooks/general/use-contexts";
+import { useDeleteEntityQuery } from "hooks/general/use-delete-entity-query";
 
 import { IColumn } from "types/IColumn";
+import { IProject } from "types/IProject";
 
 import { EditMainInfoModal } from "./EditMainInfoModal/EditMainInfoModal";
 import styles from "./ProjectBoard.module.scss";
@@ -24,17 +29,6 @@ export const ProjectBoard = () => {
   const [openEditMainInfoModal, setOpenEditMainInfoModal] =
     React.useState(false);
 
-  const {
-    addColumnFormContext: { isAddColumnFormVisible, handleOpenAddColumnForm },
-  } = useContexts();
-
-  const { id } = useParams();
-  const { data: projectData, isLoading: isProjectDataLoading } =
-    useGetProjectByIdQuery({ id });
-
-  const { data: columnsData, isFetching: isColumnsDataFetching } =
-    useGetColumnsByProjectIdQuery({ projectId: id });
-
   const handleOpenEditMainInfoModal = () => {
     setOpenEditMainInfoModal(true);
   };
@@ -43,9 +37,34 @@ export const ProjectBoard = () => {
     setOpenEditMainInfoModal(false);
   };
 
+  const {
+    entityFormContext: { isAddColumnFormVisible, handleOpenAddColumnForm },
+  } = useContexts();
+
+  const navigate = useNavigate();
+
+  const { id } = useParams();
+  const { data: projectData, isLoading: isProjectDataLoading } =
+    useGetProjectByIdQuery({ id });
+
+  const { data: columnsData } = useGetColumnsByProjectIdQuery({
+    projectId: id ?? "",
+  });
+
   const backgroundImageStyles = {
     backgroundImage: `url(${projectData?.cover})`,
   };
+
+  const handleNavigateToProjectsPage = () => {
+    navigate(RouterPath.projects);
+  };
+
+  const { handleDeleteEntityFinish } = useDeleteEntityQuery<IProject>({
+    useDeleteQueryMutation: useDeleteProjectMutation,
+    entityData: projectData,
+    deleteSuccessAction: handleNavigateToProjectsPage,
+    successMutationMessage: "Project deleted successfully",
+  });
 
   return (
     <PageLayout>
@@ -62,27 +81,15 @@ export const ProjectBoard = () => {
               Board
             </h1>
 
-            <div className={styles.projectBoardHeaderButtonsWrapper}>
-              <Button
-                type="primary"
-                icon={<EditOutlined />}
-                size="large"
-                onClick={handleOpenEditMainInfoModal}
-              >
-                Edit main info
-              </Button>
-
-              <Button
-                type="primary"
-                icon={<PlusOutlined />}
-                size="large"
-                onClick={handleOpenAddColumnForm}
-                disabled={isColumnsDataFetching || isAddColumnFormVisible}
-                loading={isColumnsDataFetching}
-              >
-                Add column
-              </Button>
-            </div>
+            <AdditionalActionsPopoverContent
+              confirmDeleteTitle="Are you sure you want to delete this project with all tasks?"
+              handleDeleteAction={handleDeleteEntityFinish}
+              handleOpenAddModal={handleOpenAddColumnForm}
+              handleOpenEditModal={handleOpenEditMainInfoModal}
+              addButtonText="column"
+              placement="leftTop"
+              withButtonWrapper
+            />
           </div>
 
           <div

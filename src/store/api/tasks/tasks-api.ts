@@ -3,16 +3,18 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   IDeleteTaskRequest,
   IGetTaskByIdRequest,
-  IGetTasksByUserIdRequest,
+  IGetTasksByCreatedUserIdRequest,
   IUpdateTaskRequest,
   TAddTaskRequest,
   TAddTaskResponse,
   TDeleteTaskResponse,
-  TGetAllTasksRequest,
-  TGetAllTasksResponse,
+  IGetAllProjectTasksRequest,
+  TGetAllProjectTasksResponse,
   TGetTaskByIdResponse,
-  TGetTasksByUserIdResponse,
+  TGetTasksByCreatedUserIdResponse,
   TUpdateTaskResponse,
+  TGetTasksByColumnIdResponse,
+  IGetTasksByColumnIdRequest,
 } from "./types";
 
 export const tasksApi = createApi({
@@ -20,17 +22,30 @@ export const tasksApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BASE_URL }),
   tagTypes: ["Tasks"],
   endpoints: (builder) => ({
-    getAllTasks: builder.query<TGetAllTasksResponse, TGetAllTasksRequest>({
-      query: () => "tasks",
+    getAllProjectTasks: builder.query<
+      TGetAllProjectTasksResponse,
+      IGetAllProjectTasksRequest
+    >({
+      query: (body) => `tasks?projectId=${body.projectId}`,
       providesTags: ["Tasks"],
     }),
 
-    getTasksByUserId: builder.query<
-      TGetTasksByUserIdResponse,
-      IGetTasksByUserIdRequest
+    getTasksByCreatedUserId: builder.query<
+      TGetTasksByCreatedUserIdResponse,
+      IGetTasksByCreatedUserIdRequest
     >({
       query: (body) => ({
-        url: `tasks?userId=${body.userId}`,
+        url: `tasks?createdUserId=${body.createdUserId}`,
+      }),
+      providesTags: ["Tasks"],
+    }),
+
+    getTasksByColumnId: builder.query<
+      TGetTasksByColumnIdResponse,
+      IGetTasksByColumnIdRequest
+    >({
+      query: (body) => ({
+        url: `tasks?columnId=${body.columnId}`,
       }),
       providesTags: ["Tasks"],
     }),
@@ -69,8 +84,9 @@ export const tasksApi = createApi({
 });
 
 export const {
-  useGetAllTasksQuery,
-  useGetTasksByUserIdQuery,
+  useGetAllProjectTasksQuery,
+  useGetTasksByCreatedUserIdQuery,
+  useGetTasksByColumnIdQuery,
   useGetTaskByIdQuery,
   useAddTaskMutation,
   useUpdateTaskMutation,

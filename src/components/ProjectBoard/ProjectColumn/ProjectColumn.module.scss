@@ -1,31 +1,10 @@
-.projectColumnAdditionalActionsWrapper {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  margin: 5px;
-}
-
-.projectColumnAdditionalActionsIcon {
-  font: var(--font-m);
-  color: var(--secondary-text-color);
-}
-
-.projectAdditionalActionsText {
-  font: var(--font-m);
-  color: var(--gray-text-color);
-}
-
-.projectColumnAdditionalActionsIcon {
-  font: var(--font-m);
-  cursor: pointer;
-}
-
 .projectColumnWrapper {
   min-width: 250px;
+  max-height: 70vh;
   padding: 15px;
   border-radius: 15px;
   background-color: var(--primary-bg-color);
+  overflow-x: auto;
 }
 
 .projectColumnHeaderWrapper {
@@ -38,8 +17,13 @@
   font: var(--font-m);
 }
 
-.projectColumnHeaderIcon {
-  font: var(--font-l);
-  color: var(--secondary-text-color);
-  cursor: pointer;
+.projectColumnSpinner {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.addTaskButtonWrapper {
+  margin-top: 20px;
 }

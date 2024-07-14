@@ -1,11 +1,14 @@
 export interface ITask {
-  id: number;
-  userId?: string;
+  id: string;
+  createdUserId?: string;
+  columnId: string;
+  projectId: string;
   title: string;
   deadline: string;
   priority: string;
   description: string;
   status: string;
   createdAt: string;
-  image: string;
+  updatedAt: string;
+  assignedToUserId?: string;
 }

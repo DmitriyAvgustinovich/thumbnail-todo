@@ -4,57 +4,14 @@
       "email": "1",
       "password": "1",
       "avatarUrl": "",
-      "name": "1",
-      "surname": "1",
+      "name": "222123",
+      "surname": "1234",
       "id": 1
     }
   ],
   "contributors": [],
-  "tasks": [
-    {
-      "image": "",
-      "title": "123",
-      "deadline": "2024-07-07T19:00:00.000Z",
-      "priority": "High",
-      "id": 1720300641650,
-      "userId": 1,
-      "status": "Not Started",
-      "createdAt": "07-07-2024, 02:17"
-    }
-  ],
-  "projects": [
-    {
-      "cover": "/json-server/uploads/1719700435581.png",
-      "title": "123",
-      "description": "123",
-      "id": 1719700435694,
-      "adminUserId": 1,
-      "createdAt": "30-06-2024",
-      "updatedAt": "30-06-2024; 15:54",
-      "visibility": "Private"
-    },
-    {
-      "cover": "/json-server/uploads/1720302456653.png",
-      "title": "345345",
-      "description": "345435",
-      "visibility": "Public",
-      "id": "1720302213518",
-      "adminUserId": 1,
-      "createdAt": "07-07-2024, 02:43",
-      "updatedAt": "07-07-2024, 02:47"
-    }
-  ],
-  "columns": [
-    {
-      "title": "213wer",
-      "projectId": "1719700435694",
-      "id": 1
-    },
-    {
-      "title": "dfgfdg",
-      "projectId": "1719700435694",
-      "id": 2
-    }
-  ],
+  "tasks": [],
+  "projects": [],
+  "columns": [],
   "comments": []
 }

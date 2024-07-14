@@ -1,4 +1,4 @@
-import { useGetTasksByUserIdQuery } from "store/api/tasks/tasks-api";
+import { useGetTasksByCreatedUserIdQuery } from "store/api/tasks/tasks-api";
 
 import { taskStatuses } from "constants/task/task-statuses";
 
@@ -7,7 +7,7 @@ import { useGetAuthUser } from "hooks/user/use-get-auth-user";
 export const useGetTaskStatuses = () => {
   const { authUser } = useGetAuthUser();
 
-  const { data: myTasksData } = useGetTasksByUserIdQuery({
+  const { data: myTasksData } = useGetTasksByCreatedUserIdQuery({
     userId: authUser?.id ?? "",
   });
 

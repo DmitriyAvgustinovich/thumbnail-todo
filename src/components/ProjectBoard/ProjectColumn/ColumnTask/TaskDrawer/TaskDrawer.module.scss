@@ -1,0 +1,29 @@
+.taskDrawerWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.taskDrawerInfoWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.taskDrawerHeaderTitleWrapper {
+  display: flex;
+  gap: 20px;
+}
+
+.taskDrawerHeaderTitleIcon {
+  font: var(--font-l);
+}
+
+.taskDrawerInColumn {
+  display: block;
+  font: var(--font-m);
+  color: var(--gray-text-color);
+}
+
+.taskDrawerCreatedAt {
+  font: var(--font-m);
+  color: var(--gray-text-color);
+}

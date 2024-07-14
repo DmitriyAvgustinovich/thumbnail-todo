@@ -1,0 +1,13 @@
+.addTaskForm {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 15px;
+  background-color: var(--white-bg-color);
+  box-shadow: var(--box-shadow);
+}
+
+.addTaskFormButtonsWrapper {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}

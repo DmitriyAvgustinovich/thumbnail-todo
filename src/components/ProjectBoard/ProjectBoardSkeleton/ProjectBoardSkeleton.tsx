@@ -10,8 +10,7 @@ export const ProjectBoardSkeleton = () => (
     foregroundColor="var(--animated-skeleton-color)"
   >
     <rect x="15" y="5" rx="4" ry="4" width="200" height="30" />
-    <rect x="865" y="0" rx="4" ry="4" width="150" height="40" />
-    <rect x="1025" y="0" rx="4" ry="4" width="150" height="40" />
+    <rect x="1140" y="0" rx="4" ry="4" width="35" height="35" />
     <rect x="15" y="70" rx="4" ry="4" width="100%" height="661" />
   </ContentLoader>
 );

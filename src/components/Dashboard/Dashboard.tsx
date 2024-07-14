@@ -2,7 +2,7 @@ import { Spin } from "antd";
 
 import { PageLayout } from "components/PageLayout/PageLayout";
 
-import { useGetTasksByUserIdQuery } from "store/api/tasks/tasks-api";
+import { useGetTasksByCreatedUserIdQuery } from "store/api/tasks/tasks-api";
 
 import { useGetAuthUser } from "hooks/user/use-get-auth-user";
 
@@ -15,7 +15,7 @@ import { TaskTodo } from "./TaskTodo/TaskTodo";
 export const Dashboard = () => {
   const { authUser, isAuthUserLoading } = useGetAuthUser();
 
-  const { isLoading: isMyTasksDataLoading } = useGetTasksByUserIdQuery({
+  const { isLoading: isMyTasksDataLoading } = useGetTasksByCreatedUserIdQuery({
     userId: authUser?.id ?? "",
   });
 

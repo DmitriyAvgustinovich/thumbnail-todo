@@ -10,9 +10,8 @@ import { getConvertDate } from "utils/general/get-convert-date";
 
 import { ITask } from "types/ITask";
 
-import { AdditionalActionsPopover } from "./AdditionalActionsPopover/AdditionalActionsPopover";
 import styles from "./Task.module.scss";
-import { TaskDrawer } from "./TaskDrawer/TaskDrawer";
+import { TaskDrawer } from "../ProjectBoard/ProjectColumn/ColumnTask/TaskDrawer/TaskDrawer";
 
 interface ITaskProps {
   taskData: ITask;
@@ -86,7 +85,6 @@ export const Task = (props: ITaskProps) => {
         </div>
 
         <div className={styles.taskAdditionalInfoWrapper}>
-          <AdditionalActionsPopover taskData={taskData} />
           <img className={styles.taskImage} src={taskData.image} alt="" />
 
           <Typography.Text className={styles.taskCreatedAt}>
