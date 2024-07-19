@@ -24,7 +24,7 @@ export const usersApi = createApi({
     }),
 
     getUserById: build.query<TUseGetUserByIdResponse, IUserGetUserByIdRequest>({
-      query: (id) => `users/${id}`,
+      query: (body) => `users/${body.id}`,
       providesTags: ["Users"],
     }),
 
@@ -38,8 +38,8 @@ export const usersApi = createApi({
     }),
 
     deleteUser: build.mutation<TDeleteUserResponse, IDeleteUserRequest>({
-      query: (id) => ({
-        url: `users/${id}`,
+      query: (body) => ({
+        url: `users/${body.id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Users"],

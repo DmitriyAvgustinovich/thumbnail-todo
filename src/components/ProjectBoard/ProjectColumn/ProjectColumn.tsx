@@ -37,7 +37,7 @@ export const ProjectColumn = (props: IProjectColumnProps) => {
   };
 
   const {
-    entityFormContext: { isAddTaskFormVisible, handleOpenAddTaskForm },
+    taskFormContext: { isAddTaskFormVisible, handleOpenAddTaskForm },
   } = useContexts();
 
   const { data: columnTasksData, isLoading: isColumnTasksDataLoading } =

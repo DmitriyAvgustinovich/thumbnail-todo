@@ -12,14 +12,14 @@ import { useDeleteEntityQuery } from "hooks/general/use-delete-entity-query";
 
 import { ITask } from "types/ITask";
 
-import styles from "./TaskDrawerSIdebar.module.scss";
+import styles from "./TaskDrawerSidebar.module.scss";
 
-interface ITaskDrawerSIdebarProps {
+interface ITaskDrawerSidebarProps {
   taskData: ITask;
   handleCloseTaskDrawer: () => void;
 }
 
-export const TaskDrawerSIdebar = (props: ITaskDrawerSIdebarProps) => {
+export const TaskDrawerSidebar = (props: ITaskDrawerSidebarProps) => {
   const { taskData, handleCloseTaskDrawer } = props;
 
   const { handleDeleteEntityFinish, isDeleteEntityLoading } =

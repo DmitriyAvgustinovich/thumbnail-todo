@@ -4,14 +4,62 @@
       "email": "1",
       "password": "1",
       "avatarUrl": "",
-      "name": "222123",
-      "surname": "1234",
+      "name": "dimas",
+      "surname": "avg",
       "id": 1
     }
   ],
   "contributors": [],
-  "tasks": [],
-  "projects": [],
-  "columns": [],
-  "comments": []
+  "tasks": [
+    {
+      "title": "sfsdf",
+      "projectId": "1",
+      "columnId": 1,
+      "createdUserId": 1,
+      "status": "Completed",
+      "createdAt": "15-07-2024, 00:50",
+      "updatedAt": "19-07-2024, 14:04",
+      "id": 1,
+      "deadline": "2024-07-23T19:00:00.000Z",
+      "description": "sdfsdfsf",
+      "priority": "Medium"
+    }
+  ],
+  "projects": [
+    {
+      "cover": "",
+      "title": "12123",
+      "description": "sdfdsf",
+      "visibility": "Public",
+      "adminUserId": 1,
+      "createdAt": "15-07-2024, 00:45",
+      "updatedAt": "15-07-2024, 00:45",
+      "id": 1
+    }
+  ],
+  "columns": [
+    {
+      "title": "dfsfd",
+      "projectId": "1",
+      "id": 1
+    }
+  ],
+  "comments": [
+    {
+      "comment": "123",
+      "taskId": 1,
+      "userId": 1,
+      "createdAt": "19-07-2024, 22:01",
+      "updatedAt": "19-07-2024, 22:04",
+      "id": 1
+    },
+    {
+      "comment": "dsfsdf",
+      "taskId": 1,
+      "userId": 1,
+      "createdAt": "19-07-2024, 22:12",
+      "updatedAt": "19-07-2024, 22:12",
+      "id": 2
+    }
+  ]
 }

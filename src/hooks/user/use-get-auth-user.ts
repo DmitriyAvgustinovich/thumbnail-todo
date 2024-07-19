@@ -7,9 +7,7 @@ export const useGetAuthUser = () => {
     data: authUser,
     isLoading: isAuthUserLoading,
     refetch: refetchAuthUser,
-  } = useGetMeQuery({
-    id: userId,
-  });
+  } = useGetMeQuery({ id: userId });
 
   const isAuthUserInit = Object.keys(authUser ?? {}).length > 0;
 

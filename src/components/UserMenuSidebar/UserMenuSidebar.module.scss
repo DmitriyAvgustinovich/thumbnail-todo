@@ -6,56 +6,6 @@
   padding: 20px;
 }
 
-.userBlockWrapper {
-  position: absolute;
-  top: 118px;
-  left: 20px;
-  text-align: center;
-}
-
-.userBlockName,
-.userBlockEmail {
-  display: block;
-  color: var(--white-text-color);
-}
-
-.userBlockName {
-  margin-top: 10px;
-  font: var(--font-m);
-}
-
-.userBlockEmail {
-  font: var(--font-s);
-}
-
-.menuLinksWrapper {
-  margin-top: 100px;
-}
-
-.menuLinkWrapper {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.menuIcon {
-  font: var(--font-l);
-}
-
-.menuNotActiveLink {
-  color: var(--white-text-color);
-  font: var(--font-m);
-}
-
-.menuActiveLink {
-  padding: 15px;
-  border-radius: 10px;
-  background-color: var(--white-bg-color);
-  color: var(--secondary-text-color);
-  font: var(--font-m);
-}
-
 .menuLinkLogoutWrapper {
   position: absolute;
   bottom: 40px;

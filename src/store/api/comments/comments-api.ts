@@ -1,0 +1,68 @@
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+
+import {
+  IDeleteCommentRequest,
+  IGetCommentsByTaskIdRequest,
+  IUpdateCommentRequest,
+  TAddCommentRequest,
+  TAddCommentResponse,
+  TDeleteCommentResponse,
+  TGetCommentsByTaskIdResponse,
+  TUpdateCommentResponse,
+} from "./types";
+
+export const commentsApi = createApi({
+  reducerPath: "commentsApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: import.meta.env.VITE_BASE_URL,
+  }),
+  tagTypes: ["Comments"],
+  endpoints: (build) => ({
+    getCommentsByTaskId: build.query<
+      TGetCommentsByTaskIdResponse,
+      IGetCommentsByTaskIdRequest
+    >({
+      query: (body) => `comments?taskId=${body.taskId}`,
+      providesTags: ["Comments"],
+    }),
+
+    addComment: build.mutation<TAddCommentResponse, TAddCommentRequest>({
+      query: (body) => ({
+        url: "comments",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["Comments"],
+    }),
+
+    updateComment: build.mutation<
+      TUpdateCommentResponse,
+      IUpdateCommentRequest
+    >({
+      query: (body) => ({
+        url: `comments/${body.id}`,
+        method: "PATCH",
+        body,
+      }),
+      invalidatesTags: ["Comments"],
+    }),
+
+    deleteComment: build.mutation<
+      TDeleteCommentResponse,
+      IDeleteCommentRequest
+    >({
+      query: (body) => ({
+        url: `comments/${body.id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Comments"],
+    }),
+  }),
+});
+
+export const {
+  useGetCommentsByTaskIdQuery,
+  useAddCommentMutation,
+  useUpdateCommentMutation,
+  useDeleteCommentMutation,
+} = commentsApi;

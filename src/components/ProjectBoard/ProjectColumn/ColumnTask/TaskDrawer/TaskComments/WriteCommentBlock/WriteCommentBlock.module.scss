@@ -1,0 +1,25 @@
+.writeCommentWrapper {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.writeCommentUserAvatar {
+  width: 48px;
+  height: 48px;
+}
+
+.writeCommentTextWrapper {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--primary-bg-color);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--gray-bg-color);
+  }
+}
+
+.writeCommentText {
+  font: var(--font-m);
+}

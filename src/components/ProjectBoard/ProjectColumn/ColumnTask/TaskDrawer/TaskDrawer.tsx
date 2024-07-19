@@ -5,10 +5,11 @@ import { useGetColumnByIdQuery } from "store/api/columns/columns-api";
 
 import { ITask } from "types/ITask";
 
+import { TaskComments } from "./TaskComments/TaskComments";
 import { TaskDeadline } from "./TaskDeadline/TaskDeadline";
 import { TaskDescription } from "./TaskDescription/TaskDescription";
 import styles from "./TaskDrawer.module.scss";
-import { TaskDrawerSIdebar } from "./TaskDrawerSIdebar/TaskDrawerSIdebar";
+import { TaskDrawerSidebar } from "./TaskDrawerSidebar/TaskDrawerSidebar";
 import { TaskPriority } from "./TaskPriority/TaskPriority";
 import { TaskStatus } from "./TaskStatus/TaskStatus";
 import { TaskSubscribeNotifications } from "./TaskSubscribeNotifications/TaskSubscribeNotifications";
@@ -38,12 +39,16 @@ export const TaskDrawer = (props: ITaskDrawerProps) => {
 
             <div>
               <TaskTitle taskData={taskData} />
-              <Typography.Text className={styles.taskDrawerInColumn}>
-                In column: <u>{columnData?.title}</u>
+              <Typography.Text className={styles.taskDrawerInColumn} underline>
+                In column: {columnData?.title}
               </Typography.Text>
 
-              <Typography.Text className={styles.taskDrawerCreatedAt}>
-                Created at: <u>{taskData.createdAt}</u>
+              <Typography.Text className={styles.taskDrawerCreatedAt} underline>
+                Created at: {taskData.createdAt}
+              </Typography.Text>
+
+              <Typography.Text className={styles.taskDrawerUpdatedAt} underline>
+                Updated at: {taskData.updatedAt}
               </Typography.Text>
             </div>
           </div>
@@ -53,9 +58,10 @@ export const TaskDrawer = (props: ITaskDrawerProps) => {
           <TaskStatus taskData={taskData} />
           <TaskDeadline taskData={taskData} />
           <TaskSubscribeNotifications />
+          <TaskComments taskData={taskData} />
         </div>
 
-        <TaskDrawerSIdebar
+        <TaskDrawerSidebar
           taskData={taskData}
           handleCloseTaskDrawer={handleCloseTaskDrawer}
         />

@@ -5,7 +5,7 @@ export const AccountFieldsSkeleton = () => (
     speed={2}
     width="100%"
     height="340"
-    viewBox="0 0 1000 340"
+    viewBox="0 0 1150 340"
     backgroundColor="var(--skeleton-color)"
     foregroundColor="var(--animated-skeleton-color)"
   >
@@ -25,7 +25,7 @@ export const AccountMainInfoSkeleton = () => (
     speed={2}
     width="100%"
     height="140"
-    viewBox="0 0 1000 140"
+    viewBox="0 0 1150 140"
     backgroundColor="var(--skeleton-color)"
     foregroundColor="var(--animated-skeleton-color)"
   >

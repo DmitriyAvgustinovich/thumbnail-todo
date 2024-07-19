@@ -1,7 +1,8 @@
 import { AntThemeConfig } from "configs/AntThemeConfig";
 
-import { EntityFormProvider } from "./EntityFormProvider";
+import { ColumnFormProvider } from "./ColumnFormProvider";
 import { ImageUrlProvider } from "./ImageUrlProvider";
+import { TaskFormProvider } from "./TaskFormProdiver";
 
 interface IAppProvidersProps {
   children: React.ReactNode;
@@ -13,7 +14,9 @@ export const AppProviders = (props: IAppProvidersProps) => {
   return (
     <AntThemeConfig>
       <ImageUrlProvider>
-        <EntityFormProvider>{children}</EntityFormProvider>
+        <ColumnFormProvider>
+          <TaskFormProvider>{children}</TaskFormProvider>
+        </ColumnFormProvider>
       </ImageUrlProvider>
     </AntThemeConfig>
   );

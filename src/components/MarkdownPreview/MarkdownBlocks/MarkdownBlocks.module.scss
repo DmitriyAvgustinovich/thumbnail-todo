@@ -1,0 +1,11 @@
+.markdownBlocksListWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 55vh;
+  overflow-y: scroll;
+}
+
+.markdownBlocksSearchInput {
+  margin: 10px 0;
+}

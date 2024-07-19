@@ -5,5 +5,9 @@ export const getConvertDate = (dateString: string) => {
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const year = date.getFullYear();
 
-  return `${day}-${month}-${year}`;
+  if (dateString) {
+    return `${day}-${month}-${year}`;
+  } else {
+    return "";
+  }
 };

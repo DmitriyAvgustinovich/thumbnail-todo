@@ -1,0 +1,23 @@
+.userMenuSidebarLinkWrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.userMenuSidebarActiveLink {
+  padding: 15px;
+  border-radius: 10px;
+  background-color: var(--white-bg-color);
+  color: var(--secondary-text-color);
+  font: var(--font-m);
+}
+
+.userMenuSidebarNotActiveLink {
+  color: var(--white-text-color);
+  font: var(--font-m);
+}
+
+.userMenuSidebarLinkIcon {
+  font: var(--font-l);
+}

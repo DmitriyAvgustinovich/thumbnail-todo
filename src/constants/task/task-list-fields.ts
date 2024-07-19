@@ -19,6 +19,8 @@ export const taskFieldsDataIndexes = {
 export const taskFieldsPlaceholders = {
   title: "Enter your task title...",
   deadline: "Enter your task deadline...",
+  priority: "Enter your task priority...",
+  status: "Enter your task status...",
   description: "Enter your task description...",
   image: "Enter your task image...",
 };

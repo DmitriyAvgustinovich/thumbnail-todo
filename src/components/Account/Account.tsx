@@ -1,6 +1,11 @@
 import React from "react";
 
-import { UserOutlined } from "@ant-design/icons";
+import {
+  CheckOutlined,
+  CloseOutlined,
+  EditOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { Avatar, Button, Form, Typography } from "antd";
 
 import { PageLayout } from "components/PageLayout/PageLayout";
@@ -103,20 +108,26 @@ export const Account = () => {
               htmlType="submit"
               type="primary"
               loading={isUpdateEntityLoading}
+              icon={<CheckOutlined />}
             >
               Save
             </Button>
           )}
 
           {isEdit ? (
-            <Button type="primary" onClick={handleCancelEdit}>
+            <Button
+              type="primary"
+              onClick={handleCancelEdit}
+              icon={<CloseOutlined />}
+            >
               Cancel
             </Button>
           ) : (
             <Button
               type="primary"
               onClick={handleEdit}
-              loading={isUpdateEntityLoading}
+              loading={isUpdateEntityLoading || isAuthUserLoading}
+              icon={<EditOutlined />}
             >
               Update Info
             </Button>

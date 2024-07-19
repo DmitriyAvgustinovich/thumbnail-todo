@@ -16,6 +16,7 @@ import { useFormsUpdateQuery } from "hooks/general/use-forms-update-query";
 import { useGetTaskFields } from "hooks/task/use-get-task-fields";
 
 import { getConvertDate } from "utils/general/get-convert-date";
+import { getCurrentDate } from "utils/general/get-current-date";
 
 import { ITask } from "types/ITask";
 
@@ -47,6 +48,11 @@ export const TaskDeadline = (props: ITaskDeadlineProps) => {
     handleCloseUpdateForm: handleCloseEditForm,
     entityData: taskData,
     successMutationMessage: "Task deadline updated successfully",
+    additionalParams: {
+      fields: {
+        updatedAt: getCurrentDate(),
+      },
+    },
   });
 
   const { FormFields } = useGetTaskFields({

@@ -7,6 +7,7 @@ import {
 
 import { authApi } from "./api/auth/auth-api";
 import { columnsApi } from "./api/columns/columns-api";
+import { commentsApi } from "./api/comments/comments-api";
 import { projectsApi } from "./api/projects/projects-api";
 import { tasksApi } from "./api/tasks/tasks-api";
 import { usersApi } from "./api/users/users-api";
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   [usersApi.reducerPath]: usersApi.reducer,
   [projectsApi.reducerPath]: projectsApi.reducer,
   [columnsApi.reducerPath]: columnsApi.reducer,
+  [commentsApi.reducerPath]: commentsApi.reducer,
 });
 
 const setupStore = () => {
@@ -29,6 +31,7 @@ const setupStore = () => {
         usersApi.middleware,
         projectsApi.middleware,
         columnsApi.middleware,
+        commentsApi.middleware,
       ]),
   });
 };

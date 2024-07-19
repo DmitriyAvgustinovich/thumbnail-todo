@@ -2,7 +2,8 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
-import { Button, Pagination, Spin, Typography } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import { Button, Pagination, Spin, Tooltip, Typography } from "antd";
 
 import { PageLayout } from "components/PageLayout/PageLayout";
 
@@ -23,6 +24,7 @@ import styles from "./Projects.module.scss";
 
 export const Projects = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
+
   const [isAddProjectModalOpen, setIsAddProjectModalOpen] =
     React.useState(false);
 
@@ -58,17 +60,18 @@ export const Projects = () => {
       <div className={styles.projectsTitleWrapper}>
         <h1 className={styles.projectsTitle}>Projects</h1>
 
-        <Button
-          type="primary"
-          size="large"
-          onClick={handleOpenAddNewProjectModal}
-        >
-          Add project
-        </Button>
+        <Tooltip title="Add new project">
+          <Button
+            type="primary"
+            onClick={handleOpenAddNewProjectModal}
+            icon={<PlusOutlined />}
+            loading={isMyProjectsLoading}
+          />
+        </Tooltip>
       </div>
 
       {isMyProjectsDataEmpty && !isMyProjectsLoading && (
-        <Typography.Text className={styles.noProjectsYetText}>
+        <Typography.Text className={styles.projectsEmptyText}>
           No projects yet.
         </Typography.Text>
       )}

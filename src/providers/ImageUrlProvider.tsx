@@ -1,13 +1,13 @@
 import React from "react";
 
-interface IImageContextProps {
+interface IImageUrlContextProps {
   newImageUrl: string;
   setNewImageUrl: (newImageUrl: string) => void;
   uploadImagePath: string;
   setUploadImagePath: (uploadImagePath: string) => void;
 }
 
-export const ImageUrlContext = React.createContext<IImageContextProps>({
+export const ImageUrlContext = React.createContext<IImageUrlContextProps>({
   newImageUrl: "",
   setNewImageUrl: () => {},
   uploadImagePath: "",

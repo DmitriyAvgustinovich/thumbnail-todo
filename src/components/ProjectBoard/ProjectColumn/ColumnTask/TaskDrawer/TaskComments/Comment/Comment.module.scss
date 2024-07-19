@@ -1,0 +1,35 @@
+.commentWrapper {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.commentUserAvatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.commentUserName {
+  font: var(--font-m);
+}
+
+.commentCreatedAt {
+  font: var(--font-m);
+  color: var(--gray-text-color);
+}
+
+.commentUpdatedAt {
+  display: block;
+  font: var(--font-m);
+  color: var(--gray-text-color);
+}
+
+.commentTextWrapper {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--primary-bg-color);
+  font: var(--font-m);
+}

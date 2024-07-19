@@ -18,7 +18,7 @@ export const AddColumnForm = (props: IAddColumnFormProps) => {
   const { projectId } = props;
 
   const {
-    entityFormContext: { handleCloseAddColumnForm },
+    columnFromContext: { handleCloseAddColumnForm },
   } = useContexts();
 
   const { FormFields } = useGetColumnFields({ isEdit: false });

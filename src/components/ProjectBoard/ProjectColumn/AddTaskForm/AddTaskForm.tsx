@@ -28,7 +28,7 @@ export const AddTaskForm = (props: IAddTaskFormProps) => {
   const { authUser } = useGetAuthUser();
 
   const {
-    entityFormContext: { handleCloseAddTaskForm },
+    taskFormContext: { handleCloseAddTaskForm },
   } = useContexts();
 
   const { FormFields } = useGetTaskFields({

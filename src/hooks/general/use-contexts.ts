@@ -1,14 +1,17 @@
 import React from "react";
 
-import { EntityFormContext } from "providers/EntityFormProvider";
+import { ColumnFormContext } from "providers/ColumnFormProvider";
 import { ImageUrlContext } from "providers/ImageUrlProvider";
+import { TaskFormContext } from "providers/TaskFormProdiver";
 
 export const useContexts = () => {
   const imageUrlContext = React.useContext(ImageUrlContext);
-  const entityFormContext = React.useContext(EntityFormContext);
+  const columnFromContext = React.useContext(ColumnFormContext);
+  const taskFormContext = React.useContext(TaskFormContext);
 
   return {
     imageUrlContext,
-    entityFormContext,
+    columnFromContext,
+    taskFormContext,
   };
 };

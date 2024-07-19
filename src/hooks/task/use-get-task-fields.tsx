@@ -4,6 +4,8 @@ import { Button, DatePicker, Form, Input, Select, Tooltip } from "antd";
 import { DEFAULT_VALIDATE_MESSAGE } from "constants/general";
 import { taskFieldNodes } from "constants/task/task-field-nodes";
 
+import { useContexts } from "hooks/general/use-contexts";
+
 import { getFieldsDefaultValue } from "utils/task/get-fields-default-value";
 import { getFieldsLabel } from "utils/task/get-fields-label";
 import { getFieldsName } from "utils/task/get-fields-name";
@@ -32,6 +34,13 @@ export const useGetTaskFields = (args: IUseGetTaskFieldsArgs) => {
   } = args;
 
   const isRequired = isEdit ? false : true;
+
+  const {
+    taskFormContext: {
+      markdownDescriptionValue,
+      onChangeMarkdownDescriptionValue,
+    },
+  } = useContexts();
 
   const InputNode = (
     <Input
@@ -68,6 +77,19 @@ export const useGetTaskFields = (args: IUseGetTaskFieldsArgs) => {
     />
   );
 
+  const TextareaNode = (
+    <Input.TextArea
+      placeholder={getFieldsPlaceholder({ placeholder: taskFormElement })}
+      value={markdownDescriptionValue}
+      defaultValue={getFieldsDefaultValue({
+        defaultValue: taskFormElement,
+        formValues,
+      })}
+      onChange={onChangeMarkdownDescriptionValue}
+      autoSize
+    />
+  );
+
   const SelectNode = (
     <Select
       options={getFieldsSelectOptions({ formField: taskFormElement })}
@@ -94,6 +116,8 @@ export const useGetTaskFields = (args: IUseGetTaskFieldsArgs) => {
   const getFieldsNode = (inputNode: string) => {
     if (inputNode === taskFieldNodes.input) {
       return InputNode;
+    } else if (inputNode === taskFieldNodes.textarea) {
+      return TextareaNode;
     } else if (inputNode === taskFieldNodes.select) {
       return SelectNode;
     } else if (inputNode === taskFieldNodes.date) {
@@ -115,72 +139,8 @@ export const useGetTaskFields = (args: IUseGetTaskFieldsArgs) => {
     },
   ];
 
-  // if (isEdit) {
-  //   taskTitleFieldArray.splice(
-  //     1,
-  //     0,
-  //     {
-  //       label: taskFieldsTitles.status,
-  //       name: taskFieldsDataIndexes.status,
-  //       rules: [
-  //         {
-  //           required: isRequired,
-  //           message: `${DEFAULT_VALIDATE_MESSAGE} status`,
-  //         },
-  //       ],
-  //       node: (
-  //         <Radio.Group defaultValue={formValues?.status}>
-  //           <Radio value={taskStatuses.completed}>
-  //             {taskStatuses.completed}
-  //           </Radio>
-  //           <Radio value={taskStatuses.inProgress}>
-  //             {taskStatuses.inProgress}
-  //           </Radio>
-  //           <Radio value={taskStatuses.notStarted}>
-  //             {taskStatuses.notStarted}
-  //           </Radio>
-  //         </Radio.Group>
-  //       ),
-  //     },
-  //     {
-  //       label: taskFieldsTitles.deadline,
-  //       name: taskFieldsDataIndexes.deadline,
-  //       rules: [
-  //         {
-  //           required: isRequired,
-  //           message: `${DEFAULT_VALIDATE_MESSAGE} deadline`,
-  //         },
-  //       ],
-  //       node: (
-  //         <DatePicker
-  //           placeholder={taskFieldsPlaceholders.deadline}
-  //           style={{ width: "100%" }}
-  //           defaultValue={dayjs(formValues?.deadline)}
-  //         />
-  //       ),
-  //     },
-  //     {
-  //       label: taskFieldsTitles.priority,
-  //       name: taskFieldsDataIndexes.priority,
-  //       rules: [
-  //         {
-  //           required: isRequired,
-  //           message: `${DEFAULT_VALIDATE_MESSAGE} priority`,
-  //         },
-  //       ],
-  //       node: (
-  //         <Radio.Group defaultValue={formValues?.priority}>
-  //           <Radio value={taskPriorities.high}>{taskPriorities.high}</Radio>
-  //           <Radio value={taskPriorities.medium}>{taskPriorities.medium}</Radio>
-  //           <Radio value={taskPriorities.low}>{taskPriorities.low}</Radio>
-  //         </Radio.Group>
-  //       ),
-  //     },
-  //   );
-  // }
-
   const FormFields = taskTitleFieldArray.map((field) => (
-    <Form.Item {...field} key={field.name} style={{ marginBottom: 0 }}>
+    <Form.Item {...field} key={field.name}>
       {field.node}
     </Form.Item>
   ));

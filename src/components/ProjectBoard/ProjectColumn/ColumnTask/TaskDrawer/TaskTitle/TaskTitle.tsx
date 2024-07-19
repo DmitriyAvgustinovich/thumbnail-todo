@@ -10,6 +10,8 @@ import { taskFieldsDataIndexes } from "constants/task/task-list-fields";
 import { useFormsUpdateQuery } from "hooks/general/use-forms-update-query";
 import { useGetTaskFields } from "hooks/task/use-get-task-fields";
 
+import { getCurrentDate } from "utils/general/get-current-date";
+
 import { ITask } from "types/ITask";
 
 import styles from "./TaskTitle.module.scss";
@@ -40,6 +42,11 @@ export const TaskTitle = (props: ITaskTitleProps) => {
     handleCloseUpdateForm: handleCloseEditForm,
     entityData: taskData,
     successMutationMessage: "Task title updated successfully",
+    additionalParams: {
+      fields: {
+        updatedAt: getCurrentDate(),
+      },
+    },
   });
 
   const { FormFields } = useGetTaskFields({

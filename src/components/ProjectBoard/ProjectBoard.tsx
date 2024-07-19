@@ -38,7 +38,7 @@ export const ProjectBoard = () => {
   };
 
   const {
-    entityFormContext: { isAddColumnFormVisible, handleOpenAddColumnForm },
+    columnFromContext: { isAddColumnFormVisible, handleOpenAddColumnForm },
   } = useContexts();
 
   const navigate = useNavigate();
@@ -52,7 +52,9 @@ export const ProjectBoard = () => {
   });
 
   const backgroundImageStyles = {
-    backgroundImage: `url(${projectData?.cover})`,
+    background: projectData?.cover
+      ? `url(${projectData?.cover}) center center / cover no-repeat`
+      : "var(--gray-bg-color)",
   };
 
   const handleNavigateToProjectsPage = () => {
