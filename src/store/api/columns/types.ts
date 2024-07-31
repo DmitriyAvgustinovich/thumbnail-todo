@@ -22,3 +22,8 @@ export type TDeleteColumnResponse = void;
 export interface IDeleteColumnRequest {
   id: string;
 }
+
+export type TDeleteColumnsByProjectIdResponse = void;
+export interface IDeleteColumnsByProjectIdRequest {
+  projectId: string;
+}

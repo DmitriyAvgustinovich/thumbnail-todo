@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 
 import {
   AppstoreAddOutlined,
-  ExclamationOutlined,
   ProjectOutlined,
   UserOutlined,
 } from "@ant-design/icons";
@@ -27,12 +26,6 @@ export const UserMenuSidebarLinks = () => {
     },
     {
       key: "2",
-      name: "Vital Task",
-      path: RouterPath.vital_task,
-      icon: <ExclamationOutlined className={styles.userMenuSidebarLinkIcon} />,
-    },
-    {
-      key: "3",
       name: "Projects",
       path: RouterPath.projects,
       icon: <ProjectOutlined className={styles.userMenuSidebarLinkIcon} />,

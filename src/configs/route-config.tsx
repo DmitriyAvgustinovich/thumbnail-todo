@@ -6,7 +6,6 @@ import { DashboardPage } from "pages/DashboardPage";
 import { NotAuthorizedPage } from "pages/NotAuthorizedPage";
 import { ProjectBoardPage } from "pages/ProjectBoardPage";
 import { ProjectsPage } from "pages/ProjectsPage";
-import { VitalTaskPage } from "pages/VitalTaskPage";
 
 import { LazyLoadChunk } from "components/LazyLoadChunk/LazyLoadChunk";
 
@@ -19,7 +18,6 @@ export enum AppRoutes {
   DASHBOARD = "dashboard",
   NOT_AUTHORIZED = "not_authorized",
   AUTH = "auth",
-  VITAL_TASK = "vital_task",
   ACCOUNT = "account",
   PROJECTS = "projects",
   PROJECT_BOARD = "project_board",
@@ -29,7 +27,6 @@ export const RouterPath: Record<AppRoutes, string> = {
   [AppRoutes.DASHBOARD]: "/dashboard",
   [AppRoutes.NOT_AUTHORIZED]: "/not_authorized",
   [AppRoutes.AUTH]: "/auth",
-  [AppRoutes.VITAL_TASK]: "/vital_task",
   [AppRoutes.ACCOUNT]: "/account",
   [AppRoutes.PROJECTS]: "/projects",
   [AppRoutes.PROJECT_BOARD]: "/projects/:id",
@@ -58,15 +55,6 @@ export const routeConfig: Record<AppRoutes, TAppRouteProps> = {
     element: (
       <LazyLoadChunk>
         <AuthPage />
-      </LazyLoadChunk>
-    ),
-  },
-  [AppRoutes.VITAL_TASK]: {
-    path: RouterPath.vital_task,
-    authOnly: true,
-    element: (
-      <LazyLoadChunk>
-        <VitalTaskPage />
       </LazyLoadChunk>
     ),
   },

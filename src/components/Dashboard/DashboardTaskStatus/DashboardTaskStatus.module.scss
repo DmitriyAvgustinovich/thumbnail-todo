@@ -1,0 +1,43 @@
+.dashboardTaskStatusWrapper {
+  max-width: 490px;
+  margin: 20px 0;
+  padding: 25px;
+  max-height: 30vw;
+  border-radius: 15px;
+  box-shadow: var(--box-shadow);
+  background-color: var(--primary-bg-color);
+}
+
+.dashboardTaskStatusHeaderWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dashboardTaskStatusHeaderTextWrapper {
+  display: flex;
+  gap: 10px;
+  font: var(--font-l);
+  color: var(--secondary-bg-color);
+}
+
+.dashboardTaskStatusHeaderIcon {
+  color: var(--gray-text-color);
+  font: var(--font-l);
+}
+
+.dashboardTaskStatusCirclesWrapper {
+  margin-top: 40px;
+  display: flex;
+  gap: 40px;
+}
+
+.dashboardTaskStatusCirclesTextWrapper {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dashboardTaskStatusCirclesText {
+  font: var(--font-m);
+}

@@ -6,7 +6,6 @@ import { taskFieldNodes } from "constants/task/task-field-nodes";
 import { taskFieldsDataIndexes } from "constants/task/task-list-fields";
 import { taskStatuses } from "constants/task/task-statuses";
 
-import { useContexts } from "hooks/general/use-contexts";
 import { useFormsAddQuery } from "hooks/general/use-forms-add-query";
 import { useGetTaskFields } from "hooks/task/use-get-task-fields";
 import { useGetAuthUser } from "hooks/user/use-get-auth-user";
@@ -20,16 +19,13 @@ import styles from "./AddTaskForm.module.scss";
 interface IAddTaskFormProps {
   projectId: string;
   columnId: string;
+  handleCloseAddTaskForm: () => void;
 }
 
 export const AddTaskForm = (props: IAddTaskFormProps) => {
-  const { projectId, columnId } = props;
+  const { projectId, columnId, handleCloseAddTaskForm } = props;
 
   const { authUser } = useGetAuthUser();
-
-  const {
-    taskFormContext: { handleCloseAddTaskForm },
-  } = useContexts();
 
   const { FormFields } = useGetTaskFields({
     taskFormElement: taskFieldsDataIndexes.title,
@@ -50,6 +46,7 @@ export const AddTaskForm = (props: IAddTaskFormProps) => {
         projectId,
         columnId,
         createdUserId: authUser?.id,
+        assignedToUserId: "",
         status: taskStatuses.notStarted,
         createdAt: getCurrentDate(),
         updatedAt: getCurrentDate(),
@@ -59,7 +56,7 @@ export const AddTaskForm = (props: IAddTaskFormProps) => {
 
   return (
     <Form
-      className={styles.addTaskForm}
+      className={styles.addTaskFormWrapper}
       layout="vertical"
       onFinish={handleAddEntityFinish}
       onFinishFailed={handleMutationEntityFinishFailed}

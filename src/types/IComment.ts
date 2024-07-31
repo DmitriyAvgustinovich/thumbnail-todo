@@ -1,7 +1,9 @@
 export interface IComment {
   id: string;
   taskId: string;
-  userId: string;
+  authorId: string;
+  columnId: string;
+  projectId: string;
   comment: string;
   createdAt: string;
   updatedAt: string;

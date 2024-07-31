@@ -50,14 +50,13 @@ export const EditCommentForm = (props: IEditCommentFormProps) => {
 
   return (
     <Form
+      className={styles.editCommentFormWrapper}
       layout="vertical"
       onFinish={handleUpdateEntityFinish}
       onFinishFailed={handleMutationEntityFinishFailed}
     >
-      <div className={styles.editCommentFormWrapper}>
-        <MarkdownBlocks />
-        {FormFields}
-      </div>
+      {FormFields}
+      <MarkdownBlocks />
 
       <MarkdownPreview markdownValue={markdownCommentValue} />
 

@@ -17,27 +17,27 @@ import { EditCommentForm } from "./EditCommentForm/EditCommentForm";
 
 interface ICommentProps {
   commentData: IComment;
+  isEditing: boolean;
+  handleOpenEditForm: () => void;
+  handleCloseEditForm: () => void;
 }
 
 export const Comment = (props: ICommentProps) => {
-  const { commentData } = props;
-
-  const [isEditFormVisible, setIsEditFormVisible] = React.useState(false);
+  const { commentData, isEditing, handleOpenEditForm, handleCloseEditForm } =
+    props;
 
   const {
-    taskFormContext: { handleSetMarkdownCommentDefaultValue },
+    taskFormContext: { setMarkdownCommentDefaultValue },
   } = useContexts();
 
-  const handleOpenEditForm = () => {
-    setIsEditFormVisible(true);
-    handleSetMarkdownCommentDefaultValue(commentData.comment);
-  };
+  React.useEffect(() => {
+    if (isEditing) {
+      setMarkdownCommentDefaultValue(commentData.comment);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isEditing, commentData.comment]);
 
-  const handleCloseEditForm = () => {
-    setIsEditFormVisible(false);
-  };
-
-  const { data: userData } = useGetUserByIdQuery({ id: commentData.userId });
+  const { data: userData } = useGetUserByIdQuery({ id: commentData.authorId });
 
   return (
     <div className={styles.commentWrapper}>
@@ -51,7 +51,7 @@ export const Comment = (props: ICommentProps) => {
         <Avatar className={styles.commentUserAvatar} icon={<UserOutlined />} />
       )}
 
-      <div>
+      <div className={styles.commentInfoWrapper}>
         <Typography.Text className={styles.commentUserName} strong>
           {userData?.name} {userData?.surname}
         </Typography.Text>
@@ -60,11 +60,11 @@ export const Comment = (props: ICommentProps) => {
           {" | "} {commentData.createdAt}
         </Typography.Text>
 
-        <Typography.Text className={styles.commentUpdatedAt} underline>
-          Updated at: {commentData.updatedAt}
+        <Typography.Text className={styles.commentUpdatedAt}>
+          Updated at: <u>{commentData.updatedAt}</u>
         </Typography.Text>
 
-        {!isEditFormVisible ? (
+        {!isEditing ? (
           <Markdown
             className={styles.commentTextWrapper}
             remarkPlugins={[remarkGfm]}
@@ -78,7 +78,7 @@ export const Comment = (props: ICommentProps) => {
           />
         )}
 
-        {!isEditFormVisible && (
+        {!isEditing && (
           <CommentActionsBlock
             commentData={commentData}
             handleOpenEditForm={handleOpenEditForm}

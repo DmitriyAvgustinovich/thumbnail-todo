@@ -1,6 +1,11 @@
 import React from "react";
 
-import { Typography } from "antd";
+import { ClockCircleOutlined, CommentOutlined } from "@ant-design/icons";
+import { Tag, Typography } from "antd";
+
+import { useGetCommentsByTaskIdQuery } from "store/api/comments/comments-api";
+
+import { getConvertDate } from "utils/general/get-convert-date";
 
 import { ITask } from "types/ITask";
 
@@ -24,10 +29,31 @@ export const ColumnTask = (props: IColumnTaskProps) => {
     setIsTaskDrawerOpen(false);
   };
 
+  const { data: commentsData } = useGetCommentsByTaskIdQuery({
+    taskId: taskData.id,
+  });
+
   return (
     <>
       <div className={styles.columnTaskWrapper} onClick={handleOpenTaskDrawer}>
-        <Typography.Text>{taskData?.title}</Typography.Text>
+        <Typography.Text className={styles.columnTaskTitle}>
+          {taskData?.title}
+        </Typography.Text>
+
+        <div>
+          {taskData?.deadline && (
+            <Tag>
+              <ClockCircleOutlined /> {getConvertDate(taskData?.deadline)}
+            </Tag>
+          )}
+
+          {!!commentsData?.length && (
+            <Tag>
+              <CommentOutlined className={styles.columnTaskCommentsIcon} />
+              {commentsData?.length}
+            </Tag>
+          )}
+        </div>
       </div>
 
       <TaskDrawer

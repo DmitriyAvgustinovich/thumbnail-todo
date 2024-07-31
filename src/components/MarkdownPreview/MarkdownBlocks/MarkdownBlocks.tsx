@@ -350,8 +350,12 @@ export const MarkdownBlocks = () => {
   );
 
   return (
-    <Popover content={popoverContent} title={popoverTitle} placement="leftTop">
-      <Button type="primary" icon={<BarsOutlined />} />
+    <Popover content={popoverContent} title={popoverTitle} placement="top">
+      <Button
+        className={styles.markdownBlocksPopoverButton}
+        type="primary"
+        icon={<BarsOutlined />}
+      />
     </Popover>
   );
 };

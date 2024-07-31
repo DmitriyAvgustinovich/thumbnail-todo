@@ -1,7 +1,4 @@
-import { FontSizeOutlined } from "@ant-design/icons";
-import { Drawer, Typography } from "antd";
-
-import { useGetColumnByIdQuery } from "store/api/columns/columns-api";
+import { Drawer } from "antd";
 
 import { ITask } from "types/ITask";
 
@@ -9,7 +6,10 @@ import { TaskComments } from "./TaskComments/TaskComments";
 import { TaskDeadline } from "./TaskDeadline/TaskDeadline";
 import { TaskDescription } from "./TaskDescription/TaskDescription";
 import styles from "./TaskDrawer.module.scss";
-import { TaskDrawerSidebar } from "./TaskDrawerSidebar/TaskDrawerSidebar";
+import { SidebarAssignedToAction } from "./TaskDrawerSidebar/SidebarAssignedToAction/SidebarAssignedToAction";
+import { SidebarCoverAction } from "./TaskDrawerSidebar/SidebarCoverAction/SidebarCoverAction";
+import { SidebarDeleteTaskAction } from "./TaskDrawerSidebar/SidebarDeleteTaskAction/SidebarDeleteTaskAction";
+import { SidebarTaskContributorsAction } from "./TaskDrawerSidebar/SidebarTaskContributorsAction/SidebarTaskContributorsAction";
 import { TaskPriority } from "./TaskPriority/TaskPriority";
 import { TaskStatus } from "./TaskStatus/TaskStatus";
 import { TaskSubscribeNotifications } from "./TaskSubscribeNotifications/TaskSubscribeNotifications";
@@ -24,8 +24,6 @@ interface ITaskDrawerProps {
 export const TaskDrawer = (props: ITaskDrawerProps) => {
   const { isTaskDrawerOpen, handleCloseTaskDrawer, taskData } = props;
 
-  const { data: columnData } = useGetColumnByIdQuery({ id: taskData.columnId });
-
   return (
     <Drawer
       open={isTaskDrawerOpen}
@@ -34,25 +32,7 @@ export const TaskDrawer = (props: ITaskDrawerProps) => {
     >
       <div className={styles.taskDrawerWrapper}>
         <div className={styles.taskDrawerInfoWrapper}>
-          <div className={styles.taskDrawerHeaderTitleWrapper}>
-            <FontSizeOutlined className={styles.taskDrawerHeaderTitleIcon} />
-
-            <div>
-              <TaskTitle taskData={taskData} />
-              <Typography.Text className={styles.taskDrawerInColumn} underline>
-                In column: {columnData?.title}
-              </Typography.Text>
-
-              <Typography.Text className={styles.taskDrawerCreatedAt} underline>
-                Created at: {taskData.createdAt}
-              </Typography.Text>
-
-              <Typography.Text className={styles.taskDrawerUpdatedAt} underline>
-                Updated at: {taskData.updatedAt}
-              </Typography.Text>
-            </div>
-          </div>
-
+          <TaskTitle taskData={taskData} />
           <TaskDescription taskData={taskData} />
           <TaskPriority taskData={taskData} />
           <TaskStatus taskData={taskData} />
@@ -61,10 +41,15 @@ export const TaskDrawer = (props: ITaskDrawerProps) => {
           <TaskComments taskData={taskData} />
         </div>
 
-        <TaskDrawerSidebar
-          taskData={taskData}
-          handleCloseTaskDrawer={handleCloseTaskDrawer}
-        />
+        <div className={styles.taskDrawerSidebarWrapper}>
+          <SidebarAssignedToAction taskData={taskData} />
+          <SidebarTaskContributorsAction taskData={taskData} />
+          <SidebarCoverAction />
+          <SidebarDeleteTaskAction
+            taskData={taskData}
+            handleCloseTaskDrawer={handleCloseTaskDrawer}
+          />
+        </div>
       </div>
     </Drawer>
   );

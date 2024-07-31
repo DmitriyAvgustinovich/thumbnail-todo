@@ -48,9 +48,9 @@ export const useGetTaskFields = (args: IUseGetTaskFieldsArgs) => {
       defaultValue={getFieldsDefaultValue({
         defaultValue: taskFormElement,
         formValues,
-      })}
-      style={{ maxWidth: "225px" }}
+      })?.toString()}
       autoFocus={isEdit}
+      size="large"
       suffix={
         isEdit && (
           <>
@@ -84,7 +84,9 @@ export const useGetTaskFields = (args: IUseGetTaskFieldsArgs) => {
       defaultValue={getFieldsDefaultValue({
         defaultValue: taskFormElement,
         formValues,
-      })}
+      })?.toString()}
+      autoFocus={isEdit}
+      size="large"
       onChange={onChangeMarkdownDescriptionValue}
       autoSize
     />
@@ -93,23 +95,23 @@ export const useGetTaskFields = (args: IUseGetTaskFieldsArgs) => {
   const SelectNode = (
     <Select
       options={getFieldsSelectOptions({ formField: taskFormElement })}
-      style={{ maxWidth: "150px" }}
       placeholder={getFieldsPlaceholder({ placeholder: taskFormElement })}
       defaultValue={getFieldsDefaultValue({
         defaultValue: taskFormElement,
         formValues,
-      })}
+      })?.toString()}
+      size="large"
     />
   );
 
   const DateNode = (
     <DatePicker
-      style={{ width: "100%" }}
       placeholder={getFieldsPlaceholder({ placeholder: taskFormElement })}
       defaultValue={getFieldsDefaultValue({
         defaultValue: taskFormElement,
         formValues,
       })}
+      size="large"
     />
   );
 
@@ -140,7 +142,7 @@ export const useGetTaskFields = (args: IUseGetTaskFieldsArgs) => {
   ];
 
   const FormFields = taskTitleFieldArray.map((field) => (
-    <Form.Item {...field} key={field.name}>
+    <Form.Item {...field} key={field.name} style={{ marginBottom: 0 }}>
       {field.node}
     </Form.Item>
   ));

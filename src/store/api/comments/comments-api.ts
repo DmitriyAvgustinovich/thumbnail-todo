@@ -2,11 +2,17 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import {
   IDeleteCommentRequest,
+  IDeleteCommentsByColumnIdRequest,
+  IDeleteCommentsByProjectIdRequest,
+  IDeleteCommentsByTaskIdRequest,
   IGetCommentsByTaskIdRequest,
   IUpdateCommentRequest,
   TAddCommentRequest,
   TAddCommentResponse,
   TDeleteCommentResponse,
+  TDeleteCommentsByColumnIdResponse,
+  TDeleteCommentsByProjectIdResponse,
+  TDeleteCommentsByTaskIdResponse,
   TGetCommentsByTaskIdResponse,
   TUpdateCommentResponse,
 } from "./types";
@@ -53,6 +59,39 @@ export const commentsApi = createApi({
     >({
       query: (body) => ({
         url: `comments/${body.id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Comments"],
+    }),
+
+    deleteCommentsByTaskId: build.mutation<
+      TDeleteCommentsByTaskIdResponse,
+      IDeleteCommentsByTaskIdRequest
+    >({
+      query: (body) => ({
+        url: `comments?taskId=${body.taskId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Comments"],
+    }),
+
+    deleteCommentsByColumnId: build.mutation<
+      TDeleteCommentsByColumnIdResponse,
+      IDeleteCommentsByColumnIdRequest
+    >({
+      query: (body) => ({
+        url: `comments?columnId=${body.columnId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Comments"],
+    }),
+
+    deleteCommentsByProjectId: build.mutation<
+      TDeleteCommentsByProjectIdResponse,
+      IDeleteCommentsByProjectIdRequest
+    >({
+      query: (body) => ({
+        url: `comments?projectId=${body.projectId}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Comments"],

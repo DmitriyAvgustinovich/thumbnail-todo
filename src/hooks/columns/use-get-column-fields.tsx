@@ -1,4 +1,5 @@
-import { Form, Input } from "antd";
+import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
+import { Button, Form, Input, Tooltip } from "antd";
 
 import {
   columnFieldsDataIndexes,
@@ -12,22 +13,47 @@ import { IColumn } from "types/IColumn";
 interface IUseGetColumnFieldsArgs {
   formValues?: IColumn;
   isEdit: boolean;
+  isLoadingState?: boolean;
+  handleCloseEditForm?: () => void;
 }
 
 export const useGetColumnFields = (args: IUseGetColumnFieldsArgs) => {
-  const { formValues, isEdit } = args;
+  const { formValues, isEdit, isLoadingState, handleCloseEditForm } = args;
 
   const isRequired = isEdit ? false : true;
 
   const columnFieldsArray = [
     {
-      label: columnFieldsTitles.title,
+      label: !isEdit ? columnFieldsTitles.title : "",
       name: columnFieldsDataIndexes.title,
       node: (
         <Input
           placeholder={columnFieldsPlaceholders.title}
           defaultValue={formValues?.title}
-          allowClear
+          style={{ maxWidth: "180px" }}
+          suffix={
+            isEdit && (
+              <>
+                <Tooltip title="Done">
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    loading={isLoadingState}
+                    icon={<CheckOutlined />}
+                    size="small"
+                  />
+                </Tooltip>
+
+                <Tooltip title="Cancel">
+                  <Button
+                    onClick={handleCloseEditForm}
+                    icon={<CloseOutlined />}
+                    size="small"
+                  />
+                </Tooltip>
+              </>
+            )
+          }
         />
       ),
       rules: [
@@ -40,7 +66,7 @@ export const useGetColumnFields = (args: IUseGetColumnFieldsArgs) => {
   ];
 
   const FormFields = columnFieldsArray.map((field) => (
-    <Form.Item {...field} key={field.name}>
+    <Form.Item {...field} key={field.name} style={{ marginBottom: 0 }}>
       {field.node}
     </Form.Item>
   ));

@@ -1,14 +1,40 @@
 import ContentLoader from "react-content-loader";
 
+import styles from "./DashboardSkeleton.module.scss";
+
 export const DashboardSkeleton = () => (
-  <ContentLoader
-    speed={2}
-    width="150"
-    height="30"
-    viewBox="0 0 150 30"
-    backgroundColor="var(--skeleton-color)"
-    foregroundColor="var(--animated-skeleton-color)"
-  >
-    <rect x="0" y="0" rx="3" ry="3" width="150" height="30" />
-  </ContentLoader>
+  <div className={styles.dashboardSkeletonWrapper}>
+    <ContentLoader
+      speed={2}
+      width="340"
+      height="520"
+      viewBox="0 0 340 520"
+      backgroundColor="var(--skeleton-color)"
+      foregroundColor="var(--animated-skeleton-color)"
+    >
+      <rect x="0" y="0" rx="10" ry="10" width="340" height="520" />
+    </ContentLoader>
+
+    <ContentLoader
+      speed={2}
+      width="340"
+      height="520"
+      viewBox="0 0 340 520"
+      backgroundColor="var(--skeleton-color)"
+      foregroundColor="var(--animated-skeleton-color)"
+    >
+      <rect x="0" y="0" rx="10" ry="10" width="340" height="520" />
+    </ContentLoader>
+
+    <ContentLoader
+      speed={2}
+      width="340"
+      height="520"
+      viewBox="0 0 340 520"
+      backgroundColor="var(--skeleton-color)"
+      foregroundColor="var(--animated-skeleton-color)"
+    >
+      <rect x="0" y="0" rx="10" ry="10" width="340" height="520" />
+    </ContentLoader>
+  </div>
 );

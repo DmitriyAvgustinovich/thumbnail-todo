@@ -39,13 +39,13 @@ export const TaskDescription = (props: ITaskDescriptionProps) => {
   const {
     taskFormContext: {
       markdownDescriptionValue,
-      handleSetMarkdownDescriptionDefaultValue,
+      setMarkdownDescriptionDefaultValue,
     },
   } = useContexts();
 
   const handleOpenEditForm = () => {
-    setIsEditFormVisible(true);
-    handleSetMarkdownDescriptionDefaultValue(taskData.description);
+    setIsEditFormVisible(!isEditFormVisible);
+    setMarkdownDescriptionDefaultValue(taskData.description);
   };
 
   const handleCloseEditForm = () => {
@@ -104,10 +104,8 @@ export const TaskDescription = (props: ITaskDescriptionProps) => {
           onFinish={handleUpdateEntityFinish}
           onFinishFailed={handleMutationEntityFinishFailed}
         >
-          <div className={styles.taskDescriptionEditFormWrapper}>
-            <MarkdownBlocks />
-            {FormFields}
-          </div>
+          {FormFields}
+          <MarkdownBlocks />
 
           <MarkdownPreview markdownValue={markdownDescriptionValue} />
 

@@ -2,8 +2,6 @@ import { Form, Input } from "antd";
 
 import { UploadButton } from "components/UploadButton/UploadButton";
 
-import { useUpdateUserMutation } from "store/api/users/users-api";
-
 import { RouterPath } from "configs/route-config";
 
 import {
@@ -13,37 +11,20 @@ import {
 } from "constants/auth/auth-list-fields";
 import { DEFAULT_VALIDATE_MESSAGE } from "constants/general";
 
-import { useFormsUpdateQuery } from "hooks/general/use-forms-update-query";
-import { useGetAuthUser } from "hooks/user/use-get-auth-user";
-
 import { IUser } from "types/IUser";
 
 interface IUseGetAuthFieldsArgs {
   formValues?: IUser;
-  handleCancelEdit?: () => void;
-  isEdit?: boolean;
+  isEdit: boolean;
+  imageUrl: string;
+  setImageUrl: (imageUrl: string) => void;
 }
 
 export const useGetAuthFields = (args: IUseGetAuthFieldsArgs) => {
-  const { formValues, handleCancelEdit, isEdit } = args;
-
-  const { authUser, refetchAuthUser } = useGetAuthUser();
+  const { formValues, isEdit, imageUrl, setImageUrl } = args;
 
   const location = window.location.pathname;
   const isAccountPage = location === RouterPath.account;
-
-  const { handleUpdateEntityFinish } = useFormsUpdateQuery<IUser, IUser>({
-    useUpdateQueryMutation: useUpdateUserMutation,
-    entityData: authUser,
-    handleCloseUpdateForm: handleCancelEdit,
-    successMutationMessage: "Image successfully cleared",
-    additionalParams: {
-      refetchData: refetchAuthUser,
-      fields: {
-        avatarUrl: "",
-      },
-    },
-  });
 
   const registerFieldsArray = [
     {
@@ -52,8 +33,8 @@ export const useGetAuthFields = (args: IUseGetAuthFieldsArgs) => {
       node: (
         <UploadButton
           disabled={!isEdit}
-          existedImage={authUser?.avatarUrl}
-          clearExistedImageUrlCallback={handleUpdateEntityFinish}
+          imageUrl={imageUrl}
+          setImageUrl={setImageUrl}
         />
       ),
     },

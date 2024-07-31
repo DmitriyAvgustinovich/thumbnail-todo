@@ -1,4 +1,35 @@
-.taskTitle {
-  display: block;
-  font: var(--font-xl);
+.taskTitleIconWrapper {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.taskTitleIcon {
+  font: var(--font-l);
+}
+
+.taskTitleIconText {
+  font: var(--font-m);
+}
+
+.taskTitleTextWrapper {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--primary-bg-color);
+  font: var(--font-m);
+}
+
+.taskTitleTimeInfoWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--primary-bg-color);
+}
+
+.taskTitleTimeInfoText {
+  font: var(--font-m);
 }

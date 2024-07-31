@@ -13,33 +13,36 @@ import {
 
 import { RouterPath } from "configs/route-config";
 
-import { useContexts } from "hooks/general/use-contexts";
 import { useDeleteEntityQuery } from "hooks/general/use-delete-entity-query";
 
 import { IColumn } from "types/IColumn";
 import { IProject } from "types/IProject";
 
-import { EditMainInfoModal } from "./EditMainInfoModal/EditMainInfoModal";
+import { EditProjectModal } from "./EditProjectModal/EditProjectModal";
 import styles from "./ProjectBoard.module.scss";
 import { ProjectBoardSkeleton } from "./ProjectBoardSkeleton/ProjectBoardSkeleton";
 import { AddColumnForm } from "./ProjectColumn/AddColumnForm/AddColumnForm";
 import { ProjectColumn } from "./ProjectColumn/ProjectColumn";
 
 export const ProjectBoard = () => {
-  const [openEditMainInfoModal, setOpenEditMainInfoModal] =
-    React.useState(false);
+  const [isAddFormVisible, setIsAddFormVisible] = React.useState(false);
+  const [isOpenEditModal, setIsOpenEditModal] = React.useState(false);
 
-  const handleOpenEditMainInfoModal = () => {
-    setOpenEditMainInfoModal(true);
+  const handleOpenAddForm = () => {
+    setIsAddFormVisible(true);
   };
 
-  const handleCloseEditMainInfoModal = () => {
-    setOpenEditMainInfoModal(false);
+  const handleCloseAddForm = () => {
+    setIsAddFormVisible(false);
   };
 
-  const {
-    columnFromContext: { isAddColumnFormVisible, handleOpenAddColumnForm },
-  } = useContexts();
+  const handleOpenEditModal = () => {
+    setIsOpenEditModal(true);
+  };
+
+  const handleCloseEditModal = () => {
+    setIsOpenEditModal(false);
+  };
 
   const navigate = useNavigate();
 
@@ -54,7 +57,7 @@ export const ProjectBoard = () => {
   const backgroundImageStyles = {
     background: projectData?.cover
       ? `url(${projectData?.cover}) center center / cover no-repeat`
-      : "var(--gray-bg-color)",
+      : "var(--project-board-default-bg-color)",
   };
 
   const handleNavigateToProjectsPage = () => {
@@ -84,10 +87,10 @@ export const ProjectBoard = () => {
             </h1>
 
             <AdditionalActionsPopoverContent
-              confirmDeleteTitle="Are you sure you want to delete this project with all tasks?"
+              confirmDeleteTitle="Are you sure you want to delete this project with all tasks and columns?"
               handleDeleteAction={handleDeleteEntityFinish}
-              handleOpenAddModal={handleOpenAddColumnForm}
-              handleOpenEditModal={handleOpenEditMainInfoModal}
+              handleOpenAddModal={handleOpenAddForm}
+              handleOpenEditModal={handleOpenEditModal}
               addButtonText="column"
               placement="leftTop"
               withButtonWrapper
@@ -100,16 +103,21 @@ export const ProjectBoard = () => {
           >
             <div className={styles.projectBoardColumnsWrapper}>
               {columnsData?.map((column: IColumn) => (
-                <ProjectColumn columnData={column} />
+                <ProjectColumn key={column.id} columnData={column} />
               ))}
 
-              {isAddColumnFormVisible && <AddColumnForm projectId={id} />}
+              {isAddFormVisible && (
+                <AddColumnForm
+                  projectData={projectData}
+                  handleCloseAddForm={handleCloseAddForm}
+                />
+              )}
             </div>
           </div>
 
-          <EditMainInfoModal
-            openEditMainInfoModal={openEditMainInfoModal}
-            handleCloseEditMainInfoModal={handleCloseEditMainInfoModal}
+          <EditProjectModal
+            isOpenEditModal={isOpenEditModal}
+            handleCloseEditModal={handleCloseEditModal}
             projectData={projectData}
           />
         </>

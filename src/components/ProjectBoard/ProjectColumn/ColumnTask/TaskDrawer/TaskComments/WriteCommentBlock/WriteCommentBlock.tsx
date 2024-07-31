@@ -6,11 +6,11 @@ import { useGetAuthUser } from "hooks/user/use-get-auth-user";
 import styles from "./WriteCommentBlock.module.scss";
 
 interface IWriteCommentBlockProps {
-  handleOpenEditForm: () => void;
+  handleAddFormVisible: () => void;
 }
 
 export const WriteCommentBlock = (props: IWriteCommentBlockProps) => {
-  const { handleOpenEditForm } = props;
+  const { handleAddFormVisible } = props;
 
   const { authUser } = useGetAuthUser();
 
@@ -31,7 +31,7 @@ export const WriteCommentBlock = (props: IWriteCommentBlockProps) => {
 
       <div
         className={styles.writeCommentTextWrapper}
-        onClick={handleOpenEditForm}
+        onClick={handleAddFormVisible}
       >
         <Typography.Text className={styles.writeCommentText}>
           Write a comment...

@@ -30,13 +30,14 @@ export const useGetCommentFields = (args: IUseGetCommentFieldsArgs) => {
           defaultValue={formValues?.comment}
           onChange={onChangeMarkdownCommentValue}
           autoSize
+          size="large"
         />
       ),
     },
   ];
 
   const FormFields = commentFieldsArray.map((field) => (
-    <Form.Item {...field} key={field.name}>
+    <Form.Item {...field} key={field.name} style={{ marginBottom: 0 }}>
       {field.node}
     </Form.Item>
   ));

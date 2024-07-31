@@ -5,11 +5,14 @@ import { Typography } from "antd";
 
 import { useGetCommentsByTaskIdQuery } from "store/api/comments/comments-api";
 
+import { useContexts } from "hooks/general/use-contexts";
+
 import { ITask } from "types/ITask";
 
 import { AddCommentForm } from "./AddCommentForm/AddCommentForm";
 import { Comment } from "./Comment/Comment";
 import styles from "./TaskComments.module.scss";
+import { TaskCommentsSkeleton } from "./TaskCommentsSkeleton/TaskCommentsSkeleton";
 import { WriteCommentBlock } from "./WriteCommentBlock/WriteCommentBlock";
 
 interface ITaskCommentsProps {
@@ -19,18 +22,34 @@ interface ITaskCommentsProps {
 export const TaskComments = (props: ITaskCommentsProps) => {
   const { taskData } = props;
 
-  const [isEditFormVisible, setIsEditFormVisible] = React.useState(false);
+  const [isAddFormVisible, setIsAddFormVisible] = React.useState(false);
+  const [editingCommentId, setEditingCommentId] = React.useState("");
 
-  const { data: commentsData } = useGetCommentsByTaskIdQuery({
-    taskId: taskData.id,
-  });
+  const {
+    taskFormContext: { setMarkdownCommentDefaultValue },
+  } = useContexts();
 
-  const handleOpenEditForm = () => {
-    setIsEditFormVisible(true);
+  const { data: commentsData, isLoading: isCommentsDataLoading } =
+    useGetCommentsByTaskIdQuery({
+      taskId: taskData.id,
+    });
+
+  const handleAddFormVisible = () => {
+    setIsAddFormVisible(true);
+    setMarkdownCommentDefaultValue("");
+    setEditingCommentId("");
+  };
+
+  const handleAddFormNotVisible = () => {
+    setIsAddFormVisible(false);
+  };
+
+  const handleOpenEditForm = (commentId: string) => {
+    setEditingCommentId(commentId);
   };
 
   const handleCloseEditForm = () => {
-    setIsEditFormVisible(false);
+    setEditingCommentId("");
   };
 
   return (
@@ -42,19 +61,29 @@ export const TaskComments = (props: ITaskCommentsProps) => {
         </Typography.Text>
       </div>
 
-      {commentsData?.map((comment) => (
-        <Comment key={comment.id} commentData={comment} />
-      ))}
+      {isCommentsDataLoading ? (
+        <TaskCommentsSkeleton />
+      ) : (
+        commentsData?.map((comment) => (
+          <Comment
+            key={comment.id}
+            commentData={comment}
+            isEditing={editingCommentId === comment.id}
+            handleOpenEditForm={() => handleOpenEditForm(comment.id)}
+            handleCloseEditForm={handleCloseEditForm}
+          />
+        ))
+      )}
 
-      {isEditFormVisible && (
+      {isAddFormVisible && (
         <AddCommentForm
           taskData={taskData}
-          handleCloseEditForm={handleCloseEditForm}
+          handleAddFormNotVisible={handleAddFormNotVisible}
         />
       )}
 
-      {!isEditFormVisible && (
-        <WriteCommentBlock handleOpenEditForm={handleOpenEditForm} />
+      {!isAddFormVisible && (
+        <WriteCommentBlock handleAddFormVisible={handleAddFormVisible} />
       )}
     </>
   );

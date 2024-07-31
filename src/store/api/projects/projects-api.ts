@@ -14,6 +14,10 @@ import {
   TGetProjectsByAdminUserIdResponse,
   TUpdateProjectResponse,
 } from "./types";
+import { columnsApi } from "../columns/columns-api";
+import { commentsApi } from "../comments/comments-api";
+import { projectContributorsApi } from "../projectContributors/project-contributors-api";
+import { tasksApi } from "../tasks/tasks-api";
 
 export const projectsApi = createApi({
   reducerPath: "projectsApi",
@@ -44,6 +48,25 @@ export const projectsApi = createApi({
         method: "POST",
         body,
       }),
+      onQueryStarted: async (_body, { dispatch, queryFulfilled }) => {
+        try {
+          const { data } = await queryFulfilled;
+
+          const addedData = {
+            id: data.id,
+            projectId: data.id,
+            userId: data?.adminUserId ?? "",
+          };
+
+          dispatch(
+            projectContributorsApi.endpoints.addProjectContributor.initiate(
+              addedData
+            )
+          );
+        } catch (error) {
+          console.log(error);
+        }
+      },
       invalidatesTags: ["Projects"],
     }),
 
@@ -67,6 +90,37 @@ export const projectsApi = createApi({
         url: `projects/${body.id}`,
         method: "DELETE",
       }),
+      onQueryStarted: async (body, { dispatch }) => {
+        try {
+          dispatch(
+            projectContributorsApi.endpoints.deleteProjectContributorsByProjectId.initiate(
+              {
+                projectId: body.id,
+              }
+            )
+          );
+
+          dispatch(
+            columnsApi.endpoints.deleteColumnsByProjectId.initiate({
+              projectId: body.id,
+            })
+          );
+
+          dispatch(
+            tasksApi.endpoints.deleteTasksByProjectId.initiate({
+              projectId: body.id,
+            })
+          );
+
+          dispatch(
+            commentsApi.endpoints.deleteCommentsByProjectId.initiate({
+              projectId: body.id,
+            })
+          );
+        } catch (error) {
+          console.log(error);
+        }
+      },
       invalidatesTags: ["Projects"],
     }),
 

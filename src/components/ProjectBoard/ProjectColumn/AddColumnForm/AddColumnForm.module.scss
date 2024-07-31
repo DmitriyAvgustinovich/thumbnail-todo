@@ -1,13 +1,11 @@
-.addColumnFormWrapper {
-  min-width: 260px;
-}
-
 .addColumnForm {
   background-color: var(--primary-bg-color);
   border-radius: 15px;
   padding: 20px;
 }
 
-.addColumnFormCancelButton {
-  margin-left: 10px;
+.addColumnFormButtonsWrapper {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
 }

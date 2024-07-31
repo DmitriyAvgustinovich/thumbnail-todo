@@ -38,16 +38,13 @@ server.post("/users?sign-up", (req, res) => {
     );
 
     const { users = [] } = db;
-    const newUser = users.find(
-      (user) => user.email === email && user.password === password
-    );
+    const newUser = users.find((user) => user.email === email);
 
     if (newUser) {
       return res.status(409).json({ message: "Such a user already exists." });
     }
 
     const user = {
-      id: Date.now().toString(),
       name,
       surname,
       email,

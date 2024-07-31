@@ -6,30 +6,10 @@
 .taskDrawerInfoWrapper {
   display: flex;
   flex-direction: column;
+  width: 75%;
 }
 
-.taskDrawerHeaderTitleWrapper {
+.taskDrawerSidebarWrapper {
   display: flex;
-  gap: 20px;
-}
-
-.taskDrawerHeaderTitleIcon {
-  font: var(--font-l);
-}
-
-.taskDrawerInColumn {
-  display: block;
-  font: var(--font-m);
-  color: var(--gray-text-color);
-}
-
-.taskDrawerCreatedAt {
-  font: var(--font-m);
-  color: var(--gray-text-color);
-}
-
-.taskDrawerUpdatedAt {
-  display: block;
-  font: var(--font-m);
-  color: var(--gray-text-color);
+  flex-direction: column;
 }

@@ -3,6 +3,17 @@
   gap: 10px;
 }
 
+.addCommentFormUserAvatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.addCommentForm {
+  width: 100%;
+}
+
 .addCommentFormButtonsWrapper {
   margin-top: 10px;
   display: flex;

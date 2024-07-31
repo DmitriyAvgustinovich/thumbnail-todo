@@ -1,10 +1,9 @@
+import React from "react";
+
 import { Button, Form, Modal } from "antd";
 
 import { useAddProjectMutation } from "store/api/projects/projects-api";
 
-import { projectVisibilities } from "constants/project/project-visibilities";
-
-import { useContexts } from "hooks/general/use-contexts";
 import { useFormsAddQuery } from "hooks/general/use-forms-add-query";
 import { useGetProjectFields } from "hooks/projects/use-get-project-fields";
 import { useGetAuthUser } from "hooks/user/use-get-auth-user";
@@ -21,12 +20,15 @@ interface IAddProjectModalProps {
 export const AddProjectModal = (props: IAddProjectModalProps) => {
   const { isAddProjectModalOpen, handleCloseAddProjectModal } = props;
 
-  const {
-    imageUrlContext: { uploadImagePath },
-  } = useContexts();
+  const [imageUrl, setImageUrl] = React.useState("");
 
   const { authUser } = useGetAuthUser();
-  const { FormFields } = useGetProjectFields({ isEdit: true });
+
+  const { FormFields } = useGetProjectFields({
+    isEdit: true,
+    imageUrl,
+    setImageUrl,
+  });
 
   const timeoutCloseAddProjectModal = () => {
     setTimeout(() => handleCloseAddProjectModal(), 1000);
@@ -45,8 +47,7 @@ export const AddProjectModal = (props: IAddProjectModalProps) => {
         adminUserId: authUser?.id,
         createdAt: getCurrentDate(),
         updatedAt: getCurrentDate(),
-        cover: uploadImagePath,
-        visibility: projectVisibilities.public,
+        cover: imageUrl,
       },
     },
   });

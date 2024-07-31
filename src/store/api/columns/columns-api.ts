@@ -11,7 +11,11 @@ import {
   TGetColumnByIdResponse,
   TGetColumnsByProjectIdResponse,
   TUpdateColumnResponse,
+  TDeleteColumnsByProjectIdResponse,
+  IDeleteColumnsByProjectIdRequest,
 } from "./types";
+import { commentsApi } from "../comments/comments-api";
+import { tasksApi } from "../tasks/tasks-api";
 
 export const columnsApi = createApi({
   reducerPath: "columnsApi",
@@ -61,9 +65,37 @@ export const columnsApi = createApi({
           url: `columns/${body.id}`,
           method: "DELETE",
         }),
+        onQueryStarted: async (body, { dispatch }) => {
+          try {
+            dispatch(
+              tasksApi.endpoints.deleteTasksByColumnId.initiate({
+                columnId: body.id,
+              })
+            );
+
+            dispatch(
+              commentsApi.endpoints.deleteCommentsByColumnId.initiate({
+                columnId: body.id,
+              })
+            );
+          } catch (error) {
+            console.log(error);
+          }
+        },
         invalidatesTags: ["Columns"],
       }
     ),
+
+    deleteColumnsByProjectId: builder.mutation<
+      TDeleteColumnsByProjectIdResponse,
+      IDeleteColumnsByProjectIdRequest
+    >({
+      query: (body) => ({
+        url: `columns?projectId=${body.projectId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Columns"],
+    }),
   }),
 });
 

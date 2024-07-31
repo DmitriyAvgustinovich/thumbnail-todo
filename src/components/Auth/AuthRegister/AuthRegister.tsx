@@ -1,3 +1,5 @@
+import React from "react";
+
 import { Button, Form } from "antd";
 
 import { useSignUpMutation } from "store/api/auth/auth-api";
@@ -5,7 +7,6 @@ import { useSignUpMutation } from "store/api/auth/auth-api";
 import { RouterPath } from "configs/route-config";
 
 import { useGetAuthFields } from "hooks/auth/use-get-auth-fields";
-import { useContexts } from "hooks/general/use-contexts";
 import { useFormsAddQuery } from "hooks/general/use-forms-add-query";
 import { useNavigateSpecifiedPage } from "hooks/general/use-navigate-on-specified-page";
 
@@ -14,11 +15,13 @@ import { IUser } from "types/IUser";
 import styles from "./AuthRegister.module.scss";
 
 export const AuthRegister = () => {
-  const { RegisterFields } = useGetAuthFields({ isEdit: true });
+  const [imageUrl, setImageUrl] = React.useState("");
 
-  const {
-    imageUrlContext: { uploadImagePath },
-  } = useContexts();
+  const { RegisterFields } = useGetAuthFields({
+    isEdit: true,
+    imageUrl,
+    setImageUrl,
+  });
 
   const {
     handleAddEntityFinish,
@@ -30,7 +33,7 @@ export const AuthRegister = () => {
     successMutationMessage: "Sign up successful",
     additionalParams: {
       fields: {
-        avatarUrl: uploadImagePath,
+        avatarUrl: imageUrl,
       },
     },
   });

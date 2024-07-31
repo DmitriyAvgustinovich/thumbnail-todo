@@ -3,39 +3,34 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   IDeleteTaskRequest,
   IGetTaskByIdRequest,
-  IGetTasksByCreatedUserIdRequest,
+  IGetTasksByAssignedToUserIdRequest,
   IUpdateTaskRequest,
   TAddTaskRequest,
   TAddTaskResponse,
   TDeleteTaskResponse,
-  IGetAllProjectTasksRequest,
-  TGetAllProjectTasksResponse,
   TGetTaskByIdResponse,
-  TGetTasksByCreatedUserIdResponse,
+  TGetTasksByAssignedToUserIdResponse,
   TUpdateTaskResponse,
   TGetTasksByColumnIdResponse,
   IGetTasksByColumnIdRequest,
+  TDeleteTasksByColumnIdResponse,
+  IDeleteTasksByColumnIdRequest,
+  TDeleteTasksByProjectIdResponse,
+  IDeleteTasksByProjectIdRequest,
 } from "./types";
+import { commentsApi } from "../comments/comments-api";
 
 export const tasksApi = createApi({
   reducerPath: "tasksApi",
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BASE_URL }),
   tagTypes: ["Tasks"],
   endpoints: (builder) => ({
-    getAllProjectTasks: builder.query<
-      TGetAllProjectTasksResponse,
-      IGetAllProjectTasksRequest
-    >({
-      query: (body) => `tasks?projectId=${body.projectId}`,
-      providesTags: ["Tasks"],
-    }),
-
-    getTasksByCreatedUserId: builder.query<
-      TGetTasksByCreatedUserIdResponse,
-      IGetTasksByCreatedUserIdRequest
+    getTasksByAssignedToUserId: builder.query<
+      TGetTasksByAssignedToUserIdResponse,
+      IGetTasksByAssignedToUserIdRequest
     >({
       query: (body) => ({
-        url: `tasks?createdUserId=${body.createdUserId}`,
+        url: `tasks?assignedToUserId=${body.id}`,
       }),
       providesTags: ["Tasks"],
     }),
@@ -78,14 +73,46 @@ export const tasksApi = createApi({
         url: `tasks/${body.id}`,
         method: "DELETE",
       }),
+      onQueryStarted: async (body, { dispatch }) => {
+        try {
+          dispatch(
+            commentsApi.endpoints.deleteCommentsByTaskId.initiate({
+              taskId: body.id,
+            })
+          );
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      invalidatesTags: ["Tasks"],
+    }),
+
+    deleteTasksByColumnId: builder.mutation<
+      TDeleteTasksByColumnIdResponse,
+      IDeleteTasksByColumnIdRequest
+    >({
+      query: (body) => ({
+        url: `tasks?columnId=${body.columnId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Tasks"],
+    }),
+
+    deleteTasksByProjectId: builder.mutation<
+      TDeleteTasksByProjectIdResponse,
+      IDeleteTasksByProjectIdRequest
+    >({
+      query: (body) => ({
+        url: `tasks?projectId=${body.projectId}`,
+        method: "DELETE",
+      }),
       invalidatesTags: ["Tasks"],
     }),
   }),
 });
 
 export const {
-  useGetAllProjectTasksQuery,
-  useGetTasksByCreatedUserIdQuery,
+  useGetTasksByAssignedToUserIdQuery,
   useGetTasksByColumnIdQuery,
   useGetTaskByIdQuery,
   useAddTaskMutation,

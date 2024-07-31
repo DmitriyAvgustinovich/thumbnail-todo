@@ -1,0 +1,26 @@
+.taskContributorsWrapper {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &:hover {
+    background-color: var(--primary-bg-color);
+    border-radius: 10px;
+  }
+}
+
+.taskContributorAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.taskContributorName {
+  font: var(--font-m);
+}
+
+.taskContributorDeleteIcon {
+  cursor: pointer;
+}

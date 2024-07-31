@@ -1,44 +1,58 @@
-import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Tabs, Typography } from "antd";
 
 import { PageLayout } from "components/PageLayout/PageLayout";
 
-import { useGetTasksByCreatedUserIdQuery } from "store/api/tasks/tasks-api";
+import { useGetTasksByAssignedToUserIdQuery } from "store/api/tasks/tasks-api";
 
 import { useGetAuthUser } from "hooks/user/use-get-auth-user";
 
-import { CompletedTask } from "./CompletedTask/CompletedTask";
 import styles from "./Dashboard.module.scss";
+import { DashboardCompletedTask } from "./DashboardCompletedTask/DashboardCompletedTask";
 import { DashboardSkeleton } from "./DashboardSkeleton/DashboardSkeleton";
-import { TaskStatus } from "./TaskStatus/TaskStatus";
-import { TaskTodo } from "./TaskTodo/TaskTodo";
+import { DashboardTaskStatus } from "./DashboardTaskStatus/DashboardTaskStatus";
+import { DashboardTaskTodo } from "./DashboardTaskTodo/DashboardTaskTodo";
+import { DashboardVitalTask } from "./DashboardVitalTask/DashboardVitalTask";
 
 export const Dashboard = () => {
   const { authUser, isAuthUserLoading } = useGetAuthUser();
 
-  const { isLoading: isMyTasksDataLoading } = useGetTasksByCreatedUserIdQuery({
-    userId: authUser?.id ?? "",
+  const {
+    data: assignedToMeTasksData,
+    isLoading: isAssignedToMeTasksDataLoading,
+  } = useGetTasksByAssignedToUserIdQuery({
+    id: authUser?.id ?? "",
   });
+
+  const tabsItems = [
+    {
+      key: "0",
+      label: "Dashboard",
+      children: isAssignedToMeTasksDataLoading ? (
+        <DashboardSkeleton />
+      ) : (
+        <div className={styles.dashboardWrapper}>
+          <DashboardTaskTodo tasksData={assignedToMeTasksData ?? []} />
+          <DashboardCompletedTask tasksData={assignedToMeTasksData ?? []} />
+          <DashboardVitalTask tasksData={assignedToMeTasksData ?? []} />
+        </div>
+      ),
+    },
+    {
+      key: '1',
+      label: 'Statistics',
+      children: <DashboardTaskStatus />
+    }
+  ];
 
   return (
     <PageLayout>
-      <h1 className={styles.dashboardTitle}>
-        Welcome back,{" "}
-        {isAuthUserLoading ? <DashboardSkeleton /> : authUser?.name}{" "}
+      <Typography.Title>
+        Welcome back, {isAuthUserLoading ? <LoadingOutlined /> : authUser?.name}{" "}
         &#x1F44B;
-      </h1>
+      </Typography.Title>
 
-      {isAuthUserLoading || isMyTasksDataLoading ? (
-        <Spin className={styles.dashboardSpinner} size="large" />
-      ) : (
-        <div className={styles.dashboardWrapper}>
-          <TaskTodo />
-
-          <div>
-            <TaskStatus />
-            <CompletedTask />
-          </div>
-        </div>
-      )}
+      <Tabs items={tabsItems} />
     </PageLayout>
   );
 };

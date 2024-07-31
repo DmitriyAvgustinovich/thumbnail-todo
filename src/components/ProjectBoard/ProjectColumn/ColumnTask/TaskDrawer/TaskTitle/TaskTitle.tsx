@@ -1,7 +1,9 @@
 import React from "react";
 
+import { FontSizeOutlined, LoadingOutlined } from "@ant-design/icons";
 import { Form, Tooltip, Typography } from "antd";
 
+import { useGetColumnByIdQuery } from "store/api/columns/columns-api";
 import { useUpdateTaskMutation } from "store/api/tasks/tasks-api";
 
 import { taskFieldNodes } from "constants/task/task-field-nodes";
@@ -26,12 +28,15 @@ export const TaskTitle = (props: ITaskTitleProps) => {
   const [isEditFormVisible, setIsEditFormVisible] = React.useState(false);
 
   const handleOpenEditForm = () => {
-    setIsEditFormVisible(true);
+    setIsEditFormVisible(!isEditFormVisible);
   };
 
   const handleCloseEditForm = () => {
     setIsEditFormVisible(false);
   };
+
+  const { data: columnData, isLoading: isColumnDataLoading } =
+    useGetColumnByIdQuery({ id: taskData.columnId });
 
   const {
     handleUpdateEntityFinish,
@@ -60,15 +65,24 @@ export const TaskTitle = (props: ITaskTitleProps) => {
 
   return (
     <>
+      <div className={styles.taskTitleIconWrapper} onClick={handleOpenEditForm}>
+        <FontSizeOutlined className={styles.taskTitleIcon} />
+        <Tooltip title="Edit task title" placement="right">
+          <Typography.Text className={styles.taskTitleIconText}>
+            Title
+          </Typography.Text>
+        </Tooltip>
+      </div>
+
       {!isEditFormVisible ? (
-        <Tooltip title="Edit task title">
+        <div className={styles.taskTitleTextWrapper}>
           <Typography.Text
-            className={styles.taskTitle}
+            className={styles.taskTitleIconText}
             onClick={handleOpenEditForm}
           >
             {taskData.title}
           </Typography.Text>
-        </Tooltip>
+        </div>
       ) : (
         <Form
           layout="vertical"
@@ -78,6 +92,25 @@ export const TaskTitle = (props: ITaskTitleProps) => {
           {FormFields}
         </Form>
       )}
+
+      <div className={styles.taskTitleTimeInfoWrapper}>
+        <Typography.Text className={styles.taskTitleTimeInfoText}>
+          In column:{" "}
+          {isColumnDataLoading ? (
+            <LoadingOutlined />
+          ) : (
+            <u>{columnData?.title}</u>
+          )}
+        </Typography.Text>
+
+        <Typography.Text className={styles.taskTitleTimeInfoText}>
+          Created at: <u>{taskData.createdAt}</u>
+        </Typography.Text>
+
+        <Typography.Text className={styles.taskTitleTimeInfoText}>
+          Updated at: <u>{taskData.updatedAt}</u>
+        </Typography.Text>
+      </div>
     </>
   );
 };

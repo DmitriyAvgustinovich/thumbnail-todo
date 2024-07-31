@@ -1,10 +1,12 @@
-import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
-import { Button, Form, Tooltip } from "antd";
+import { CheckOutlined, CloseOutlined, UserOutlined } from "@ant-design/icons";
+import { Avatar, Button, Form, Tooltip } from "antd";
 
 import { MarkdownBlocks } from "components/MarkdownPreview/MarkdownBlocks/MarkdownBlocks";
 import { MarkdownPreview } from "components/MarkdownPreview/MarkdownPreview";
 
+import { useGetColumnByIdQuery } from "store/api/columns/columns-api";
 import { useAddCommentMutation } from "store/api/comments/comments-api";
+import { useGetProjectByIdQuery } from "store/api/projects/projects-api";
 
 import { useGetCommentFields } from "hooks/comments/use-get-comment-fields";
 import { useContexts } from "hooks/general/use-contexts";
@@ -20,21 +22,26 @@ import styles from "./AddCommentForm.module.scss";
 
 interface IAddCommentFormProps {
   taskData: ITask;
-  handleCloseEditForm: () => void;
+  handleAddFormNotVisible: () => void;
 }
 
 export const AddCommentForm = (props: IAddCommentFormProps) => {
-  const { taskData, handleCloseEditForm } = props;
-
-  const timeoutCloseAddProjectModal = () => {
-    setTimeout(() => handleCloseEditForm(), 1000);
-  };
+  const { taskData, handleAddFormNotVisible } = props;
 
   const {
     taskFormContext: { markdownCommentValue },
   } = useContexts();
 
   const { authUser } = useGetAuthUser();
+
+  const { data: columnData } = useGetColumnByIdQuery({ id: taskData.columnId });
+  const { data: projectData } = useGetProjectByIdQuery({
+    id: taskData?.projectId,
+  });
+
+  const timeoutCloseAddProjectModal = () => {
+    setTimeout(() => handleAddFormNotVisible(), 1000);
+  };
 
   const {
     handleAddEntityFinish,
@@ -47,7 +54,9 @@ export const AddCommentForm = (props: IAddCommentFormProps) => {
     additionalParams: {
       fields: {
         taskId: taskData.id,
-        userId: authUser?.id,
+        authorId: authUser?.id,
+        columnId: columnData?.id,
+        projectId: projectData?.id,
         createdAt: getCurrentDate(),
         updatedAt: getCurrentDate(),
       },
@@ -57,32 +66,49 @@ export const AddCommentForm = (props: IAddCommentFormProps) => {
   const { FormFields } = useGetCommentFields({});
 
   return (
-    <Form
-      layout="vertical"
-      onFinish={handleAddEntityFinish}
-      onFinishFailed={handleMutationEntityFinishFailed}
-    >
-      <div className={styles.addCommentFormWrapper}>
-        <MarkdownBlocks />
+    <div className={styles.addCommentFormWrapper}>
+      {authUser?.avatarUrl ? (
+        <img
+          className={styles.addCommentFormUserAvatar}
+          src={authUser?.avatarUrl}
+          alt=""
+        />
+      ) : (
+        <Avatar
+          className={styles.addCommentFormUserAvatar}
+          icon={<UserOutlined />}
+        />
+      )}
+
+      <Form
+        className={styles.addCommentForm}
+        layout="vertical"
+        onFinish={handleAddEntityFinish}
+        onFinishFailed={handleMutationEntityFinishFailed}
+      >
         {FormFields}
-      </div>
+        <MarkdownBlocks />
 
-      <MarkdownPreview markdownValue={markdownCommentValue} />
+        <MarkdownPreview markdownValue={markdownCommentValue} />
 
-      <div className={styles.addCommentFormButtonsWrapper}>
-        <Tooltip title="Done">
-          <Button
-            type="primary"
-            htmlType="submit"
-            loading={isAddEntityLoading}
-            icon={<CheckOutlined />}
-          />
-        </Tooltip>
+        <div className={styles.addCommentFormButtonsWrapper}>
+          <Tooltip title="Done">
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={isAddEntityLoading}
+              icon={<CheckOutlined />}
+            />
+          </Tooltip>
 
-        <Tooltip title="Cancel">
-          <Button onClick={handleCloseEditForm} icon={<CloseOutlined />} />
-        </Tooltip>
-      </div>
-    </Form>
+          <Tooltip title="Cancel">
+            <Button
+              onClick={handleAddFormNotVisible}
+              icon={<CloseOutlined />}
+            />
+          </Tooltip>
+        </div>
+      </Form>
+    </div>
   );
 };

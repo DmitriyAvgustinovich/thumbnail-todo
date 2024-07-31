@@ -47,7 +47,11 @@ export const AntThemeConfig = (props: IAntConfigProps) => {
           Upload: {
             algorithm: true,
             colorPrimary: "#ff6667",
-          }
+          },
+          Tabs: {
+            algorithm: true,
+            colorPrimary: "#ff6667",
+          },
         },
       }}
     >

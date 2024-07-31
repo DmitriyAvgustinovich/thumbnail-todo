@@ -17,3 +17,18 @@ export type TDeleteCommentResponse = void;
 export interface IDeleteCommentRequest {
   id: string;
 }
+
+export type TDeleteCommentsByTaskIdResponse = void;
+export interface IDeleteCommentsByTaskIdRequest {
+  taskId: string;
+}
+
+export type TDeleteCommentsByColumnIdResponse = void;
+export interface IDeleteCommentsByColumnIdRequest {
+  columnId: string;
+}
+
+export type TDeleteCommentsByProjectIdResponse = void;
+export interface IDeleteCommentsByProjectIdRequest {
+  projectId: string;
+}

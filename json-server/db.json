@@ -1,46 +1,100 @@
 {
   "users": [
     {
-      "email": "1",
-      "password": "1",
-      "avatarUrl": "",
+      "avatarUrl": "/json-server/uploads/1721665121566.png",
       "name": "dimas",
       "surname": "avg",
+      "email": "1",
+      "password": "1",
       "id": 1
+    },
+    {
+      "avatarUrl": "/json-server/uploads/1722074328515.png",
+      "name": "dimas2",
+      "surname": "avg2",
+      "email": "2",
+      "password": "2",
+      "id": 2
     }
   ],
-  "contributors": [],
+  "projectContributors": [
+    {
+      "id": 1,
+      "projectId": 1,
+      "userId": 1
+    },
+    {
+      "id": 2,
+      "projectId": 1,
+      "userId": 2
+    }
+  ],
   "tasks": [
     {
-      "title": "sfsdf",
-      "projectId": "1",
+      "title": "111",
+      "projectId": 1,
       "columnId": 1,
       "createdUserId": 1,
-      "status": "Completed",
-      "createdAt": "15-07-2024, 00:50",
-      "updatedAt": "19-07-2024, 14:04",
+      "assignedToUserId": 1,
+      "status": "Not Started",
+      "createdAt": "27-07-2024, 15:18",
+      "updatedAt": "29-07-2024, 16:53",
       "id": 1,
-      "deadline": "2024-07-23T19:00:00.000Z",
-      "description": "sdfsdfsf",
+      "priority": "Low",
+      "deadline": "2024-07-28T19:00:00.000Z"
+    },
+    {
+      "title": "222",
+      "projectId": 1,
+      "columnId": 1,
+      "createdUserId": 1,
+      "assignedToUserId": 1,
+      "status": "Completed",
+      "createdAt": "28-07-2024, 22:38",
+      "updatedAt": "28-07-2024, 23:18",
+      "id": 2,
       "priority": "Medium"
+    },
+    {
+      "title": "333",
+      "projectId": 1,
+      "columnId": 1,
+      "createdUserId": 1,
+      "assignedToUserId": 1,
+      "status": "Not Started",
+      "createdAt": "31-07-2024, 23:47",
+      "updatedAt": "31-07-2024, 23:47",
+      "id": 3,
+      "priority": "High"
+    },
+    {
+      "title": "sdfdsf",
+      "projectId": 1,
+      "columnId": 1,
+      "createdUserId": 1,
+      "assignedToUserId": "",
+      "status": "Not Started",
+      "createdAt": "01-08-2024, 00:16",
+      "updatedAt": "01-08-2024, 00:16",
+      "id": 5
     }
   ],
   "projects": [
     {
       "cover": "",
-      "title": "12123",
-      "description": "sdfdsf",
-      "visibility": "Public",
+      "title": "Project1",
+      "description": "dfdsf",
+      "visibility": "Private",
       "adminUserId": 1,
-      "createdAt": "15-07-2024, 00:45",
-      "updatedAt": "15-07-2024, 00:45",
+      "createdAt": "22-07-2024, 21:19",
+      "updatedAt": "22-07-2024, 21:19",
       "id": 1
     }
   ],
   "columns": [
     {
-      "title": "dfsfd",
-      "projectId": "1",
+      "title": "111",
+      "projectId": 1,
       "id": 1
     }
   ],
@@ -48,18 +102,39 @@
     {
       "comment": "123",
       "taskId": 1,
-      "userId": 1,
-      "createdAt": "19-07-2024, 22:01",
-      "updatedAt": "19-07-2024, 22:04",
-      "id": 1
+      "authorId": 1,
+      "columnId": 1,
+      "projectId": 1,
+      "createdAt": "28-07-2024, 23:53",
+      "updatedAt": "28-07-2024, 23:53",
+      "id": 2
     },
     {
-      "comment": "dsfsdf",
+      "comment": "fgfdg",
+      "taskId": 2,
+      "authorId": 1,
+      "columnId": 1,
+      "projectId": 1,
+      "createdAt": "01-08-2024, 00:05",
+      "updatedAt": "01-08-2024, 00:05",
+      "id": 3
+    }
+  ],
+  "taskContributors": [
+    {
+      "taskId": 2,
+      "userId": 1,
+      "id": 2
+    },
+    {
       "taskId": 1,
       "userId": 1,
-      "createdAt": "19-07-2024, 22:12",
-      "updatedAt": "19-07-2024, 22:12",
-      "id": 2
+      "id": 3
+    },
+    {
+      "taskId": 1,
+      "userId": 2,
+      "id": 4
     }
   ]
 }

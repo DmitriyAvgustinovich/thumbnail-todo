@@ -3,23 +3,20 @@ import { Button, Form } from "antd";
 import { useAddColumnMutation } from "store/api/columns/columns-api";
 
 import { useGetColumnFields } from "hooks/columns/use-get-column-fields";
-import { useContexts } from "hooks/general/use-contexts";
 import { useFormsAddQuery } from "hooks/general/use-forms-add-query";
 
 import { IColumn } from "types/IColumn";
+import { IProject } from "types/IProject";
 
 import styles from "./AddColumnForm.module.scss";
 
 interface IAddColumnFormProps {
-  projectId?: string;
+  projectData?: IProject;
+  handleCloseAddForm: () => void;
 }
 
 export const AddColumnForm = (props: IAddColumnFormProps) => {
-  const { projectId } = props;
-
-  const {
-    columnFromContext: { handleCloseAddColumnForm },
-  } = useContexts();
+  const { projectData, handleCloseAddForm } = props;
 
   const { FormFields } = useGetColumnFields({ isEdit: false });
 
@@ -29,40 +26,31 @@ export const AddColumnForm = (props: IAddColumnFormProps) => {
     isAddEntityLoading,
   } = useFormsAddQuery<IColumn>({
     useAddEntityMutation: useAddColumnMutation,
-    handleCloseAddForm: handleCloseAddColumnForm,
+    handleCloseAddForm: handleCloseAddForm,
     successMutationMessage: "Column added successfully",
     additionalParams: {
       fields: {
-        projectId,
+        projectId: projectData?.id,
       },
     },
   });
 
   return (
-    <div className={styles.addColumnFormWrapper}>
-      <Form
-        className={styles.addColumnForm}
-        layout="vertical"
-        onFinish={handleAddEntityFinish}
-        onFinishFailed={handleMutationEntityFinishFailed}
-      >
-        {FormFields}
+    <Form
+      className={styles.addColumnForm}
+      layout="vertical"
+      onFinish={handleAddEntityFinish}
+      onFinishFailed={handleMutationEntityFinishFailed}
+    >
+      {FormFields}
 
-        <Button
-          type="primary"
-          htmlType="submit"
-          loading={isAddEntityLoading}
-        >
+      <div className={styles.addColumnFormButtonsWrapper}>
+        <Button type="primary" htmlType="submit" loading={isAddEntityLoading}>
           Add List
         </Button>
 
-        <Button
-          className={styles.addColumnFormCancelButton}
-          onClick={handleCloseAddColumnForm}
-        >
-          Cancel
-        </Button>
-      </Form>
-    </div>
+        <Button onClick={handleCloseAddForm}>Cancel</Button>
+      </div>
+    </Form>
   );
 };

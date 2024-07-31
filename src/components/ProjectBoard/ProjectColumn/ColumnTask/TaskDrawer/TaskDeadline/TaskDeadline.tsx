@@ -32,7 +32,7 @@ export const TaskDeadline = (props: ITaskDeadlineProps) => {
   const [isEditFormVisible, setIsEditFormVisible] = React.useState(false);
 
   const handleOpenEditForm = () => {
-    setIsEditFormVisible(true);
+    setIsEditFormVisible(!isEditFormVisible);
   };
 
   const handleCloseEditForm = () => {
@@ -97,11 +97,16 @@ export const TaskDeadline = (props: ITaskDeadlineProps) => {
               htmlType="submit"
               loading={isUpdateEntityLoading}
               icon={<CheckOutlined />}
+              size="large"
             />
           </Tooltip>
 
           <Tooltip title="Cancel">
-            <Button onClick={handleCloseEditForm} icon={<CloseOutlined />} />
+            <Button
+              onClick={handleCloseEditForm}
+              icon={<CloseOutlined />}
+              size="large"
+            />
           </Tooltip>
         </Form>
       )}

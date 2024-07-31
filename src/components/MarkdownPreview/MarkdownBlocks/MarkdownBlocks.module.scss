@@ -2,10 +2,14 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-height: 55vh;
+  max-height: 35vh;
   overflow-y: scroll;
 }
 
 .markdownBlocksSearchInput {
   margin: 10px 0;
+}
+
+.markdownBlocksPopoverButton {
+  margin-top: 10px;
 }

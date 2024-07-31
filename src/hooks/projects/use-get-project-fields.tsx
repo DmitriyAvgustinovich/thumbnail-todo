@@ -2,11 +2,6 @@ import { Form, Input, Radio } from "antd";
 
 import { UploadButton } from "components/UploadButton/UploadButton";
 
-import {
-  useGetProjectsByAdminUserIdQuery,
-  useUpdateProjectMutation,
-} from "store/api/projects/projects-api";
-
 import { DEFAULT_VALIDATE_MESSAGE } from "constants/general";
 import {
   projectFieldsDataIndexes,
@@ -15,38 +10,21 @@ import {
 } from "constants/project/project-list-fields";
 import { projectVisibilities } from "constants/project/project-visibilities";
 
-import { useFormsUpdateQuery } from "hooks/general/use-forms-update-query";
-
 import { IProject } from "types/IProject";
 
 interface IUseGetProjectFieldsArgs {
   formValues?: IProject;
-  handleCloseEditMainInfoModal?: () => void;
-  isEdit?: boolean;
+  handleCloseEditModal?: () => void;
+  isEdit: boolean;
+  imageUrl: string;
+  setImageUrl: (imageUrl: string) => void;
 }
 
 export const useGetProjectFields = (args: IUseGetProjectFieldsArgs) => {
-  const { formValues, handleCloseEditMainInfoModal, isEdit } = args;
+  const { formValues, isEdit, imageUrl, setImageUrl } = args;
 
   const location = window.location.pathname;
   const isProjectBoardPage = /^\/projects\/\d+$/.test(location);
-
-  const { refetch: refetchMyProject } = useGetProjectsByAdminUserIdQuery({
-    adminUserId: formValues?.adminUserId ?? "",
-  });
-
-  const { handleUpdateEntityFinish } = useFormsUpdateQuery({
-    useUpdateQueryMutation: useUpdateProjectMutation,
-    entityData: formValues,
-    successMutationMessage: "Cover successfully cleared",
-    handleCloseUpdateForm: handleCloseEditMainInfoModal,
-    additionalParams: {
-      refetchData: refetchMyProject,
-      fields: {
-        cover: "",
-      },
-    },
-  });
 
   const projectFieldsArray = [
     {
@@ -55,8 +33,8 @@ export const useGetProjectFields = (args: IUseGetProjectFieldsArgs) => {
       node: (
         <UploadButton
           disabled={!isEdit}
-          existedImage={formValues?.cover}
-          clearExistedImageUrlCallback={handleUpdateEntityFinish}
+          imageUrl={imageUrl}
+          setImageUrl={setImageUrl}
         />
       ),
     },

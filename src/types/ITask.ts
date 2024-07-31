@@ -10,5 +10,6 @@ export interface ITask {
   status: string;
   createdAt: string;
   updatedAt: string;
-  assignedToUserId?: string;
+  assignedToUserId: string;
+  cover?: string;
 }
