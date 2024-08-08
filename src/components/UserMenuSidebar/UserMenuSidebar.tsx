@@ -1,4 +1,4 @@
-import { LogoutOutlined } from "@ant-design/icons";
+import { LoadingOutlined, LogoutOutlined } from "@ant-design/icons";
 import { Popconfirm } from "antd";
 
 import { useSignOutMutation } from "store/api/auth/auth-api";
@@ -51,7 +51,11 @@ export const UserMenuSidebar = () => {
         onConfirm={handleLogout}
       >
         <div className={styles.menuLinkLogoutWrapper}>
-          <LogoutOutlined className={styles.menuLinkLogoutIcon} />
+          {isSignOutLoading ? (
+            <LoadingOutlined className={styles.menuLinkLogoutIcon} />
+          ) : (
+            <LogoutOutlined className={styles.menuLinkLogoutIcon} />
+          )}
           Logout
         </div>
       </Popconfirm>

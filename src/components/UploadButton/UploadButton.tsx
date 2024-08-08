@@ -8,13 +8,14 @@ import { Upload, message } from "antd";
 import styles from "./UploadButton.module.scss";
 
 interface IUploadButtonProps {
-  disabled: boolean;
+  disabled?: boolean;
   imageUrl: string;
   setImageUrl: (imageUrl: string) => void;
+  downloadAfterUploadAction?: (cover: string) => void;
 }
 
 export const UploadButton = (props: IUploadButtonProps) => {
-  const { disabled, imageUrl, setImageUrl } = props;
+  const { disabled, imageUrl, setImageUrl, downloadAfterUploadAction } = props;
 
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -51,6 +52,8 @@ export const UploadButton = (props: IUploadButtonProps) => {
       getBase64(info.file.originFileObj, () => {
         setIsLoading(false);
         setImageUrl(info.file.response.filePath);
+        
+        downloadAfterUploadAction?.(info.file.response.filePath);
         message.success(`Image successfully uploaded.`);
       });
     }

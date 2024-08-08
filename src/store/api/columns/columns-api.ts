@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+import { getCurrentDate } from "utils/general/get-current-date";
+
 import {
   IDeleteColumnRequest,
   IGetColumnsByProjectIdRequest,
@@ -15,6 +17,7 @@ import {
   IDeleteColumnsByProjectIdRequest,
 } from "./types";
 import { commentsApi } from "../comments/comments-api";
+import { notificationsApi } from "../notifications/notifications-api";
 import { tasksApi } from "../tasks/tasks-api";
 
 export const columnsApi = createApi({
@@ -45,6 +48,24 @@ export const columnsApi = createApi({
         method: "POST",
         body,
       }),
+      onQueryStarted: async (body, { dispatch, queryFulfilled }) => {
+        const { data: columnData } = await queryFulfilled;
+
+        const addedData = {
+          projectId: body.projectId,
+          title: "Event on the project: ",
+          message: `Column "${columnData.title}" was created.`,
+          createdAt: getCurrentDate(),
+      };
+
+        try {
+          dispatch(
+            notificationsApi.endpoints.addNotification.initiate(addedData)
+          );
+        } catch (error) {
+          console.log(error);
+        }
+      },
       invalidatesTags: ["Columns"],
     }),
 

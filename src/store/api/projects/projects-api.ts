@@ -48,14 +48,14 @@ export const projectsApi = createApi({
         method: "POST",
         body,
       }),
-      onQueryStarted: async (_body, { dispatch, queryFulfilled }) => {
+      onQueryStarted: async (body, { dispatch, queryFulfilled }) => {
         try {
-          const { data } = await queryFulfilled;
+          const { data: projectData } = await queryFulfilled;
 
           const addedData = {
-            id: data.id,
-            projectId: data.id,
-            userId: data?.adminUserId ?? "",
+            id: projectData.id,
+            projectId: projectData.id,
+            userId: projectData?.adminUserId ?? "",
           };
 
           dispatch(

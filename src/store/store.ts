@@ -8,6 +8,7 @@ import {
 import { authApi } from "./api/auth/auth-api";
 import { columnsApi } from "./api/columns/columns-api";
 import { commentsApi } from "./api/comments/comments-api";
+import { notificationsApi } from "./api/notifications/notifications-api";
 import { projectContributorsApi } from "./api/projectContributors/project-contributors-api";
 import { projectsApi } from "./api/projects/projects-api";
 import { taskContributorsApi } from "./api/taskContributors/task-contributors-api";
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
   [columnsApi.reducerPath]: columnsApi.reducer,
   [commentsApi.reducerPath]: commentsApi.reducer,
+  [notificationsApi.reducerPath]: notificationsApi.reducer,
   [projectContributorsApi.reducerPath]: projectContributorsApi.reducer,
   [projectsApi.reducerPath]: projectsApi.reducer,
   [taskContributorsApi.reducerPath]: taskContributorsApi.reducer,
@@ -35,6 +37,7 @@ const setupStore = () => {
         authApi.middleware,
         columnsApi.middleware,
         commentsApi.middleware,
+        notificationsApi.middleware,
         projectContributorsApi.middleware,
         projectsApi.middleware,
         taskContributorsApi.middleware,

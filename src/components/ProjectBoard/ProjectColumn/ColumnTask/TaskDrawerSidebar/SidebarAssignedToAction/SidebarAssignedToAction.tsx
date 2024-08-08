@@ -1,5 +1,5 @@
 import { LoadingOutlined, UserAddOutlined } from "@ant-design/icons";
-import { Popover, Tooltip, Typography } from "antd";
+import { Popover, Typography } from "antd";
 
 import { ProjectContributors } from "components/ProjectBoard/ProjectContributors/ProjectContributors";
 import { ProjectContributorsSkeleton } from "components/ProjectBoard/ProjectContributors/ProjectContributorsSkeleton/ProjectContributorsSkeleton";
@@ -51,28 +51,26 @@ export const SidebarAssignedToAction = (
   );
 
   return (
-    <Tooltip title="Assign a person responsible for the task" placement="top">
-      <Popover
-        content={popoverContent}
-        title="Assigned to"
-        placement="leftTop"
-        trigger="click"
-      >
-        <div className={styles.sidebarAssignedToActionButtonWrapper}>
-          <UserAddOutlined />
-          <Typography.Text>
-            Assigned to
-            <br />
-            {isUserDataLoading ? (
-              <LoadingOutlined />
-            ) : (
-              <b>
-                {userData?.name} {userData?.surname}
-              </b>
-            )}
-          </Typography.Text>
-        </div>
-      </Popover>
-    </Tooltip>
+    <Popover
+      content={popoverContent}
+      title="Assigned to"
+      placement="leftTop"
+      trigger="click"
+    >
+      <div className={styles.sidebarAssignedToActionButtonWrapper}>
+        <UserAddOutlined />
+        <Typography.Text>
+          Assigned to
+          <br />
+          {isUserDataLoading ? (
+            <LoadingOutlined />
+          ) : (
+            <b>
+              {userData?.name} {userData?.surname}
+            </b>
+          )}
+        </Typography.Text>
+      </div>
+    </Popover>
   );
 };

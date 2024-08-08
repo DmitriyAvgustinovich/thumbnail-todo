@@ -28,24 +28,18 @@
 }
 
 .dashboardTaskTitle {
-  margin-top: 10px;
+  margin-top: 5px;
   font: var(--font-l);
-  font-weight: bold;
 }
 
 .dashboardTaskDescription {
-  margin-top: 10px;
   font: var(--font-m);
   color: var(--gray-text-color);
 }
 
-.dashboardTaskSecondInfoWrapper {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-}
-
 .dashboardTaskPriority {
+  display: block;
+  margin-top: 5px;
   font: var(--font-m);
 }
 
@@ -55,11 +49,4 @@
 
 .dashboardTaskDetailsButtonLink {
   margin-top: 20px;
-}
-
-.dashboardTaskImage {
-  margin-top: 20px;
-  width: 110px;
-  height: 110px;
-  border-radius: 15px;
 }

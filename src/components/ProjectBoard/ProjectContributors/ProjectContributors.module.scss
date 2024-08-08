@@ -3,11 +3,6 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  
-  &:hover {
-    background-color: var(--primary-bg-color);
-    border-radius: 10px;
-  }
 }
 
 .projectContributorAvatar {
@@ -22,6 +17,13 @@
 }
 
 .projectContributorsAddIcon {
+  padding: 7px;
   cursor: pointer;
   font: var(--font-m);
+
+  &:hover {
+    padding: 7px;
+    background-color: var(--primary-bg-color);
+    border-radius: 10px;
+  }
 }

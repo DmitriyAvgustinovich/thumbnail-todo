@@ -24,10 +24,11 @@ export const authApi = createApi({
         body,
       }),
       invalidatesTags: ["Auth"],
-      async onQueryStarted(_args, { queryFulfilled }) {
+      async onQueryStarted(body, { queryFulfilled }) {
+        const { data: userData } = await queryFulfilled;
+
         try {
-          const { data } = await queryFulfilled;
-          localStorage.setItem("userId", String(data.id));
+          localStorage.setItem("userId", String(userData.id));
         } catch (error) {
           console.log(error);
         }
@@ -41,10 +42,11 @@ export const authApi = createApi({
         body,
       }),
       invalidatesTags: ["Auth"],
-      async onQueryStarted(_args, { queryFulfilled }) {
+      async onQueryStarted(body, { queryFulfilled }) {
+        const { data: userData } = await queryFulfilled;
+
         try {
-          const { data } = await queryFulfilled;
-          localStorage.setItem("userId", String(data.id));
+          localStorage.setItem("userId", String(userData.id));
         } catch (error) {
           console.log(error);
         }

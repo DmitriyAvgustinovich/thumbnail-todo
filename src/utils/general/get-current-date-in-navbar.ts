@@ -1,6 +1,5 @@
 export const getCurrentDateInNavbar = () => {
   const currentDate = new Date();
-
   const dayOfWeek = currentDate.toLocaleString("en-US", { weekday: "long" });
 
   const formattedDate = currentDate

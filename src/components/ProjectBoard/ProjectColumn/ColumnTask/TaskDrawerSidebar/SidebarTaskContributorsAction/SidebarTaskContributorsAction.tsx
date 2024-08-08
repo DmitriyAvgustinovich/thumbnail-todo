@@ -1,5 +1,5 @@
 import { UsergroupAddOutlined } from "@ant-design/icons";
-import { Collapse, Popover, Tooltip, Typography } from "antd";
+import { Collapse, Popover, Typography } from "antd";
 
 import { ProjectContributors } from "components/ProjectBoard/ProjectContributors/ProjectContributors";
 import { ProjectContributorsSkeleton } from "components/ProjectBoard/ProjectContributors/ProjectContributorsSkeleton/ProjectContributorsSkeleton";
@@ -79,18 +79,16 @@ export const SidebarTaskContributorsAction = (
     );
 
   return (
-    <Tooltip title="Add or remove contributors to this task" placement="left">
-      <Popover
-        content={popoverContent}
-        title="Task contributors"
-        placement="bottom"
-        trigger="click"
-      >
-        <div className={styles.sidebarTaskContributorsActionButtonWrapper}>
-          <UsergroupAddOutlined />
-          <Typography.Text>Task contributors</Typography.Text>
-        </div>
-      </Popover>
-    </Tooltip>
+    <Popover
+      content={popoverContent}
+      title="Task contributors"
+      placement="leftTop"
+      trigger="click"
+    >
+      <div className={styles.sidebarTaskContributorsActionButtonWrapper}>
+        <UsergroupAddOutlined />
+        <Typography.Text>Task contributors</Typography.Text>
+      </div>
+    </Popover>
   );
 };

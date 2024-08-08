@@ -38,10 +38,12 @@
       "assignedToUserId": 1,
       "status": "Not Started",
       "createdAt": "27-07-2024, 15:18",
-      "updatedAt": "29-07-2024, 16:53",
+      "updatedAt": "03-08-2024, 00:07",
       "id": 1,
       "priority": "Low",
-      "deadline": "2024-07-28T19:00:00.000Z"
+      "deadline": "2024-07-28T19:00:00.000Z",
+      "cover": "#4CCE97",
+      "description": "Description123"
     },
     {
       "title": "222",
@@ -53,30 +55,8 @@
       "createdAt": "28-07-2024, 22:38",
       "updatedAt": "28-07-2024, 23:18",
       "id": 2,
-      "priority": "Medium"
-    },
-    {
-      "title": "333",
-      "projectId": 1,
-      "columnId": 1,
-      "createdUserId": 1,
-      "assignedToUserId": 1,
-      "status": "Not Started",
-      "createdAt": "31-07-2024, 23:47",
-      "updatedAt": "31-07-2024, 23:47",
-      "id": 3,
-      "priority": "High"
-    },
-    {
-      "title": "sdfdsf",
-      "projectId": 1,
-      "columnId": 1,
-      "createdUserId": 1,
-      "assignedToUserId": "",
-      "status": "Not Started",
-      "createdAt": "01-08-2024, 00:16",
-      "updatedAt": "01-08-2024, 00:16",
-      "id": 5
+      "priority": "Medium",
+      "cover": ""
     }
   ],
   "projects": [
@@ -96,17 +76,27 @@
       "title": "111",
       "projectId": 1,
       "id": 1
+    },
+    {
+      "title": "lm;l;",
+      "projectId": 1,
+      "id": 2
+    },
+    {
+      "title": "dsfdsf",
+      "projectId": 1,
+      "id": 3
     }
   ],
   "comments": [
     {
-      "comment": "123",
+      "comment": "123лддл",
       "taskId": 1,
       "authorId": 1,
       "columnId": 1,
       "projectId": 1,
       "createdAt": "28-07-2024, 23:53",
-      "updatedAt": "28-07-2024, 23:53",
+      "updatedAt": "02-08-2024, 23:54",
       "id": 2
     },
     {
@@ -122,19 +112,23 @@
   ],
   "taskContributors": [
     {
-      "taskId": 2,
-      "userId": 1,
+      "taskId": 1,
+      "userId": 2,
       "id": 2
     },
     {
-      "taskId": 1,
+      "taskId": 2,
       "userId": 1,
       "id": 3
-    },
+    }
+  ],
+  "notifications": [
     {
-      "taskId": 1,
-      "userId": 2,
-      "id": 4
+      "projectId": 1,
+      "title": "Event on the project: ",
+      "message": "Column \"dsfdsf\" was created.",
+      "createdAt": "08-08-2024, 23:02",
+      "id": 2
     }
   ]
 }

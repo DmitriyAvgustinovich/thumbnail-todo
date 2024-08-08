@@ -13,6 +13,13 @@
   }
 }
 
+.columnTaskDrawerCover {
+  width: 100%;
+  height: 150px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
 .columnTaskTitle {
   display: block;
   margin-bottom: 5px;
@@ -20,4 +27,20 @@
 
 .columnTaskCommentsIcon {
   margin-right: 5px;
+}
+
+.columnTaskDrawerWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.columnTaskDrawerInfoWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+}
+
+.columnTaskDrawerSidebarWrapper {
+  display: flex;
+  flex-direction: column;
 }

@@ -70,57 +70,49 @@ export const DashboardTask = (props: IDashboardTaskProps) => {
           {taskData.title}
         </Typography.Text>
 
-        <Markdown
-          className={styles.dashboardTaskDescription}
-          remarkPlugins={[remarkGfm]}
-        >
-          {taskData.description}
-        </Markdown>
-
-        <div className={styles.dashboardTaskSecondInfoWrapper}>
-          <Typography.Text className={styles.dashboardTaskPriority}>
-            Priority:{" "}
-            <b
-              style={{
-                color: getConditionTaskPriorityColor(taskData.priority),
-              }}
-            >
-              {taskData.priority ?? (
-                <Typography.Text
-                  className={styles.dashboardTaskDeadline}
-                  type="danger"
-                >
-                  Not Specified
-                </Typography.Text>
-              )}
-            </b>
-          </Typography.Text>
-
-          <Typography.Text className={styles.dashboardTaskStatus}>
-            Status:{" "}
-            <b style={{ color: getConditionTaskStatusColor(taskData.status) }}>
-              {taskData.status}
-            </b>
-          </Typography.Text>
-
-          <Link
-            className={styles.dashboardTaskDetailsButtonLink}
-            to={`${RouterPath.projects}/${projectData?.id}`}
+        {taskData.description && (
+          <Markdown
+            className={styles.dashboardTaskDescription}
+            remarkPlugins={[remarkGfm]}
           >
-            <Button type="primary" block>
-              Go to source project
-            </Button>
-          </Link>
-        </div>
-      </div>
+            {taskData.description}
+          </Markdown>
+        )}
 
-      {taskData.cover && (
-        <img
-          className={styles.dashboardTaskImage}
-          src={taskData.cover}
-          alt=""
-        />
-      )}
+        <Typography.Text className={styles.dashboardTaskPriority}>
+          Priority:{" "}
+          <b
+            style={{
+              color: getConditionTaskPriorityColor(taskData.priority),
+            }}
+          >
+            {taskData.priority ?? (
+              <Typography.Text
+                className={styles.dashboardTaskDeadline}
+                type="danger"
+              >
+                Not Specified
+              </Typography.Text>
+            )}
+          </b>
+        </Typography.Text>
+
+        <Typography.Text className={styles.dashboardTaskStatus}>
+          Status:{" "}
+          <b style={{ color: getConditionTaskStatusColor(taskData.status) }}>
+            {taskData.status}
+          </b>
+        </Typography.Text>
+
+        <Link
+          className={styles.dashboardTaskDetailsButtonLink}
+          to={`${RouterPath.projects}/${projectData?.id}`}
+        >
+          <Button type="primary">
+            Go to source project
+          </Button>
+        </Link>
+      </div>
     </div>
   );
 };

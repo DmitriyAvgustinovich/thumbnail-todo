@@ -1,4 +1,4 @@
-import { CalendarOutlined, NotificationOutlined } from "@ant-design/icons";
+import { CalendarOutlined } from "@ant-design/icons";
 import { Button, Input, Tooltip, Typography } from "antd";
 
 import { RouterPath } from "configs/route-config";
@@ -6,23 +6,19 @@ import { RouterPath } from "configs/route-config";
 import { getCurrentDateInNavbar } from "utils/general/get-current-date-in-navbar";
 
 import styles from "./Navbar.module.scss";
+import { NavbarNotifications } from "./NavbarNotifications/NavbarNotifications";
 
 export const Navbar = () => {
   const { dayOfWeek, formattedDate } = getCurrentDateInNavbar();
+
   const location = window.location.pathname;
 
-  const navbarTitle = () => {
+  const NavbarTitle = (() => {
     switch (location) {
       case RouterPath.dashboard:
         return (
           <>
             <span className={styles.navbarTitleColorPiece}>Dash</span>board
-          </>
-        );
-      case RouterPath.vital_task:
-        return (
-          <>
-            <span className={styles.navbarTitleColorPiece}>To</span>-Do
           </>
         );
       case RouterPath.account:
@@ -44,11 +40,11 @@ export const Navbar = () => {
           </>
         );
     }
-  };
+  })();
 
   return (
     <div className={styles.navbarWrapper}>
-      <h1 className={styles.navbarTitle}>{navbarTitle()}</h1>
+      <h1 className={styles.navbarTitle}>{NavbarTitle}</h1>
 
       <Input.Search
         className={styles.navbarSearchInput}
@@ -57,9 +53,7 @@ export const Navbar = () => {
       />
 
       <div className={styles.navbarIconsWrapper}>
-        <Tooltip title="Notifications">
-          <Button type="primary" icon={<NotificationOutlined />} />
-        </Tooltip>
+        <NavbarNotifications />
 
         <Tooltip title="Calendar">
           <Button type="primary" icon={<CalendarOutlined />} />
@@ -70,9 +64,7 @@ export const Navbar = () => {
         <Typography.Text className={styles.navbarDayOfWeekDate}>
           {dayOfWeek}
         </Typography.Text>
-
         <br />
-
         <Typography.Text className={styles.navbarCurrentFormattedDate}>
           {formattedDate}
         </Typography.Text>

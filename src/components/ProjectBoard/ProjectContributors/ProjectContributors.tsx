@@ -26,6 +26,7 @@ interface IProjectContributorProps {
 
 export const ProjectContributors = (props: IProjectContributorProps) => {
   const { projectContributor, taskData, actionType } = props;
+
   const { data: userData, isLoading: isUserDataLoading } = useGetUserByIdQuery({
     id: projectContributor.userId,
   });
