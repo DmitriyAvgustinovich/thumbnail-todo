@@ -1,0 +1,23 @@
+.columnTaskMiniatureWrapper {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--white-bg-color);
+  box-shadow: var(--box-shadow);
+  cursor: pointer;
+
+  &:hover {
+    padding: 8px;
+    border: 2px var(--secondary-bg-color) solid;
+    box-shadow: none;
+  }
+}
+
+.columnTaskMiniatureTitle {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.columnTaskMiniatureCommentsIcon {
+  margin-right: 5px;
+}

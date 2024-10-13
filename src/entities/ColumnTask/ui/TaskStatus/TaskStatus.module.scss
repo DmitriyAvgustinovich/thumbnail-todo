@@ -1,0 +1,21 @@
+.taskStatusIconWrapper {
+  margin: 20px 0 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.taskStatusIcon {
+  font: var(--font-l);
+}
+
+.taskStatusIconText {
+  font: var(--font-m);
+}
+
+.taskStatusText {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--primary-bg-color);
+  font: var(--font-m);
+}

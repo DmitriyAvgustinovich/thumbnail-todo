@@ -1,0 +1,29 @@
+.dashboardVitalTaskWrapper {
+  max-height: 60vh;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: var(--box-shadow);
+  background-color: var(--primary-bg-color);
+  overflow-y: scroll;
+}
+
+.dashboardVitalTaskHeaderWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dashboardVitalTaskHeaderTextWrapper {
+  display: flex;
+  gap: 10px;
+  font: var(--font-l);
+  color: var(--secondary-bg-color);
+}
+
+.dashboardVitalTaskHeaderIcon {
+  color: var(--gray-text-color);
+  font: var(--font-l);
+}
+
+.dashboardVitalTaskEmptyBlock {
+  margin-top: 20px;
+}

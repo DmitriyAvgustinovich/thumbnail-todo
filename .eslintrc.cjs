@@ -56,52 +56,32 @@ module.exports = {
             position: "before",
           },
           {
+            pattern: "app/**",
+            group: "internal",
+            position: "before",
+          },
+          {
+            pattern: "entities/**",
+            group: "internal",
+            position: "before",
+          },
+          {
+            pattern: "features/**",
+            group: "internal",
+            position: "before",
+          },
+          {
             pattern: "pages/**",
             group: "internal",
             position: "before",
           },
           {
-            pattern: "components/**",
+            pattern: "shared/**",
             group: "internal",
             position: "before",
           },
           {
-            pattern: "store/**",
-            group: "internal",
-            position: "before",
-          },
-          {
-            pattern: "providers/**",
-            group: "internal",
-            position: "before",
-          },
-          {
-            pattern: "configs/**",
-            group: "internal",
-            position: "before",
-          },
-          {
-            pattern: "constants/**",
-            group: "internal",
-            position: "before",
-          },
-          {
-            pattern: "hooks/**",
-            group: "internal",
-            position: "before",
-          },
-          {
-            pattern: "utils/**",
-            group: "internal",
-            position: "before",
-          },
-          {
-            pattern: "types/**",
-            group: "internal",
-            position: "before",
-          },
-          {
-            pattern: "assets/**",
+            pattern: "widgets/**",
             group: "internal",
             position: "before",
           },

@@ -5,17 +5,12 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
+      app: "/src/app",
+      entities: "/src/entities",
+      features: "/src/features",
       pages: "/src/pages",
-      components: "/src/components",
-      configs: "/src/configs",
-      constants: "/src/constants",
-      hooks: "/src/hooks",
-      store: "/src/store",
-      providers: "/src/providers",
-      types: "/src/types",
-      utils: "/src/utils",
-      assets: "/src/assets",
-      styles: "/src/styles",
+      shared: "/src/shared",
+      widgets: "/src/widgets",
     },
   },
 });

@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+import { getCurrentDate } from "shared/lib/utils/get-current-date";
+
 import {
   IDeleteTaskRequest,
   IGetTaskByIdRequest,
@@ -19,6 +21,7 @@ import {
   IDeleteTasksByProjectIdRequest,
 } from "./types";
 import { commentsApi } from "../comments/comments-api";
+import { notificationsApi } from "../notifications/notifications-api";
 
 export const tasksApi = createApi({
   reducerPath: "tasksApi",
@@ -56,6 +59,25 @@ export const tasksApi = createApi({
         method: "POST",
         body,
       }),
+      onQueryStarted: async (body, { dispatch, queryFulfilled }) => {
+        const { data: taskData } = await queryFulfilled;
+
+        const addedData = {
+          projectId: body.projectId,
+          columnId: body.columnId,
+          title: "Event on the project: ",
+          message: `Task "${taskData.title}" was created in column: `,
+          createdAt: getCurrentDate(),
+        };
+
+        try {
+          dispatch(
+            notificationsApi.endpoints.addNotification.initiate(addedData)
+          );
+        } catch (error) {
+          console.log(error);
+        }
+      },
       invalidatesTags: ["Tasks"],
     }),
 

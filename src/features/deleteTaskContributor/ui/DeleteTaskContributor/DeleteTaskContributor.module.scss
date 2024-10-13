@@ -1,0 +1,10 @@
+.deleteTaskContributorIcon {
+  padding: 7px;
+  cursor: pointer;
+
+  &:hover {
+    padding: 7px;
+    background-color: var(--primary-bg-color);
+    border-radius: 10px;
+  }
+}

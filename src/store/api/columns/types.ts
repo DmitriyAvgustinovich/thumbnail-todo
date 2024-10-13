@@ -1,4 +1,4 @@
-import { IColumn } from "types/IColumn";
+import { IColumn } from "shared/types/IColumn";
 
 export type TGetColumnsByProjectIdResponse = IColumn[];
 export interface IGetColumnsByProjectIdRequest {

@@ -1,4 +1,4 @@
-import { IComment } from "types/IComment";
+import { IComment } from "shared/types/IComment";
 
 export type TGetCommentsByTaskIdResponse = IComment[];
 export interface IGetCommentsByTaskIdRequest {

@@ -1,4 +1,4 @@
-import { ITaskContributor } from "types/ITaskContributor";
+import { ITaskContributor } from "shared/types/ITaskContributor";
 
 export type TGetTaskContributorsByTaskIdResponse = ITaskContributor[];
 export interface IGetTaskContributorsByTaskIdRequest {

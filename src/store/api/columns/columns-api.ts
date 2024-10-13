@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { getCurrentDate } from "utils/general/get-current-date";
+import { getCurrentDate } from "shared/lib/utils/get-current-date";
 
 import {
   IDeleteColumnRequest,
@@ -56,7 +56,7 @@ export const columnsApi = createApi({
           title: "Event on the project: ",
           message: `Column "${columnData.title}" was created.`,
           createdAt: getCurrentDate(),
-      };
+        };
 
         try {
           dispatch(

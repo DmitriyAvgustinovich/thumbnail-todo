@@ -1,0 +1,14 @@
+.projectBoardActionsWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.projectBoardActionsButton {
+  margin: 5px 0;
+}
+
+.projectBoardActionsIcon {
+  font: var(--font-l);
+  color: var(--secondary-text-color);
+  cursor: pointer;
+}

@@ -1,0 +1,15 @@
+.columnTaskDetailsDrawerWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.columnTaskDetailsDrawerInfoWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+}
+
+.columnTaskDetailsDrawerSidebarWrapper {
+  display: flex;
+  flex-direction: column;
+}

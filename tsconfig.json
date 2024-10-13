@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": ["ES2020", "ES2015", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
     "moduleResolution": "bundler",
@@ -14,17 +14,12 @@
     "strict": true,
     "baseUrl": "src",
     "paths": {
+      "app/*": ["app/*"],
+      "entities/*": ["entities/*"],
+      "features/*": ["features/*"],
       "pages/*": ["pages/*"],
-      "components/*": ["components/*"],
-      "configs/*": ["configs/*"],
-      "constants/*": ["constants/*"],
-      "hooks/*": ["hooks/*"],
-      "store/*": ["store/*"],
-      "providers/*": ["providers/*"],
-      "types/*": ["types/*"],
-      "assets/*": ["assets/*"],
-      "utils/*": ["utils/*"],
-      "styles/*": ["styles/*"]
+      "shared/*": ["shared/*"],
+      "widgets/*": ["widgets/*"]
     },
     "noUnusedLocals": true,
     "noUnusedParameters": true,

@@ -1,5 +1,1 @@
-import React from "react";
-
-export const NotAuthorizedPage = React.lazy(
-  () => import("./NotAuthorizedPage")
-);
+export { NotAuthorizedPageAsync as NotAuthorizedPage } from "./ui/NotAuthorizedPage.async";

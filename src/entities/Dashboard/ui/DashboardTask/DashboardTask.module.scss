@@ -1,0 +1,58 @@
+.dashboardTaskWrapper {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px var(--gray-bg-color) solid;
+  border-radius: 15px;
+}
+
+.dashboardTaskMainInfoWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboardTaskCover {
+  height: 150px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.dashboardTaskFromProjectText {
+  display: block;
+  margin-bottom: 10px;
+  font: var(--font-m);
+}
+
+.dashboardTaskCreatedAt {
+  font: var(--font-m);
+  color: var(--gray-text-color);
+}
+
+.dashboardTaskDeadline {
+  font: var(--font-m);
+}
+
+.dashboardTaskTitle {
+  margin-top: 5px;
+  font: var(--font-l);
+}
+
+.dashboardTaskDescription {
+  font: var(--font-m);
+  color: var(--gray-text-color);
+}
+
+.dashboardTaskPriority {
+  display: block;
+  margin-top: 5px;
+  font: var(--font-m);
+}
+
+.dashboardTaskStatus {
+  font: var(--font-m);
+}
+
+.dashboardTaskDetailsButtonLink {
+  margin-top: 20px;
+}

@@ -1,3 +1,1 @@
-import React from "react";
-
-export const DashboardPage = React.lazy(() => import("./DashboardPage"));
+export { DashboardPageAsync as DashboardPage } from "./ui/DashboardPage.async";

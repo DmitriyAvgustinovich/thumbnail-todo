@@ -1,0 +1,17 @@
+.userInListBlockWrapper {
+  margin: 10px 0 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.userInListBlockAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.userInListBlockName {
+  font: var(--font-m);
+}

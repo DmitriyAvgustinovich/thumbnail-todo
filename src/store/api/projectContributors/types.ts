@@ -1,4 +1,4 @@
-import { IProjectContributor } from "types/IProjectContributor";
+import { IProjectContributor } from "shared/types/IProjectContributor";
 
 export type TGetProjectContributorsByProjectIdResponse = IProjectContributor[];
 export interface IGetProjectContributorsByProjectIdRequest {

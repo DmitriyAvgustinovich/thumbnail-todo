@@ -1,0 +1,21 @@
+.columnTaskCommentsIconWrapper {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.columnTaskCommentsIcon {
+  font: var(--font-l);
+}
+
+.columnTaskCommentsIconText {
+  font: var(--font-m);
+}
+
+.columnTaskCommentsTextWrapper {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--primary-bg-color);
+  font: var(--font-m);
+}

@@ -1,0 +1,39 @@
+.columnTaskCommentWrapper {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.columnTaskCommentUserAvatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.columnTaskCommentInfoWrapper {
+  width: 100%;
+}
+
+.columnTaskCommentUserName {
+  font: var(--font-m);
+}
+
+.columnTaskCommentCreatedAt {
+  font: var(--font-m);
+  color: var(--gray-text-color);
+}
+
+.columnTaskCommentUpdatedAt {
+  display: block;
+  font: var(--font-m);
+  color: var(--gray-text-color);
+}
+
+.columnTaskCommentTextWrapper {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--primary-bg-color);
+  font: var(--font-m);
+}

@@ -1,3 +1,1 @@
-import React from "react";
-
-export const ProjectBoardPage = React.lazy(() => import("./ProjectBoardPage"));
+export { ProjectBoardPageAsync as ProjectBoardPage } from "./ui/ProjectBoardPage.async";

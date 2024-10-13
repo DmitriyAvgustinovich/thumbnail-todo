@@ -1,3 +1,1 @@
-import React from "react";
-
-export const ProjectsPage = React.lazy(() => import("./ProjectsPage"));
+export { ProjectsPageAsync as ProjectsPage } from "./ui/ProjectsPage.async";

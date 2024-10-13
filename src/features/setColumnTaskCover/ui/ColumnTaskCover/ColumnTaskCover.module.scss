@@ -1,0 +1,42 @@
+.columnTaskCoverClearButton {
+  margin: 5px 0 10px 0;
+}
+
+.columnTaskCoverColorsWrapper {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.columnTaskCoverUploadText {
+  display: block;
+  margin: 7px 0;
+}
+
+.columnTaskCoverButton {
+  width: 25px;
+  height: 40px;
+  border-radius: 5px;
+  flex: 0 1 calc(20% - 10px);
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.columnTaskCoverButtonWrapper {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: var(--primary-bg-color);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--gray-bg-color);
+  }
+}

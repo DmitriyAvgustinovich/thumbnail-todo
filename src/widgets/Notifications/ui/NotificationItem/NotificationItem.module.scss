@@ -1,0 +1,17 @@
+.notificationItemWrapper {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.notificationItemTextWrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--primary-bg-color);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.notificationItemDate {
+  font: var(--font-s);
+}

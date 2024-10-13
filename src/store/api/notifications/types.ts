@@ -1,4 +1,4 @@
-import { INotification } from "types/INotification";
+import { INotification } from "shared/types/INotification";
 
 export type TGetNotificationsByProjectIdResponse = INotification[];
 export interface IGetNotificationsByProjectIdRequest {

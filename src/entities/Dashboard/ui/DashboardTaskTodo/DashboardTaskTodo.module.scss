@@ -1,0 +1,29 @@
+.dashboardTaskTodoWrapper {
+  max-height: 60vh;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: var(--box-shadow);
+  background-color: var(--primary-bg-color);
+  overflow-y: scroll;
+}
+
+.dashboardTaskTodoHeaderWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dashboardTaskTodoHeaderTextWrapper {
+  display: flex;
+  gap: 10px;
+  font: var(--font-l);
+  color: var(--secondary-bg-color);
+}
+
+.dashboardTaskTodoHeaderIcon {
+  color: var(--gray-text-color);
+  font: var(--font-l);
+}
+
+.dashboardTaskTodoEmptyBlock {
+  margin-top: 20px;
+}

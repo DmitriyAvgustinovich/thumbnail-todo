@@ -1,4 +1,4 @@
-import { IUser } from "types/IUser";
+import { IUser } from "shared/types/IUser";
 
 export type TUserSignUpResponse = IUser;
 export type TUserSignUpRequest = IUser;

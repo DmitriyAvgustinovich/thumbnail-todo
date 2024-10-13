@@ -1,4 +1,4 @@
-import { ITask } from "types/ITask";
+import { ITask } from "shared/types/ITask";
 
 export type TGetTasksByAssignedToUserIdResponse = ITask[];
 export interface IGetTasksByAssignedToUserIdRequest {

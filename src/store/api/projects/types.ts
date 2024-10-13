@@ -1,4 +1,4 @@
-import { IProject } from "types/IProject";
+import { IProject } from "shared/types/IProject";
 
 export type TGetAllProjectsResponse = IProject[];
 export type TGetAllProjectsRequest = void;

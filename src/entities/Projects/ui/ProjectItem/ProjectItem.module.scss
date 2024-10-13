@@ -1,0 +1,25 @@
+.projectItemWrapper {
+  min-width: 345px;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: var(--box-shadow);
+  background-color: var(--primary-bg-color);
+}
+
+.projectItemImage {
+  width: 100%;
+  border-radius: 15px;
+  margin-bottom: 10px;
+}
+
+.projectItemTitle {
+  font: var(--font-l);
+  color: var(--secondary-bg-color);
+}
+
+.projectItemDescription {
+  display: block;
+  margin-top: 10px;
+  font: var(--font-m);
+  color: var(--gray-text-color);
+}

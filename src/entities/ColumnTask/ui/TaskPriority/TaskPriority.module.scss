@@ -1,0 +1,21 @@
+.taskPriorityIconWrapper {
+  margin: 20px 0 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.taskPriorityIcon {
+  font: var(--font-l);
+}
+
+.taskPriorityIconText {
+  font: var(--font-m);
+}
+
+.taskPriorityText {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--primary-bg-color);
+  font: var(--font-m);
+}
